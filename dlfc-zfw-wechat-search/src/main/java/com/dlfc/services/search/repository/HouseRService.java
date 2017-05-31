@@ -14,23 +14,23 @@ public interface HouseRService {
      * @param pageNo
      * @return
      */
-    @RequestMapping(value = "/wc/datas/lessees/findAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/findAll", method = RequestMethod.GET)
     String getlesseedHouse(@RequestParam(defaultValue = "10", name = "pageSize") Integer pageSize,
                            @RequestParam(defaultValue = "1", name = "pageNo") Integer pageNo);
 
     /**
      * 出租信息查询 根据 出租信息ID
-     * @param lesseeId
+     * @param id
      * @return
      */
-    @RequestMapping(value = "/wc/datas/lessees/findById", method = RequestMethod.GET)
-    String getLesseeById(@RequestParam(name = "lesseeId") String lesseeId);
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/findById", method = RequestMethod.GET)
+    String getLesseeById(@RequestParam(name = "id") String id);
 
     /**
      * 出租信息查询 根据 用户Id
      * @param uid
      * @return
      */
-    @RequestMapping(value = "/wc/datas/lessees/findByUid", method = RequestMethod.GET)
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/findByUid", method = RequestMethod.GET)
     String getLesseeByUid(@RequestParam(name = "uid") String uid);
 }
