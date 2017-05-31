@@ -1,9 +1,10 @@
 package com.dlfc.services.search.service.impl;
 
-import com.dlfc.services.search.convertor.base.IConvertor;
+
 import com.dlfc.services.search.entity.Person;
 import com.dlfc.services.search.repository.PersonInfoRService;
 import com.dlfc.services.search.service.SysPersonService;
+import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
