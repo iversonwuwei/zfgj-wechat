@@ -1,0 +1,12 @@
+server:
+  port: 18090
+spring:
+  application:
+    name: wechat-security
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:18099/eureka/
+
+
+
