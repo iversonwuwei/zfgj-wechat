@@ -11,8 +11,6 @@ import javax.validation.constraints.Min;
 @Setter
 public class UserDTO extends AbstractDTO {
 
-    private String avatar;
-
     private String imgUrl;
 
     private String uid;
@@ -21,5 +19,5 @@ public class UserDTO extends AbstractDTO {
     @Max(value = 11, message = "請填寫正確的電話號碼！")
     private String phoneNumber;
 
-    private boolean certified;
+    private String certified;
 }
