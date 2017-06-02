@@ -14,6 +14,7 @@
         <module>dlfc-zfw-wechat-photo</module>
         <module>dlfc-zfw-wechat-collect</module>
         <module>dlfc-zfw-wechat-auth</module>
+        <module>dlfc-zfw-wechat-house</module>
     </modules>
     <packaging>pom</packaging>
 

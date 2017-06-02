@@ -9,3 +9,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://10.32.156.86:18099/eureka/
+
+

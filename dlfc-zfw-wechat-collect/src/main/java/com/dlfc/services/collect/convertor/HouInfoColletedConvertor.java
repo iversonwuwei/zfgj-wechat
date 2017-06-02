@@ -37,7 +37,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
     }
 
     @Override
-    public HouInfoCollectedDTO toDTO(UsrHouCollection usrHouCollection, boolean b) {
+    public HouInfoCollectedDTO toDTO(UsrHouCollection usrHouCollection, String... strings) {
         List<String> imgUrls = new ArrayList<>();
         final HouInfoCollectedDTO houInfoCollectedDTO = new HouInfoCollectedDTO();
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(usrHouCollection.getHid());
@@ -48,9 +48,9 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
             }
         }
         houInfoCollectedDTO.setHouImg(imgUrls);
-        String[] strings = this.splite(houLeaseInfo.getDistrict(), ",");
-        houInfoCollectedDTO.setDistrictId(strings[0]);
-        houInfoCollectedDTO.setAreaId(strings[1]);
+        String[] daId = this.splite(houLeaseInfo.getDistrict(), ",");
+        houInfoCollectedDTO.setDistrictId(daId[0]);
+        houInfoCollectedDTO.setAreaId(daId[1]);
         houInfoCollectedDTO.setId(houLeaseInfo.getId());
         String[] areas = this.splite(houLeaseInfo.getDistrictName(), " ");
         houInfoCollectedDTO.setDistrict(areas[0]);
@@ -63,7 +63,6 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
         return houInfoCollectedDTO;
     }
-
 
     private String[] splite(String str, String spliteToken){
         String[] strings = StringUtils.delimitedListToStringArray(str, spliteToken);
