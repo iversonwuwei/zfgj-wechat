@@ -10,10 +10,10 @@
         <module>dlfc-zfw-wechat-registry</module>
         <module>dlfc-zfw-wechat-upload-download</module>
         <module>dlfc-zfw-wechat-search</module>
-        <module>dlfc-zfw-wechat-security</module>
         <module>dlfc-zfw-wechat-commons</module>
         <module>dlfc-zfw-wechat-photo</module>
         <module>dlfc-zfw-wechat-collect</module>
+        <module>dlfc-zfw-wechat-auth</module>
     </modules>
     <packaging>pom</packaging>
 
