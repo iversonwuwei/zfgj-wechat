@@ -57,7 +57,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setArea(areas[1]);
         houInfoCollectedDTO.setDesc(houLeaseInfo.getTitle());
         String[] layouts = splite(houLeaseInfo.getApartmentLayout(), ",");
-        houInfoCollectedDTO.setLayout(layouts[0]+'室'+layouts[1]+'厅');
+        houInfoCollectedDTO.setLayout(houLeaseInfo.getApartmentLayout());
         houInfoCollectedDTO.setRentType(houLeaseInfo.getRentType());
         houInfoCollectedDTO.setLeaseRoom(houLeaseInfo.getRoom());
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
