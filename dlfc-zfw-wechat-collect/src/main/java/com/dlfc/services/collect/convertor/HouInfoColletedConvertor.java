@@ -5,6 +5,7 @@ import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.entity.HouLeaseInfo;
 import com.dlfc.services.collect.entity.SysInfoAtt;
 import com.dlfc.services.collect.entity.UsrHouCollection;
+import com.dlfc.services.collect.service.HouCollectionService;
 import com.dlfc.services.collect.service.HouseLeaseInfoService;
 import com.dlfc.services.collect.service.SysInfoAttService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
@@ -25,6 +26,9 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
 
     @Autowired
     private SysInfoAttService sysInfoAttService;
+
+    @Autowired
+    private HouCollectionService houCollectionService;
 
 
     @Override
@@ -57,6 +61,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setRentType(houLeaseInfo.getRentType());
         houInfoCollectedDTO.setLeaseRoom(houLeaseInfo.getRoom());
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
+        houInfoCollectedDTO.setCollected(houCollectionService.collected("0bd68f142f324be59697e14f1e630205", houLeaseInfo.getHid()));
         return houInfoCollectedDTO;
     }
 

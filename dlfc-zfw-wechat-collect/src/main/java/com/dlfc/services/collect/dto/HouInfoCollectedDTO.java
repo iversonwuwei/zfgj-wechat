@@ -32,5 +32,5 @@ public class HouInfoCollectedDTO extends AbstractDTO {
 
     private BigDecimal price;
 
-    private String collected;
+    private boolean collected;
 }
