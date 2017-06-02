@@ -61,7 +61,6 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setRentType(houLeaseInfo.getRentType());
         houInfoCollectedDTO.setLeaseRoom(houLeaseInfo.getRoom());
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
-        houInfoCollectedDTO.setCollected(houCollectionService.collected("0bd68f142f324be59697e14f1e630205", houLeaseInfo.getId()));
         return houInfoCollectedDTO;
     }
 

@@ -11,7 +11,4 @@ public interface HouCollectionRService {
 
     @RequestMapping(value = "/wc/datas/usrHouCollection/findAllByUid", method = RequestMethod.GET)
     String findCollectedHouses(@RequestParam(name = "uid") String uid);
-
-    @RequestMapping(value = "/wc/datas/usrHouCollection/whetherCollected", method = RequestMethod.GET)
-    boolean whetherCollected(@RequestParam(name = "uid") String uid, @RequestParam(name = "hid") String hid);
 }

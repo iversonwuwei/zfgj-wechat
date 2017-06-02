@@ -11,6 +11,4 @@ public interface HouCollectionService {
 
     List<UsrHouCollection> findCollectedHouses(String uid);
 
-    boolean collected(String uid, String hid);
-
 }

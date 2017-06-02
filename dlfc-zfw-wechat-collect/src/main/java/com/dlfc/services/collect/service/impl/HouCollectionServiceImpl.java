@@ -26,16 +26,4 @@ public class HouCollectionServiceImpl implements HouCollectionService {
         List<UsrHouCollection> houLeaseInfos = convertor.convert2Objects(houses, UsrHouCollection.class);
         return houLeaseInfos;
     }
-
-    /**
-     *
-     * @param uid 当前登录用户ID
-     * @param hid 出租信息ID
-     * @return
-     */
-    @Override
-    public boolean collected(String uid, String hid) {
-        boolean collected = houCollectionRService.whetherCollected(uid, hid);
-        return collected;
-    }
 }

@@ -31,6 +31,4 @@ public class HouInfoCollectedDTO extends AbstractDTO {
     private String leaseRoom;
 
     private BigDecimal price;
-
-    private boolean collected;
 }
