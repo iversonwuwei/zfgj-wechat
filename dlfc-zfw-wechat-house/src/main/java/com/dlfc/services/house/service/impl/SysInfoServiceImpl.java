@@ -24,7 +24,7 @@ public class SysInfoServiceImpl implements SysInfoAttService {
     @Override
     public List<SysInfoAtt> findByLidAndFileType(String lid) {
 
-        String sysInfoAtt = systemRService.findByLidAndFileType(lid, InfoAttFileTypeEnum.HOUSE_PIC_ENUM.getValue());
+        String sysInfoAtt = systemRService.findSysInfoAttByLidAndFileType(lid, InfoAttFileTypeEnum.HOUSE_PIC_ENUM.getValue());
         List<SysInfoAtt> sysInfoAtts = convertor.convert2Objects(sysInfoAtt, SysInfoAtt.class);
         return sysInfoAtts;
     }
