@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("dlfc-datacenter-system")
-public interface SysInfoAttRService {
+public interface SystemRService {
 
     @RequestMapping(value = "/wc/datas/sysInfoAtt/findAllByLidAndFileType", method = RequestMethod.GET)
-    String findByLidAndFileType(@RequestParam(name = "lid") String lid,
-                                @RequestParam(name = "fileType") Integer fileType);
+    String findSysInfoAttByLidAndFileType(@RequestParam(name = "lid") String lid,
+                                          @RequestParam(name = "fileType") Integer fileType);
+
+    @RequestMapping(value = "/wc/datas/sysSurroundingFacilities/findByLid", method = RequestMethod.GET)
+    String findSysSurroundingFacilitiesByLid(@RequestParam(name = "lid") String lid);
 }

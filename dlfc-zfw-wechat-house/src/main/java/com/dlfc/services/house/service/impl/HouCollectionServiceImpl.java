@@ -1,7 +1,7 @@
 package com.dlfc.services.house.service.impl;
 
 
-import com.dlfc.services.house.repository.HouCollectionRService;
+import com.dlfc.services.house.repository.UserRService;
 import com.dlfc.services.house.service.HouCollectionService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class HouCollectionServiceImpl implements HouCollectionService {
 
     @Autowired
-    private HouCollectionRService houCollectionRService;
+    private UserRService userRService;
     @Autowired
     private IConvertor convertor;
 
@@ -25,7 +25,7 @@ public class HouCollectionServiceImpl implements HouCollectionService {
      */
     @Override
     public boolean collected(String uid, String hid) {
-        boolean collected = houCollectionRService.whetherCollected(uid, hid);
+        boolean collected = userRService.whetherCollected(uid, hid);
         return collected;
     }
 }

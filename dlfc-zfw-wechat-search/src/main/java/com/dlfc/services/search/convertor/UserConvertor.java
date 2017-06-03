@@ -1,11 +1,9 @@
 package com.dlfc.services.search.convertor;
 
 import com.dlfc.services.search.dto.UserDTO;
-import com.dlfc.services.search.entity.Person;
 import com.dlfc.services.search.entity.SysInfoAtt;
 import com.dlfc.services.search.entity.UserEntity;
 import com.dlfc.services.search.service.SysInfoAttService;
-import com.dlfc.services.search.service.SysPersonService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
 
-    @Autowired
-    private SysPersonService sysPersonService;
     @Autowired
     private SysInfoAttService sysInfoAttService;
 
@@ -27,7 +23,7 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
     }
 
     @Override
-    public UserDTO toDTO(UserEntity userEntity, boolean b) {
+    public UserDTO toDTO(UserEntity userEntity, String... strings) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
         userDTO.setUid(userEntity.getPerId());

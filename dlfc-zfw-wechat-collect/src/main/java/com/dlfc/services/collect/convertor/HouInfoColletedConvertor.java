@@ -1,15 +1,12 @@
 package com.dlfc.services.collect.convertor;
 
-import com.dlfc.services.collect.controller.HouInfoCollectedController;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.entity.HouLeaseInfo;
 import com.dlfc.services.collect.entity.SysInfoAtt;
 import com.dlfc.services.collect.entity.UsrHouCollection;
-import com.dlfc.services.collect.service.HouCollectionService;
 import com.dlfc.services.collect.service.HouseLeaseInfoService;
 import com.dlfc.services.collect.service.SysInfoAttService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
-import com.netflix.discovery.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -26,9 +23,6 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
 
     @Autowired
     private SysInfoAttService sysInfoAttService;
-
-    @Autowired
-    private HouCollectionService houCollectionService;
 
 
     @Override
