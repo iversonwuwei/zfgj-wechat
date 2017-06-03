@@ -41,6 +41,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(houLeaseInfo.getId());
         houseDTO.setHouImg(getImgPaths(sysInfoAtts));
         houseDTO.setCollected(houCollectionService.collected(strs[0],houLeaseInfo.getId()));
+        houseDTO.setHouStatus(houLeaseInfo.getReleaseStatus());
+        houseDTO.setAuditStatus(houLeaseInfo.getAuditStatus());
         return houseDTO;
     }
 
