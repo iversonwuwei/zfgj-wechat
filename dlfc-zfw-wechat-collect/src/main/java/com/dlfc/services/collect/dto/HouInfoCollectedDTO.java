@@ -12,6 +12,8 @@ import java.util.List;
 @Setter
 public class HouInfoCollectedDTO extends AbstractDTO {
 
+    private String chId;
+
     private List<String> houImg;
 
     private String desc;
@@ -29,6 +31,8 @@ public class HouInfoCollectedDTO extends AbstractDTO {
     private String rentType;
 
     private String leaseRoom;
+
+    private Integer leaseMode;
 
     private BigDecimal price;
 }

@@ -31,7 +31,7 @@ public class HouCollectionServiceImpl implements HouCollectionService {
     public boolean cancelCollect(String chid) {
 
         String cancel = houCollectionRService.cancelCollect(chid);
-        if (cancel.equals("success")){
+        if (cancel != null){
             return true;
         }
         return false;
