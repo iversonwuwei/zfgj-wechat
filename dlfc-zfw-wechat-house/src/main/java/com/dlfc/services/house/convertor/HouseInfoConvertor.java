@@ -29,6 +29,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     @Override
     public HouseDTO toDTO(HouLeaseInfo houLeaseInfo, String...strs) {
         HouseDTO houseDTO = new HouseDTO();
+        houseDTO.setId(houLeaseInfo.getId());
         houseDTO.setOrientation(houLeaseInfo.getOrientation());
         houseDTO.setHouseArea(houLeaseInfo.getRentalArea());
         houseDTO.setFloor(houLeaseInfo.getFloor());
