@@ -25,6 +25,12 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
 
     @Override
+    public List<HouLeaseInfo> findAll(Integer pageNo, Integer pageSize) {
+        String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo);
+        return convertor.convert2Objects(houLeaseInfos, HouLeaseInfo.class);
+    }
+
+    @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         result = lesseeRService.getLesseeById(id);
         return convertor.convert2Object(result, HouLeaseInfo.class);

@@ -10,6 +10,9 @@ import java.util.List;
 @Service
 public interface HouseLeaseInfoService {
 
+
+    List<HouLeaseInfo> findAll(Integer pageNo, Integer pageSize);
+
     HouLeaseInfo findByHouseLeaseInfo(String id);
 
     List<HouLeaseInfo> findByUid(String uid);

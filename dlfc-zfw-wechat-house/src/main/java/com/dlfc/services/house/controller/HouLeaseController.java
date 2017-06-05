@@ -15,6 +15,8 @@ import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
+import org.hibernate.transform.ResultTransformer;
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +52,20 @@ public class HouLeaseController {
             throw new CustomRuntimeException("", "");
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
+    }
+
+    /**
+     * 搜索默认的出租信息-默认为第一页 10条
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws CustomRuntimeException
+     */
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
+    public ListResultDTO<HouseDTO> findAllHouses(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) throws CustomRuntimeException {
+        List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
+        return houseInfoConvertor.toResultDTO(houLeaseInfos);
     }
 
     /**
