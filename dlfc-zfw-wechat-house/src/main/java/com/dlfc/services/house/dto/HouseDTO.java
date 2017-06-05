@@ -99,8 +99,14 @@ public class HouseDTO extends AbstractDTO {
 
     private String requirement;
 
+    /**
+     * 发布状态
+     */
     private Integer houStatus;
 
+    /**
+     *
+     */
     private Integer auditStatus;
     /**
      * 期限要求
