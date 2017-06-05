@@ -17,7 +17,7 @@ public class SysTradeAreasConvertor extends AbstractConvertor<SysTradeAreas, Cod
     }
 
     @Override
-    public CodeNameDTO toDTO(SysTradeAreas model, String... strings) {
+    public CodeNameDTO toDTO(SysTradeAreas model, Object... strings) {
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());
