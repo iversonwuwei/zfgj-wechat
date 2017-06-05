@@ -8,5 +8,8 @@ import java.util.List;
  * Created by K on 2017/6/3.
  */
 public interface SysSurFaciService {
+
     List<SysSurFacis> findByFacilityIds(List<String> facilityIds);
+
+    String save(SysSurFacis sysSurFacis);
 }

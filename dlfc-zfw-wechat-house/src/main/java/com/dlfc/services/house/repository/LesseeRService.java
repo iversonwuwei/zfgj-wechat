@@ -1,6 +1,8 @@
 package com.dlfc.services.house.repository;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
+import com.dlfc.services.house.entity.HouLeaseInfo;
+import com.dlfc.services.house.entity.UsrUser;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,4 +20,8 @@ public interface LesseeRService {
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findByParams", method = RequestMethod.POST)
     String findByParams(@RequestBody HouLeaseInfoDTO dto);
+
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/save", method = RequestMethod.POST)
+    String save(@RequestBody HouLeaseInfo houLeaseInfo,
+                @RequestParam(name = "user") UsrUser user);
 }

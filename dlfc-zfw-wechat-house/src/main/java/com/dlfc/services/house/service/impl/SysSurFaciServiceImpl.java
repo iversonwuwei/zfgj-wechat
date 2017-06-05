@@ -28,4 +28,9 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
         result = systemRService.findSysSurFacisByFacilityIds(facilityIds);
         return convertor.convert2Objects(result, SysSurFacis.class);
     }
+
+    @Override
+    public String save(SysSurFacis sysSurFacis) {
+        return systemRService.saveSysSurFacis(sysSurFacis);
+    }
 }

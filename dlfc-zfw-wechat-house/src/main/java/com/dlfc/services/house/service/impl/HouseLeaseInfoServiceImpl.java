@@ -3,6 +3,7 @@ package com.dlfc.services.house.service.impl;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
+import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.repository.LesseeRService;
 import com.dlfc.services.house.service.HouseLeaseInfoService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -25,9 +26,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
-
         result = lesseeRService.getLesseeById(id);
-
         return convertor.convert2Object(result, HouLeaseInfo.class);
     }
 
@@ -41,6 +40,12 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     public List<HouLeaseInfo> findByParams(HouLeaseInfoDTO dto) {
         result = lesseeRService.findByParams(dto);
         return convertor.convert2Objects(result, HouLeaseInfo.class);
+    }
+
+    @Override
+    public String save(HouLeaseInfo houLeaseInfo,
+                       UsrUser user) {
+        return lesseeRService.save(houLeaseInfo, user);
     }
 
 }

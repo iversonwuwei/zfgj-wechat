@@ -22,8 +22,20 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private HouCollectionService houCollectionService;
 
     @Override
-    public HouLeaseInfo toModel(HouseDTO houseDTO) {
-        return null;
+    public HouLeaseInfo toModel(HouseDTO dto) {
+        HouLeaseInfo model=new HouLeaseInfo();
+        model.setTitle(dto.getDesc());
+        model.setDistrict(dto.getDistrict());
+        model.setVillageName(dto.getVillageName());
+        model.setRentalArea(dto.getHouseArea());
+        model.setApartmentLayout(dto.getLayout());
+        model.setOrientation(dto.getOrientation());
+        model.setFloor(dto.getFloor());
+        model.setLeaseMode(dto.getLeaseMode());
+        model.setRequirement(dto.getTermRequirement());
+        model.setRent(dto.getPrice());
+        model.setRentType(dto.getRentType());
+        return model;
     }
 
     @Override
