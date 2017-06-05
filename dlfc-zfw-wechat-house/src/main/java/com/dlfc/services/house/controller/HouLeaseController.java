@@ -101,7 +101,7 @@ public class HouLeaseController {
             return ResultDTO.failure(id, resultError);
         }
         SysSurFacis sysSurFacis=new SysSurFacis();
-        sysSurFaciService.save()
+        sysSurFaciService.save(sysSurFacis);
         return ResultDTO.success(id);
     }
 }
