@@ -1,9 +1,11 @@
 package com.dlfc.services.search.convertor;
 
 import com.dlfc.services.search.dto.UserDTO;
+import com.dlfc.services.search.entity.Person;
 import com.dlfc.services.search.entity.SysInfoAtt;
 import com.dlfc.services.search.entity.UserEntity;
 import com.dlfc.services.search.service.SysInfoAttService;
+import com.dlfc.services.search.service.SysPersonService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,8 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
 
     @Autowired
     private SysInfoAttService sysInfoAttService;
+    @Autowired
+    private SysPersonService sysPersonService;
 
     private SysInfoAtt sysInfoAtt;
 
@@ -33,7 +37,8 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
         if (sysInfoAtt != null){
             userDTO.setImgUrl(sysInfoAtt.getFilePath());
         }
-
+        Person person = sysPersonService.findById(userDTO.getUid());
+        userDTO.setRealName(person.getName());
         return userDTO;
     }
 }

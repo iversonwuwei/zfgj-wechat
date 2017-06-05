@@ -20,4 +20,6 @@ public class UserDTO extends AbstractDTO {
     private String phoneNumber;
 
     private String certified;
+
+    private String realName;
 }
