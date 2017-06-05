@@ -44,10 +44,10 @@ public class HouCollectionServiceImpl implements HouCollectionService {
             collect = houCollectionRService.collect(usrHouCollection);
         }
 
-        if (collect == null){
-            return false;
+        if (collect.equals("true")){
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

@@ -4,6 +4,7 @@ import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.entity.UsrHouCollection;
 import com.dlfc.services.collect.repository.SysInfoAttRService;
+import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
@@ -26,6 +27,9 @@ public class HouInfoCollectedController {
     @Autowired
     private HouInfoColletedConvertor houInfoColletedConvertor;
 
+    @Autowired
+    private ValidateRepository validateRepository;
+
     @RequestMapping(value = "/collected", method = RequestMethod.GET)
     public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList() throws CustomRuntimeException {
         List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses("0bd68f142f324be59697e14f1e630205");
@@ -47,11 +51,14 @@ public class HouInfoCollectedController {
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     public ResultDTO<Void> collect(@RequestParam String hid){
-        UsrHouCollection usrHouCollection = new UsrHouCollection();
-        usrHouCollection.setUid("");
-        usrHouCollection.setHid(hid);
-        if (houCollectionService.collect(usrHouCollection)){
-            return ResultDTO.success();
+        String test = validateRepository.validateHouseBy(hid);
+        if (test.contains("success")){
+            UsrHouCollection usrHouCollection = new UsrHouCollection();
+            usrHouCollection.setUid("3c007a5512804d5183d737b4c9e5b26a");
+            usrHouCollection.setHid(hid);
+            if (houCollectionService.collect(usrHouCollection)){
+                return ResultDTO.success();
+            }
         }
         return ResultDTO.failure();
     }
