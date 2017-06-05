@@ -37,7 +37,7 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
         if (sysInfoAtt != null){
             userDTO.setImgUrl(sysInfoAtt.getFilePath());
         }
-        Person person = sysPersonService.findById(userDTO.getUid());
+        Person person = sysPersonService.findById(userEntity.getPerId());
         userDTO.setRealName(person.getName());
         return userDTO;
     }
