@@ -9,10 +9,7 @@ import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +40,17 @@ public class HouInfoCollectedController {
         boolean cancel = houCollectionService.cancelCollect(chid);
 
         if (cancel){
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
+    }
+
+    @RequestMapping(value = "/collect", method = RequestMethod.POST)
+    public ResultDTO<Void> collect(@RequestParam String hid){
+        UsrHouCollection usrHouCollection = new UsrHouCollection();
+        usrHouCollection.setUid("");
+        usrHouCollection.setHid(hid);
+        if (houCollectionService.collect(usrHouCollection)){
             return ResultDTO.success();
         }
         return ResultDTO.failure();

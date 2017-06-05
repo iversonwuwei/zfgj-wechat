@@ -36,4 +36,18 @@ public class HouCollectionServiceImpl implements HouCollectionService {
         }
         return false;
     }
+
+    @Override
+    public boolean collect(UsrHouCollection usrHouCollection) {
+        String collect = "";
+        if (usrHouCollection != null){
+            collect = houCollectionRService.collect(usrHouCollection);
+        }
+
+        if (collect == null){
+            return false;
+        }
+
+        return true;
+    }
 }

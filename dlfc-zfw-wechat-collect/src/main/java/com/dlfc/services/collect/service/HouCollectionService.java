@@ -13,4 +13,5 @@ public interface HouCollectionService {
 
     boolean cancelCollect(String chid);
 
+    boolean collect(UsrHouCollection usrHouCollection);
 }
