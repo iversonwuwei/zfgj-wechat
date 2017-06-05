@@ -11,4 +11,6 @@ public interface HouCollectionService {
 
     List<UsrHouCollection> findCollectedHouses(String uid);
 
+    boolean cancelCollect(String chid);
+
 }

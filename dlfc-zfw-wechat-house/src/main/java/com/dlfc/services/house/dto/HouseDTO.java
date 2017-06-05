@@ -97,6 +97,11 @@ public class HouseDTO extends AbstractDTO {
      */
     private boolean published;
 
+    private String requirement;
+
+    private Integer houStatus;
+
+    private Integer auditStatus;
     /**
      * 期限要求
      */

@@ -26,4 +26,14 @@ public class HouCollectionServiceImpl implements HouCollectionService {
         List<UsrHouCollection> houLeaseInfos = convertor.convert2Objects(houses, UsrHouCollection.class);
         return houLeaseInfos;
     }
+
+    @Override
+    public boolean cancelCollect(String chid) {
+
+        String cancel = houCollectionRService.cancelCollect(chid);
+        if (cancel != null){
+            return true;
+        }
+        return false;
+    }
 }

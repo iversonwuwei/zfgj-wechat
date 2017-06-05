@@ -11,4 +11,7 @@ public interface HouCollectionRService {
 
     @RequestMapping(value = "/wc/datas/usrHouCollection/findAllByUid", method = RequestMethod.GET)
     String findCollectedHouses(@RequestParam(name = "uid") String uid);
+
+    @RequestMapping(value = "/wc/datas/usrHouCollection/removeById", method = RequestMethod.DELETE)
+    String cancelCollect(@RequestParam(name = "id") String id);
 }

@@ -46,6 +46,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setDistrictId(daId[0]);
         houInfoCollectedDTO.setAreaId(daId[1]);
         houInfoCollectedDTO.setId(houLeaseInfo.getId());
+        houInfoCollectedDTO.setChId(usrHouCollection.getId());
         String[] areas = this.splite(houLeaseInfo.getDistrictName(), " ");
         houInfoCollectedDTO.setDistrict(areas[0]);
         houInfoCollectedDTO.setArea(areas[1]);
@@ -55,6 +56,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
         houInfoCollectedDTO.setRentType(houLeaseInfo.getRentType());
         houInfoCollectedDTO.setLeaseRoom(houLeaseInfo.getRoom());
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
+        houInfoCollectedDTO.setLeaseMode(houLeaseInfo.getLeaseMode());
         return houInfoCollectedDTO;
     }
 

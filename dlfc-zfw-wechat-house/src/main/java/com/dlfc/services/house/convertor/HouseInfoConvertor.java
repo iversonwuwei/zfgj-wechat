@@ -41,6 +41,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     @Override
     public HouseDTO toDTO(HouLeaseInfo houLeaseInfo, String...strs) {
         HouseDTO houseDTO = new HouseDTO();
+        houseDTO.setId(houLeaseInfo.getId());
         houseDTO.setOrientation(houLeaseInfo.getOrientation());
         houseDTO.setHouseArea(houLeaseInfo.getRentalArea());
         houseDTO.setFloor(houLeaseInfo.getFloor());
@@ -52,6 +53,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(houLeaseInfo.getId());
         houseDTO.setHouImg(getImgPaths(sysInfoAtts));
         houseDTO.setCollected(houCollectionService.collected(strs[0],houLeaseInfo.getId()));
+        houseDTO.setHouStatus(houLeaseInfo.getReleaseStatus());
+        houseDTO.setAuditStatus(houLeaseInfo.getAuditStatus());
         return houseDTO;
     }
 
