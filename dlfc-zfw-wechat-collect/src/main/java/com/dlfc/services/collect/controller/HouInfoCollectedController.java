@@ -3,14 +3,16 @@ package com.dlfc.services.collect.controller;
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.entity.UsrHouCollection;
-import com.dlfc.services.collect.repository.SysInfoAttRService;
 import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,9 +22,6 @@ public class HouInfoCollectedController {
 
     @Autowired
     private HouCollectionService houCollectionService;
-
-    @Autowired
-    private SysInfoAttRService sysInfoAttRService;
 
     @Autowired
     private HouInfoColletedConvertor houInfoColletedConvertor;
