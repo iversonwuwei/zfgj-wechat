@@ -3,6 +3,7 @@ package com.dlfc.services.feedback.controller;
 
 import com.dlfc.services.feedback.convertor.FeedbackConvertor;
 import com.dlfc.services.feedback.dto.FeedbackDTO;
+import com.dlfc.services.feedback.entity.CmsGuestbook;
 import com.dlfc.services.feedback.entity.UsrFeedback;
 import com.dlfc.services.feedback.service.FeedbackService;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
@@ -19,12 +20,12 @@ public class FeedbackController {
     @Autowired
     private FeedbackConvertor feedbackConvertor;
     @Autowired
-    private FeedbackService<UsrFeedback> feedbackFeedbackService;
+    private FeedbackService<CmsGuestbook> feedbackFeedbackService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResultDTO<Void> feedback(@RequestBody FeedbackDTO feedbackDTO){
-        UsrFeedback usrFeedback = feedbackConvertor.toModel(feedbackDTO);
-        String id = (String) feedbackFeedbackService.feedback(usrFeedback);
+        CmsGuestbook cmsGuestbook = feedbackConvertor.toModel(feedbackDTO);
+        String id = (String) feedbackFeedbackService.feedback(cmsGuestbook);
         if (id == null){
             return ResultDTO.failure();
         }

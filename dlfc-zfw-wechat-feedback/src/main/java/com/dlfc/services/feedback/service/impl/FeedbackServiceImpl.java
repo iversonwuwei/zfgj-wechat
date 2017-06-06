@@ -1,5 +1,6 @@
 package com.dlfc.services.feedback.service.impl;
 
+import com.dlfc.services.feedback.entity.CmsGuestbook;
 import com.dlfc.services.feedback.entity.UsrFeedback;
 import com.dlfc.services.feedback.repository.UsrFeedbackRService;
 import com.dlfc.services.feedback.service.FeedbackService;
@@ -9,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService<UsrFeedback> {
+public class FeedbackServiceImpl implements FeedbackService<CmsGuestbook> {
 
     @Autowired
     private UsrFeedbackRService usrFeedbackRService;
 
     @Override
-    public String feedback(UsrFeedback usrFeedback) {
-        String id = usrFeedbackRService.feedback(usrFeedback);
+    public String feedback(CmsGuestbook cmsGuestbook) {
+        String id = usrFeedbackRService.feedback(cmsGuestbook);
 
         return id;
     }
