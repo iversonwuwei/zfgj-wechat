@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class FeedbackConvertor extends AbstractConvertor<CmsGuestbook, FeedbackDTO> {
+public class FeedbackConvertor extends AbstractConvertor<UsrFeedback, FeedbackDTO> {
 
 
     @Override
-    public CmsGuestbook toModel(FeedbackDTO feedbackDTO) {
-        CmsGuestbook cmsGuestbook = new CmsGuestbook();
-        cmsGuestbook.setContent(feedbackDTO.getFeedback());
-        cmsGuestbook.setId("3c007a5512804d5183d737b4c9e5b26a");
-        return cmsGuestbook;
+    public UsrFeedback toModel(FeedbackDTO feedbackDTO) {
+        UsrFeedback usrFeedback = new UsrFeedback();
+        usrFeedback.setContent(feedbackDTO.getFeedback());
+        usrFeedback.setId("3c007a5512804d5183d737b4c9e5b26a");
+        return usrFeedback;
     }
 
     @Override
-    public FeedbackDTO toDTO(CmsGuestbook cmsGuestbook, Object... objects) {
+    public FeedbackDTO toDTO(UsrFeedback usrFeedback, Object... objects) {
         return null;
     }
 }

@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService<CmsGuestbook> {
+public class FeedbackServiceImpl implements FeedbackService<UsrFeedback> {
 
     @Autowired
     private UsrFeedbackRService usrFeedbackRService;
 
     @Override
-    public String feedback(CmsGuestbook cmsGuestbook) {
-        String id = usrFeedbackRService.feedback(cmsGuestbook);
+    public String feedback(UsrFeedback usrFeedback) {
+        String id = usrFeedbackRService.feedback(usrFeedback);
 
         return id;
     }

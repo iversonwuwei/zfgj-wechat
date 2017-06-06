@@ -20,12 +20,12 @@ public class FeedbackController {
     @Autowired
     private FeedbackConvertor feedbackConvertor;
     @Autowired
-    private FeedbackService<CmsGuestbook> feedbackFeedbackService;
+    private FeedbackService<UsrFeedback> feedbackFeedbackService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResultDTO<Void> feedback(@RequestBody FeedbackDTO feedbackDTO){
-        CmsGuestbook cmsGuestbook = feedbackConvertor.toModel(feedbackDTO);
-        String id = (String) feedbackFeedbackService.feedback(cmsGuestbook);
+        UsrFeedback usrFeedback = feedbackConvertor.toModel(feedbackDTO);
+        String id = (String) feedbackFeedbackService.feedback(usrFeedback);
         if (id == null){
             return ResultDTO.failure();
         }
