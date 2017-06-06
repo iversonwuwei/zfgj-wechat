@@ -1,0 +1,11 @@
+server:
+  port: 28097
+
+spring:
+  application:
+    name: dlfc-zfw-message-services
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.32.156.49:11111/eureka, http://10.32.156.49:11112/eureka
