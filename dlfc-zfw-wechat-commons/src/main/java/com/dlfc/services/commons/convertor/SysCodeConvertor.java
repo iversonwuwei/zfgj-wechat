@@ -17,7 +17,7 @@ public class SysCodeConvertor extends AbstractConvertor<SysCode, CodeNameDTO> {
     }
 
     @Override
-    public CodeNameDTO toDTO(SysCode model, String... strings) {
+    public CodeNameDTO toDTO(SysCode model, Object... strings) {
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());

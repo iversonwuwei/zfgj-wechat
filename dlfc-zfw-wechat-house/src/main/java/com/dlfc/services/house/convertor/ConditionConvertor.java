@@ -65,7 +65,7 @@ public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, House
     }
 
     @Override
-    public HouseConditionDTO toDTO(HouLeaseInfoDTO houLeaseInfoDTO, String... strings) {
+    public HouseConditionDTO toDTO(HouLeaseInfoDTO houLeaseInfoDTO, Object... strings) {
         return null;
     }
 }

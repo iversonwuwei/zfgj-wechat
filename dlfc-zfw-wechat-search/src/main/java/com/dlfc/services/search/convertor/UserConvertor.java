@@ -27,7 +27,7 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
     }
 
     @Override
-    public UserDTO toDTO(UserEntity userEntity, String... strings) {
+    public UserDTO toDTO(UserEntity userEntity, Object... strings) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
         userDTO.setUid(userEntity.getPerId());

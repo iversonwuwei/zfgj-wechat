@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -32,7 +31,7 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
     }
 
     @Override
-    public HouInfoCollectedDTO toDTO(UsrHouCollection usrHouCollection, String... strings) {
+    public HouInfoCollectedDTO toDTO(UsrHouCollection usrHouCollection, Object... strings) {
         List<String> imgUrls = new ArrayList<>();
         final HouInfoCollectedDTO houInfoCollectedDTO = new HouInfoCollectedDTO();
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(usrHouCollection.getHid());

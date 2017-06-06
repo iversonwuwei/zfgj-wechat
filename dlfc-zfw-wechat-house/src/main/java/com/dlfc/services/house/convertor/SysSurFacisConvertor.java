@@ -21,7 +21,7 @@ public class SysSurFacisConvertor extends AbstractConvertor<SysSurFacis, HouseDT
     }
 
     @Override
-    public HouseDTO toDTO(SysSurFacis sysSurFacis, String... strings) {
+    public HouseDTO toDTO(SysSurFacis sysSurFacis, Object... strings) {
         return null;
     }
 

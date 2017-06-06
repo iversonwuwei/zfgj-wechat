@@ -23,7 +23,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
-        HouLeaseInfo model=new HouLeaseInfo();
+        HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
         model.setDistrict(dto.getDistrict());
         model.setVillageName(dto.getVillageName());
@@ -39,7 +39,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     }
 
     @Override
-    public HouseDTO toDTO(HouLeaseInfo houLeaseInfo, String...strs) {
+    public HouseDTO toDTO(HouLeaseInfo houLeaseInfo, Object... strs) {
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId(houLeaseInfo.getId());
         houseDTO.setOrientation(houLeaseInfo.getOrientation());
@@ -52,16 +52,16 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         houseDTO.setLeaseMode(houLeaseInfo.getLeaseMode());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(houLeaseInfo.getId());
         houseDTO.setHouImg(getImgPaths(sysInfoAtts));
-        houseDTO.setCollected(houCollectionService.collected(strs[0],houLeaseInfo.getId()));
+        houseDTO.setCollected(houCollectionService.collected((String) strs[0], houLeaseInfo.getId()));
         houseDTO.setHouStatus(houLeaseInfo.getReleaseStatus());
         houseDTO.setAuditStatus(houLeaseInfo.getAuditStatus());
         return houseDTO;
     }
 
-    private List<String> getImgPaths(List<SysInfoAtt> sysinfos){
+    private List<String> getImgPaths(List<SysInfoAtt> sysinfos) {
         List<String> imgPaths = new ArrayList<>();
 
-        for (SysInfoAtt sysInfoAtt: sysinfos){
+        for (SysInfoAtt sysInfoAtt : sysinfos) {
             imgPaths.add(sysInfoAtt.getFilePath());
         }
 

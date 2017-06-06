@@ -17,7 +17,7 @@ public class SysHouEquipmentsConvertor extends AbstractConvertor<SysHouEquipment
     }
 
     @Override
-    public CodeNameDTO toDTO(SysHouEquipmentsContrast model, String... strings) {
+    public CodeNameDTO toDTO(SysHouEquipmentsContrast model, Object... strings) {
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());
