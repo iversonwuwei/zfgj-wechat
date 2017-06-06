@@ -5,7 +5,6 @@ import com.dlfc.zfw.wechat.registry.dto.UserDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 @RestController
 @RequestMapping(value = "/wc/systems")
