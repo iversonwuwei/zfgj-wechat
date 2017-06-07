@@ -2,9 +2,11 @@ package com.dlfc.services.commons.controller;
 
 import com.dlfc.services.commons.convertor.SysCodeConvertor;
 import com.dlfc.services.commons.convertor.SysHouEquipmentsConvertor;
+import com.dlfc.services.commons.convertor.SysSurFacisContrastConvertor;
 import com.dlfc.services.commons.dto.CodeNameDTO;
 import com.dlfc.services.commons.entity.SysCode;
-import com.dlfc.services.commons.entity.SysHouEquipmentsContrast;
+import com.dlfc.services.commons.entity.SysHouEquipsContrast;
+import com.dlfc.services.commons.entity.SysSurFacisContrast;
 import com.dlfc.services.commons.service.DataService;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
@@ -26,11 +28,15 @@ public class SysHouInfoController {
     @Autowired
     private DataService<SysCode> sysCodeService;
     @Autowired
-    private DataService<SysHouEquipmentsContrast> sysHouEquipmentsService;
+    private DataService<SysHouEquipsContrast> sysHouEquipmentsService;
+    @Autowired
+    private DataService<SysSurFacisContrast> sysSurFacisContrastService;
     @Autowired
     private SysCodeConvertor sysCodeConvertor;
     @Autowired
     private SysHouEquipmentsConvertor sysHouEquipmentsConvertor;
+    @Autowired
+    private SysSurFacisContrastConvertor sysSurFacisContrastConvertor;
 
     /**
      * 房屋朝向
@@ -45,14 +51,38 @@ public class SysHouInfoController {
     }
 
     /**
-     * 周边设施
+     * 配套设施
+     *
+     * @return
+     * @throws CustomRuntimeException
+     */
+    @RequestMapping(value = "/houEquipments", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> houEquipments() throws CustomRuntimeException {
+        List<SysHouEquipsContrast> sysHouEquipsContrastList = sysHouEquipmentsService.findAll();
+        return sysHouEquipmentsConvertor.toResultDTO(sysHouEquipsContrastList);
+    }
+
+    /**
+     * 周边
      *
      * @return
      * @throws CustomRuntimeException
      */
     @RequestMapping(value = "/surroundingFacilities", method = RequestMethod.GET)
     public ListResultDTO<CodeNameDTO> surroundingFacilities() throws CustomRuntimeException {
-        List<SysHouEquipmentsContrast> sysHouEquipmentsContrastList = sysHouEquipmentsService.findAll();
-        return sysHouEquipmentsConvertor.toResultDTO(sysHouEquipmentsContrastList);
+        List<SysSurFacisContrast> sysSurFacisContrastList = sysSurFacisContrastService.findAll();
+        return sysSurFacisContrastConvertor.toResultDTO(sysSurFacisContrastList);
+    }
+
+    /**
+     * 租住要求
+     *
+     * @return
+     * @throws CustomRuntimeException
+     */
+    @RequestMapping(value = "/rentalRequire", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> rentalRequire() throws CustomRuntimeException {
+        List<SysCode> sysCodeList = sysCodeService.findBy("rental_require");
+        return sysCodeConvertor.toResultDTO(sysCodeList);
     }
 }

@@ -41,7 +41,19 @@ public class PriceController {
     }
 
     /**
-     * 支付方式
+     * 支付方式（押）
+     *
+     * @return
+     * @throws CustomRuntimeException
+     */
+    @RequestMapping(value = "/deposit", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> deposit() throws CustomRuntimeException {
+        sysCodeList = sysCodeService.findBy("rent_deposit");
+        return sysCodeConvertor.toResultDTO(sysCodeList);
+    }
+
+    /**
+     * 支付方式（付）
      *
      * @return
      * @throws CustomRuntimeException

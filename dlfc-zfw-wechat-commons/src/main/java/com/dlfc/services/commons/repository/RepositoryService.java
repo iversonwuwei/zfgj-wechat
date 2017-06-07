@@ -17,6 +17,9 @@ public interface RepositoryService {
     @RequestMapping(value = "/wc/datas/sysTradeAreas/findByParentId", method = RequestMethod.GET)
     String findSysTradeAreasByParentId(@RequestParam(name = "parentId") String parentId);
 
-    @RequestMapping(value = "/wc/datas/sysHouEquipmentsContrast/findAll", method = RequestMethod.GET)
-    String findSysHouEquipmentsContrastAll();
+    @RequestMapping(value = "/wc/datas/sysHouEquipsContrast/findAll", method = RequestMethod.GET)
+    String findSysHouEquipsContrastAll();
+
+    @RequestMapping(value = "/wc/datas/sysSurFacisContrast/findAll", method = RequestMethod.GET)
+    String findSysSurFacisContrastAll();
 }
