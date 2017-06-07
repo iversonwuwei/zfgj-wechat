@@ -10,4 +10,6 @@ import lombok.Setter;
 public class FeedbackDTO extends AbstractDTO {
 
     private String feedback;
+
+    private String uid;
 }
