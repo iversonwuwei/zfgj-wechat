@@ -2,16 +2,9 @@ package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.dto.HouseConditionDTO;
-import com.dlfc.services.house.entity.SysSurFacis;
-import com.dlfc.services.house.service.SysSurFaciService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by K on 2017/6/2.
@@ -19,9 +12,6 @@ import java.util.List;
 
 @Component
 public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, HouseConditionDTO> {
-
-    @Autowired
-    private SysSurFaciService sysSurFaciService;
 
     @Override
     public HouLeaseInfoDTO toModel(HouseConditionDTO conditionDTO) {
@@ -51,15 +41,6 @@ public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, House
             dto.setRentMode(conditionDTO.getRentMode());
             dto.setOrientation(conditionDTO.getOrientation());
             dto.setPaymentStyle(conditionDTO.getPaymentStyle());
-            List<String> idList = new ArrayList<>();
-            if (null != conditionDTO.getSurroundingFacilities() && conditionDTO.getSurroundingFacilities().length > 0) {
-                List<SysSurFacis> facilitiesList =
-                        sysSurFaciService.findByFacilityIds(Arrays.asList(conditionDTO.getSurroundingFacilities()));
-                for (SysSurFacis item : facilitiesList) {
-                    idList.add(item.getId());
-                }
-            }
-            dto.setFacilityIdList(idList);
         }
         return dto;
     }

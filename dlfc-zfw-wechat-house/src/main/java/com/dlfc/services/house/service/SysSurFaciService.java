@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface SysSurFaciService {
 
-    List<SysSurFacis> findByFacilityIds(List<String> facilityIds);
-
     String save(SysSurFacis sysSurFacis);
+
+    void saveWithLidAndCode(String lid, List<String> around);
 }

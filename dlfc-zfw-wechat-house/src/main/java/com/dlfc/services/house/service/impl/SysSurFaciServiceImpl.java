@@ -17,6 +17,7 @@ import java.util.List;
 public class SysSurFaciServiceImpl implements SysSurFaciService {
 
     private String result;
+    private SysSurFacis entity;
 
     @Autowired
     private SystemRService systemRService;
@@ -24,13 +25,18 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
     private IConvertor<SysSurFacis> convertor;
 
     @Override
-    public List<SysSurFacis> findByFacilityIds(List<String> facilityIds) {
-        result = systemRService.findSysSurFacisByFacilityIds(facilityIds);
-        return convertor.convert2Objects(result, SysSurFacis.class);
+    public String save(SysSurFacis sysSurFacis) {
+        return systemRService.saveSysSurFacis(sysSurFacis);
     }
 
     @Override
-    public String save(SysSurFacis sysSurFacis) {
-        return systemRService.saveSysSurFacis(sysSurFacis);
+    public void saveWithLidAndCode(String lid,
+                                   List<String> around) {
+        for (String str : around) {
+            entity = new SysSurFacis();
+            entity.setLid(lid);
+            entity.setFacilityCode(str);
+            result = systemRService.findSysSurFacisContrastByCode(str);
+        }
     }
 }

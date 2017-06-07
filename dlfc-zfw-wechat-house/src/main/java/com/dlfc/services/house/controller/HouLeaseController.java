@@ -6,7 +6,6 @@ import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.dto.HouseConditionDTO;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
-import com.dlfc.services.house.entity.SysSurFacis;
 import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.service.HouseLeaseInfoService;
 import com.dlfc.services.house.service.SysSurFaciService;
@@ -15,8 +14,6 @@ import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
-import org.hibernate.transform.ResultTransformer;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +53,7 @@ public class HouLeaseController {
 
     /**
      * 搜索默认的出租信息-默认为第一页 10条
+     *
      * @param pageNo
      * @param pageSize
      * @return
@@ -116,8 +114,7 @@ public class HouLeaseController {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);
         }
-        SysSurFacis sysSurFacis=new SysSurFacis();
-        sysSurFaciService.save(sysSurFacis);
+        sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
         return ResultDTO.success(id);
     }
 }
