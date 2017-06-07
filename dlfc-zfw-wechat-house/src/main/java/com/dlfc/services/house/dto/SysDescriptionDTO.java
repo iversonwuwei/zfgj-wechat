@@ -11,7 +11,7 @@ public class SysDescriptionDTO extends AbstractDTO {
 
     private String liveRequire;
 
-    private String ddd;
+    private String ownerBears;
 
     private String others;
 

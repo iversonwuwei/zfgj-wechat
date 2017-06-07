@@ -78,14 +78,14 @@ public class HouseDTO extends AbstractDTO {
     private List<String> equips;
 
     /**
-     * 房源描述
-     */
-    private String houseDesc;
-
-    /**
      * 公交地铁
      */
     private List<String> vehicles;
+
+    /**
+     * 公交地铁其它
+     */
+    private String otherVehicles;
 
     /**
      * 周边商业
@@ -95,17 +95,10 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 发布状态
      */
-    private boolean published;
-
-    private String requirement;
-
-    /**
-     * 发布状态
-     */
     private Integer houStatus;
 
     /**
-     *
+     * 审核状态
      */
     private Integer auditStatus;
     /**
@@ -119,6 +112,16 @@ public class HouseDTO extends AbstractDTO {
     private String liveRequirement;
 
     /**
+     * 房主承担费用
+     */
+    private String ownerBears;
+
+    /**
+     * 其他描述
+     */
+    private String otherDcpt;
+
+    /**
      * 商圈
      */
     private String district;
@@ -127,4 +130,9 @@ public class HouseDTO extends AbstractDTO {
      * 小区名称
      */
     private String villageName;
+
+    /**
+     * 用户ID
+     */
+    private String uid;
 }

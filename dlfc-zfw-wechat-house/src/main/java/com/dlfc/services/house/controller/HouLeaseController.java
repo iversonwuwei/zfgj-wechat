@@ -2,13 +2,14 @@ package com.dlfc.services.house.controller;
 
 import com.dlfc.services.house.convertor.ConditionConvertor;
 import com.dlfc.services.house.convertor.HouseInfoConvertor;
+import com.dlfc.services.house.convertor.SysDescriptionConvertor;
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.dto.HouseConditionDTO;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
+import com.dlfc.services.house.entity.SysDescriptions;
 import com.dlfc.services.house.entity.UsrUser;
-import com.dlfc.services.house.service.HouseLeaseInfoService;
-import com.dlfc.services.house.service.SysSurFaciService;
+import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
@@ -30,9 +31,17 @@ public class HouLeaseController {
     @Autowired
     private SysSurFaciService sysSurFaciService;
     @Autowired
+    private SysHouEquipsService sysHouEquipsService;
+    @Autowired
+    private SysTrafficLinesService sysTrafficLinesService;
+    @Autowired
+    private SysDescriptionsService sysDescriptionsService;
+    @Autowired
     private HouseInfoConvertor houseInfoConvertor;
     @Autowired
     private ConditionConvertor conditionConvertor;
+    @Autowired
+    private SysDescriptionConvertor sysDescriptionConvertor;
 
     /**
      * 查找房源
@@ -108,6 +117,7 @@ public class HouLeaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultDTO<String> details(@RequestBody HouseDTO dto) throws CustomRuntimeException {
         UsrUser user = new UsrUser();
+        dto.setUid(user.getId());
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
         String id = houseLeaseInfoService.save(houLeaseInfo, user);
         if (StringUtils.isEmpty(id)) {
@@ -115,6 +125,11 @@ public class HouLeaseController {
             return ResultDTO.failure(id, resultError);
         }
         sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
+        sysHouEquipsService.saveWithLidAndCode(id, dto.getEquips());
+        sysTrafficLinesService.saveWithLidAndLines(id, dto.getVehicles());
+        sysTrafficLinesService.saveWithLidAndOthers(id, dto.getOtherVehicles());
+        SysDescriptions sysDescriptions = sysDescriptionConvertor.toModel(dto);
+        sysDescriptionsService.save(sysDescriptions);
         return ResultDTO.success(id);
     }
 }

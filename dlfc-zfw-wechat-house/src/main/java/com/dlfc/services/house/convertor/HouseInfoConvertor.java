@@ -35,6 +35,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setRequirement(dto.getTermRequirement());
         model.setRent(dto.getPrice());
         model.setRentType(dto.getRentType());
+        model.setUid(dto.getUid());
         return model;
     }
 
