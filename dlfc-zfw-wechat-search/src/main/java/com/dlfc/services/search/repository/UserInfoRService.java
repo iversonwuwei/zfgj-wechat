@@ -11,4 +11,7 @@ public interface UserInfoRService {
 
     @RequestMapping(value = "/wc/datas/usrUser/findById", method = RequestMethod.GET)
     String findUserById(@RequestParam(name = "id") String id);
+
+    @RequestMapping(value = "/wc/datas/usrUser/findByUser", method = RequestMethod.GET)
+    String findUserByUser(@RequestParam(name = "user") String user);
 }

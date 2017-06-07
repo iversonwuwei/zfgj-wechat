@@ -27,6 +27,7 @@ public class SysDescriptionConvertor extends AbstractConvertor<SysDescriptions, 
         sysDescriptionDTO.setLiveRequire(sysDescriptions.getDescription1());
         sysDescriptionDTO.setDdd(sysDescriptions.getDescription2());
         sysDescriptionDTO.setOthers(sysDescriptions.getDescription3());
+
         return sysDescriptionDTO;
     }
 }

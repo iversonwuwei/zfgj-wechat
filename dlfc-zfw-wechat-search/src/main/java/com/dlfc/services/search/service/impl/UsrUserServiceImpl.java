@@ -18,7 +18,7 @@ public class UsrUserServiceImpl implements UsrUserService {
 
     @Override
     public UserEntity findUser(String userid) {
-        String userInfo = userInfoRService.findUserById(userid);
+        String userInfo = userInfoRService.findUserByUser(userid);
         return (UserEntity) convertor.convert2Object(userInfo, UserEntity.class);
     }
 }

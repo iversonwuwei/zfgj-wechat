@@ -12,8 +12,6 @@ public class UnicomDTO extends AbstractDTO {
 
     private List<String> imgUrls;
 
-    private String areaUnique;
-
     private String desc;
 
     private String speed;

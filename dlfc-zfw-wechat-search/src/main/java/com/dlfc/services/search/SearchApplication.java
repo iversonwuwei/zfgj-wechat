@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringCloudApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.dlfc.services.search","com.housecenter.dlfc.framework.ca.api"})
 public class SearchApplication {
 
     public static void main(String[] args){

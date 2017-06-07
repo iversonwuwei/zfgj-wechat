@@ -17,6 +17,10 @@
         <module>dlfc-zfw-wechat-house</module>
         <module>dlfc-zfw-wechat-unicom</module>
         <module>dlfc-zfw-wechat-validate</module>
+        <module>dlfc-zfw-wechat-order</module>
+        <module>dlfc-zfw-wechat-message</module>
+        <module>dlfc-zfw-wechat-validatecode</module>
+        <module>dlfc-zfw-wechat-feedback</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -107,6 +111,12 @@
             <groupId>com.housecenter.dlfc.framework.starter.cors</groupId>
             <artifactId>dlfc-framework-starter-cors</artifactId>
         </dependency>
+        <dependency>
+        <groupId>com.housecenter.dlfc.framework.ca.api</groupId>
+        <artifactId>dlfc-framework-ca-api</artifactId>
+        <version>1.1.0-RELEASE</version>
+    </dependency>
+
     </dependencies>
 
     <dependencyManagement>

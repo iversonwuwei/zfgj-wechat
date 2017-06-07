@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SysParamService {
 
-    List<SysParam> findByType(String type);
+    List<SysParam> findByScope(String scope);
 }

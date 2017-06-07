@@ -23,8 +23,6 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
     @Autowired
-    private PrincipalService principalService;
-    @Autowired
     private UserConvertor userConvertor;
 
 

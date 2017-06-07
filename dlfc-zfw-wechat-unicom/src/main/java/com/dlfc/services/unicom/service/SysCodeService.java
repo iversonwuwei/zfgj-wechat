@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SysCodeService {
 
-    List<SysCode> findByScope(String scope);
+    List<SysCode> findByType(String type);
 }
