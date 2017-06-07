@@ -11,7 +11,5 @@ public class UserDTO extends AbstractDTO {
 
     private String mobile;
 
-    private String password;
-
-    private String validateCode;
+    private String token;
 }

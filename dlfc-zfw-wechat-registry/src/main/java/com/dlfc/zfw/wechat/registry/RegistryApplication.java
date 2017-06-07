@@ -5,7 +5,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @SpringCloudApplication
-@EnableFeignClients
+@EnableFeignClients({"com.dlfc.zfw.wechat.registry", "com.housecenter.dlfc.framework.ca.api"})
 public class RegistryApplication {
 
     public static void main(String[] args){
