@@ -5,6 +5,7 @@ import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.dto.UserDTO;
 import com.dlfc.services.collect.entity.UsrHouCollection;
 import com.dlfc.services.collect.repository.HouseRService;
+import com.dlfc.services.collect.repository.UserInfoRService;
 import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -33,7 +34,7 @@ public class HouInfoCollectedController {
     private ValidateRepository validateRepository;
 
     @Autowired
-    private HouseRService houseRService;
+    private UserInfoRService userInfoRService;
     @Autowired
     private PrincipalService principalService;
     @Autowired
@@ -45,9 +46,9 @@ public class HouInfoCollectedController {
         try {
             AjaxResult user = principalService.principal(token);
             if (user != null){
-                userDTO = convertor.convert2Object(houseRService.findUserByUser(user.getData().toString()), UserDTO.class);
+                userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
             }
-            List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses(userDTO.getUid());
+            List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses(userDTO.getId());
             if (houCollections != null) {
                 return houInfoColletedConvertor.toResultDTO(houCollections);
             }
