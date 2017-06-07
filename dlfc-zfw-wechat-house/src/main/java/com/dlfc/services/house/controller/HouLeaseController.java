@@ -6,15 +6,20 @@ import com.dlfc.services.house.convertor.SysDescriptionConvertor;
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.dto.HouseConditionDTO;
 import com.dlfc.services.house.dto.HouseDTO;
+import com.dlfc.services.house.dto.UserDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysDescriptions;
 import com.dlfc.services.house.entity.UsrUser;
+import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.service.*;
+import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
+import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
+import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +47,14 @@ public class HouLeaseController {
     private ConditionConvertor conditionConvertor;
     @Autowired
     private SysDescriptionConvertor sysDescriptionConvertor;
+
+    @Autowired
+    private IConvertor<UserDTO> convertor;
+    @Autowired
+    private PrincipalService principalService;
+
+    @Autowired
+    private UserInfoRService userInfoRService;
 
     /**
      * 查找房源
@@ -78,13 +91,15 @@ public class HouLeaseController {
     /**
      * 我的房源
      *
-     * @param uid
+     * @param token
      * @return
      * @throws CustomRuntimeException
      */
     @RequestMapping(value = "/my", method = RequestMethod.GET)
-    public ListResultDTO<HouseDTO> myHouses(@RequestParam(required = false) String uid) throws CustomRuntimeException {
-        houLeaseInfoList = houseLeaseInfoService.findByUid(uid);
+    public ListResultDTO<HouseDTO> myHouses(@RequestHeader String token) throws CustomRuntimeException {
+        AjaxResult user = principalService.principal(token);
+        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
+        houLeaseInfoList = houseLeaseInfoService.findByUid(userDTO.getId());
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
             throw new CustomRuntimeException("", "");
         }
