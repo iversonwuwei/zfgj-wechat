@@ -5,16 +5,18 @@ import com.dlfc.services.order.convertor.OrderDetailConvertor;
 import com.dlfc.services.order.convertor.OrderListConvertor;
 import com.dlfc.services.order.dto.OrderDTO;
 import com.dlfc.services.order.dto.OrderListDTO;
+import com.dlfc.services.order.dto.UserDTO;
 import com.dlfc.services.order.entity.SysOrder;
+import com.dlfc.services.order.repository.UserInfoRService;
 import com.dlfc.services.order.service.SysOrderService;
+import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
+import com.housecenter.dlfc.framework.ca.api.PrincipalService;
+import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +31,13 @@ public class OrderController {
     @Autowired
     private OrderDetailConvertor orderDetailConvertor;
 
+    @Autowired
+    private UserInfoRService userInfoRService;
+    @Autowired
+    private IConvertor<UserDTO> convertor;
+    @Autowired
+    private PrincipalService principalService;
+
 
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
     public ResultDTO<OrderDTO> createOrder(@RequestParam String lid) throws CustomRuntimeException {
@@ -40,8 +49,10 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ListResultDTO<OrderListDTO> orderList() throws CustomRuntimeException {
-        List<SysOrder> sysOrders = sysOrderService.findOrders("0bd68f142f324be59697e14f1e630205");
+    public ListResultDTO<OrderListDTO> orderList(@RequestHeader String token) throws CustomRuntimeException {
+        AjaxResult user = principalService.principal(token);
+        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()),UserDTO.class);
+        List<SysOrder> sysOrders = sysOrderService.findOrders(userDTO.getId());
         if (sysOrders == null){
             throw new CustomRuntimeException("","");
         }
