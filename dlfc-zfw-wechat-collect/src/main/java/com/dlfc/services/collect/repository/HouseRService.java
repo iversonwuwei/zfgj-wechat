@@ -16,4 +16,7 @@ public interface HouseRService {
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findById", method = RequestMethod.GET)
     String getLesseeById(@RequestParam(name = "id") String id);
 
+    @RequestMapping(value = "/wc/datas/usrUser/findByUser", method = RequestMethod.GET)
+    String findUserByUser(@RequestParam(name = "user") String user);
+
 }

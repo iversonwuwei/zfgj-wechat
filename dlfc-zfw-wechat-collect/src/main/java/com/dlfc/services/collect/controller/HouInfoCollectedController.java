@@ -2,18 +2,21 @@ package com.dlfc.services.collect.controller;
 
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
+import com.dlfc.services.collect.dto.UserDTO;
 import com.dlfc.services.collect.entity.UsrHouCollection;
+import com.dlfc.services.collect.repository.HouseRService;
 import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
+import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
+import com.housecenter.dlfc.framework.ca.api.PrincipalService;
+import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,11 +32,27 @@ public class HouInfoCollectedController {
     @Autowired
     private ValidateRepository validateRepository;
 
+    @Autowired
+    private HouseRService houseRService;
+    @Autowired
+    private PrincipalService principalService;
+    @Autowired
+    private IConvertor<UserDTO> convertor;
+
     @RequestMapping(value = "/collected", method = RequestMethod.GET)
-    public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList() throws CustomRuntimeException {
-        List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses("0bd68f142f324be59697e14f1e630205");
-        if (houCollections != null) {
-            return houInfoColletedConvertor.toResultDTO(houCollections);
+    public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList(@RequestHeader String token) throws CustomRuntimeException {
+        UserDTO userDTO = null;
+        try {
+            AjaxResult user = principalService.principal(token);
+            if (user != null){
+                userDTO = convertor.convert2Object(houseRService.findUserByUser(user.getData().toString()), UserDTO.class);
+            }
+            List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses(userDTO.getUid());
+            if (houCollections != null) {
+                return houInfoColletedConvertor.toResultDTO(houCollections);
+            }
+        }catch(Exception e){
+            return null;
         }
         return null;
     }
