@@ -23,14 +23,29 @@ public class HouseDTO extends AbstractDTO {
     private String desc;
 
     /**
-     * 房源户型
+     * 房源户型（室）
      */
-    private String layout;
+    private String layoutRoom;
 
     /**
-     * 付款方式
+     * 房源户型（厅）
      */
-    private String rentType;
+    private String layoutHall;
+
+    /**
+     * 房源户型（卫）
+     */
+    private String layoutToilet;
+
+    /**
+     * 付款方式（押）
+     */
+    private String depositType;
+
+    /**
+     * 付款方式（付）
+     */
+    private String paymentType;
 
     /**
      * 主卧等（上哪去拿？？？）
@@ -68,9 +83,14 @@ public class HouseDTO extends AbstractDTO {
     private String orientation;
 
     /**
-     * 楼层
+     * 总楼层
      */
-    private String floor;
+    private String sumFloor;
+
+    /**
+     * 住楼层
+     */
+    private String liveFloor;
 
     /**
      * 配套设施
@@ -101,6 +121,7 @@ public class HouseDTO extends AbstractDTO {
      * 审核状态
      */
     private Integer auditStatus;
+
     /**
      * 期限要求
      */
@@ -122,9 +143,24 @@ public class HouseDTO extends AbstractDTO {
     private String otherDcpt;
 
     /**
-     * 商圈
+     * 商圈（区）
      */
-    private String district;
+    private String districtArea;
+
+    /**
+     * 商圈名区）
+     */
+    private String districtAreaName;
+
+    /**
+     * 商圈（商圈）
+     */
+    private String districtTrade;
+
+    /**
+     * 商圈名（商圈）
+     */
+    private String districtTradeName;
 
     /**
      * 小区名称
