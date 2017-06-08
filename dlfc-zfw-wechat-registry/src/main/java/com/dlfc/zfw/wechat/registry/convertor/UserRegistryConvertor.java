@@ -6,10 +6,12 @@ import com.dlfc.zfw.wechat.registry.enums.PasswordLevelEnum;
 import com.dlfc.zfw.wechat.registry.service.EncryptService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by K on 2017/6/8.
  */
+@Service
 public class UserRegistryConvertor extends AbstractConvertor<UsrUser, UserVDTO> {
 
     @Autowired
@@ -24,7 +26,7 @@ public class UserRegistryConvertor extends AbstractConvertor<UsrUser, UserVDTO> 
             model.setUsername(encryptService.generateUsername(dto.getMobile()));
             model.setPasswordLevel(Short.valueOf(PasswordLevelEnum.LEVEL_LOW.getValue()));
         }
-        return null;
+        return model;
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.dlfc.zfw.wechat.registry.dto.UserDTO;
 import com.dlfc.zfw.wechat.registry.dto.UserVDTO;
 import com.dlfc.zfw.wechat.registry.entity.SysMobileCapcha;
 import com.dlfc.zfw.wechat.registry.entity.UsrUser;
+import com.dlfc.zfw.wechat.registry.service.PasswordChangeService;
 import com.dlfc.zfw.wechat.registry.service.RegistryService;
 import com.dlfc.zfw.wechat.registry.service.VerCodeService;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
@@ -42,6 +43,8 @@ public class LoginController {
     private SysMobileCapchaConvertor sysMobileCapchaConvertor;
     @Autowired
     private UserRegistryConvertor userRegistryConvertor;
+    @Autowired
+    private PasswordChangeService<UserVDTO> passwordChangeService;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -69,8 +72,18 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/forget", method = RequestMethod.POST)
-    public ResultDTO<Void> forget(@RequestBody UserDTO userDTO) {
-        return ResultDTO.success();
+    public ResultDTO<Void> forget(@RequestBody UserVDTO userVDTO) {
+        SysMobileCapcha sysMobileCapcha = sysMobileCapchaConvertor.toModel(userVDTO);
+        result = verCodeService.validate(sysMobileCapcha);
+        if (StringUtils.isNotEmpty(result)) {
+            return ResultDTO.failure(new ResultError(result, null));
+        }
+        //UsrUser usrUser = userRegistryConvertor.toModel(userVDTO);
+        String id = (String) passwordChangeService.change(userVDTO);
+        if (id != null){
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
     }
 
 }
