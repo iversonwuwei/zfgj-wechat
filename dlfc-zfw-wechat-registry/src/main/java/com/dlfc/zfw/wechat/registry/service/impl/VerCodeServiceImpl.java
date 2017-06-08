@@ -9,10 +9,12 @@ import com.dlfc.zfw.wechat.registry.repository.ValidateRService;
 import com.dlfc.zfw.wechat.registry.service.VerCodeService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class VerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
 
     private static final int TIME_LIMIT = 1800;
