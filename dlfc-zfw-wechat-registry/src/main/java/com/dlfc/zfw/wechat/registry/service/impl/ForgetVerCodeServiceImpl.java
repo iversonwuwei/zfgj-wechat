@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Service(value = "verCodeServiceImpl")
-public class VerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
+
+@Service("forgetVerCodeServiceImpl")
+public class ForgetVerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
+
 
     private static final int TIME_LIMIT = 1800;
 
@@ -25,8 +27,6 @@ public class VerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
 
     @Autowired
     private ValidateRService validateRService;
-    @Autowired
-    private RegistryRService registryRService;
     @Autowired
     private IConvertor convertor;
 
@@ -41,11 +41,6 @@ public class VerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
         int seconds = DateUtils.getSecondBetweenDate(entity.getCreateTime(), new Date());
         if (seconds > TIME_LIMIT) {
             return "验证码已失效，请重新发送";
-        }
-        result = registryRService.findByMobile(sysMobileCapcha.getMobile());
-        UsrUser user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
-        if (null != user && StringUtils.isNotEmpty(user.getId())) {
-            return "手机号已被使用且通过身份认证！如有需要请联系客服！";
         }
         return null;
     }
