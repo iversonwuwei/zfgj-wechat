@@ -10,13 +10,14 @@ import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.framework.sms.SMSFacet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by K on 2017/6/7.
  */
-
+@Transactional
 @Service
 public class VerCodeServiceImpl implements VerCodeService {
 

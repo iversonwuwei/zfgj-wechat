@@ -5,12 +5,11 @@ import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/ww/codes")
 public class VerCodeController {
 
     private static final String OVER_COUNT = "该手机号码已超过当日提交次数，请明天再试或更换手机号码";

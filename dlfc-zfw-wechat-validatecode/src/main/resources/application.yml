@@ -9,3 +9,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
+
+dlfc:
+  jdbc:
+    slave:
+      url: jdbc:mysql://10.32.156.86:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+    master:
+      url: jdbc:mysql://10.32.156.86:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
