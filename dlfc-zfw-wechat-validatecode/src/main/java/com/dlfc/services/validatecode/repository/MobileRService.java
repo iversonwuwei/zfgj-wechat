@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("dlfc-datacenter-system")
 public interface MobileRService {
 
-    @RequestMapping(value = "/findByMobileAndDomain", method = RequestMethod.GET)
-    String findSysMobileCapchaByMobileAndDomain(@RequestParam(name = "mobile") String phone,
+    @RequestMapping(value = "/wc/datas/sysMobileCapcha/findByMobileAndDomain", method = RequestMethod.GET)
+    String findSysMobileCapchaByMobileAndDomain(@RequestParam(name = "mobile") String mobile,
                                                 @RequestParam(name = "domain") String domain);
 }
