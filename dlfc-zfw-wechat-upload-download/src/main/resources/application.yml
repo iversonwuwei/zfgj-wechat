@@ -1,0 +1,11 @@
+server:
+  port: 28199
+
+spring:
+  application:
+    name: dlfc-zfw-validate-services
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
