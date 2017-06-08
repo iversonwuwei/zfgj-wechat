@@ -11,6 +11,20 @@
 
     <artifactId>dlfc-zfw-wechat-validatecode</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.housecenter.dlfc.framework.sms</groupId>
+            <artifactId>dlfc-framework-sms</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.housecenter.dlfc.framework.starter.data</groupId>
+                    <artifactId>dlfc-framework-starter-data</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
