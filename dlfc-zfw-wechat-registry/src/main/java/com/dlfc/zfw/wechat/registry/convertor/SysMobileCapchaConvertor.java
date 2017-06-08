@@ -20,8 +20,6 @@ public class SysMobileCapchaConvertor extends AbstractConvertor<SysMobileCapcha,
             model.setMobile(dto.getMobile());
             model.setDeviceId(dto.getDeviceId());
             model.setVerCode(dto.getVerCode());
-            model.setDomain(MsgEnums.REGESIT.getValue());
-            model.setTemplateId(TemplateNoEnum.REGESIT_NO.getValue());
         }
         return model;
     }

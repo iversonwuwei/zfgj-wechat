@@ -9,6 +9,8 @@ import com.dlfc.zfw.wechat.registry.dto.UserDTO;
 import com.dlfc.zfw.wechat.registry.dto.UserVDTO;
 import com.dlfc.zfw.wechat.registry.entity.SysMobileCapcha;
 import com.dlfc.zfw.wechat.registry.entity.UsrUser;
+import com.dlfc.zfw.wechat.registry.enums.MsgEnums;
+import com.dlfc.zfw.wechat.registry.enums.TemplateNoEnum;
 import com.dlfc.zfw.wechat.registry.service.PasswordChangeService;
 import com.dlfc.zfw.wechat.registry.service.RegistryService;
 import com.dlfc.zfw.wechat.registry.service.VerCodeService;
@@ -19,6 +21,7 @@ import com.housecenter.dlfc.framework.ca.api.model.LoginUser;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +37,11 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
     @Autowired
+    @Qualifier(value = "verCodeServiceImpl")
     private VerCodeService verCodeService;
+    @Autowired
+    @Qualifier(value = "forgetVerCodeServiceImpl")
+    private VerCodeService forgetVerCodeService;
     @Autowired
     private RegistryService registryService;
     @Autowired
@@ -62,6 +69,8 @@ public class LoginController {
     @RequestMapping(value = "/registry", method = RequestMethod.POST)
     public ResultDTO<Void> registry(@RequestBody UserVDTO userVDTO) {
         SysMobileCapcha sysMobileCapcha = sysMobileCapchaConvertor.toModel(userVDTO);
+        sysMobileCapcha.setDomain(MsgEnums.REGESIT.getValue());
+        sysMobileCapcha.setTemplateId(TemplateNoEnum.REGESIT_NO.getValue());
         result = verCodeService.validate(sysMobileCapcha);
         if (StringUtils.isNotEmpty(result)) {
             return ResultDTO.failure(new ResultError(result, null));
@@ -74,7 +83,9 @@ public class LoginController {
     @RequestMapping(value = "/forget", method = RequestMethod.POST)
     public ResultDTO<Void> forget(@RequestBody UserVDTO userVDTO) {
         SysMobileCapcha sysMobileCapcha = sysMobileCapchaConvertor.toModel(userVDTO);
-        result = verCodeService.validate(sysMobileCapcha);
+        sysMobileCapcha.setDomain(MsgEnums.FINDPWDCHECKPHONE.getValue());
+        sysMobileCapcha.setTemplateId(TemplateNoEnum.FINDPWDCHECKPHONE_NO.getValue());
+        result = forgetVerCodeService.validate(sysMobileCapcha);
         if (StringUtils.isNotEmpty(result)) {
             return ResultDTO.failure(new ResultError(result, null));
         }
