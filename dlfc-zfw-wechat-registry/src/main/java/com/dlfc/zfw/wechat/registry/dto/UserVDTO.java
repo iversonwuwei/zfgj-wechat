@@ -6,16 +6,21 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
-public class UserVDTO extends AbstractDTO{
+public class UserVDTO extends AbstractDTO {
 
-    @Length(max = 11, min = 11,message = "用户名过长")
-    private String username;
+    @NotNull(message = "手机号码不能为空")
+    @Length(max = 11, min = 11, message = "手机号位数不正确")
+    private String mobile;
 
-    @Length(max = 50, min = 5)
+    @NotNull(message = "密码不能为空")
+    @Length(max = 18, min = 8, message = "密码限8-18位")
     private String password;
 
+    @NotNull(message = "验证码不能为空")
     private String verCode;
 
     private String deviceId;

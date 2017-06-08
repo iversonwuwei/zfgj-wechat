@@ -11,6 +11,14 @@
 
     <artifactId>dlfc-zfw-wechat-registry</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.housecenter.dlfc.common</groupId>
+            <artifactId>dlfc-common</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
