@@ -22,4 +22,7 @@ public interface RepositoryService {
 
     @RequestMapping(value = "/wc/datas/sysSurFacisContrast/findAll", method = RequestMethod.GET)
     String findSysSurFacisContrastAll();
+
+    @RequestMapping(value = "/wc/datas/sysTradeAreas/findAll", method = RequestMethod.GET)
+    String findSysTradeAreasAll();
 }

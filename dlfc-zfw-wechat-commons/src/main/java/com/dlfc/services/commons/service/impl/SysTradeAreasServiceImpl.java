@@ -30,6 +30,7 @@ public class SysTradeAreasServiceImpl implements DataService<SysTradeAreas> {
 
     @Override
     public List<SysTradeAreas> findAll() {
-        return null;
+        result = repositoryService.findSysTradeAreasAll();
+        return convertor.convert2Objects(result, SysTradeAreas.class);
     }
 }

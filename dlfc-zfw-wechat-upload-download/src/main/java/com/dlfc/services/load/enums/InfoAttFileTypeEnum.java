@@ -16,7 +16,7 @@
 *  Date          Author         Version        Discription
 *  2015年11月27日        Sun.Zhi        1.0             <修改原因描述>
 */
-package com.dlfc.services.house.enums;
+package com.dlfc.services.load.enums;
 
 import org.apache.commons.lang.enums.ValuedEnum;
 

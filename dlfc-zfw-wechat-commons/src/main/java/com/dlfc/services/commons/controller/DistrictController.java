@@ -42,4 +42,10 @@ public class DistrictController {
         List<SysTradeAreas> sysTradeAreasList = sysTradeAreasService.findBy(areaId);
         return sysTradeAreasConvertor.toResultDTO(sysTradeAreasList);
     }
+
+    @RequestMapping(value = "/allTrades", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> allTrades() throws CustomRuntimeException {
+        List<SysTradeAreas> sysTradeAreasList = sysTradeAreasService.findAll();
+        return sysTradeAreasConvertor.toResultDTO(sysTradeAreasList);
+    }
 }

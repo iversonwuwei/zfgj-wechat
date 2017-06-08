@@ -21,7 +21,7 @@ public class SysCodeConvertor extends AbstractConvertor<SysCode, CodeNameDTO> {
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());
-            dto.setCode(model.getCode());
+            dto.setValue(model.getCode());
             dto.setName(model.getName());
         }
         return dto;

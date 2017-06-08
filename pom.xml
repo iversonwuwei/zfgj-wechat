@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.housecenter.dlfc.zfw</groupId>
-	<artifactId>dlfc-zfw-wechat</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>com.housecenter.dlfc.zfw</groupId>
+    <artifactId>dlfc-zfw-wechat</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>dlfc-zfw-wechat-registry</module>
         <module>dlfc-zfw-wechat-upload-download</module>
@@ -24,51 +24,51 @@
     </modules>
     <packaging>pom</packaging>
 
-	<name>dlfc-zfw-wechat</name>
-	<description>Demo project for Spring Boot</description>
+    <name>dlfc-zfw-wechat</name>
+    <description>Demo project for Spring Boot</description>
 
-	<!--<parent>
+    <!--<parent>
         <groupId>com.housecenter.dlfc</groupId>
         <artifactId>dlfc</artifactId>
         <version>0.0.1-RELEASE</version>
     </parent>-->
 
-	<properties>
+    <properties>
         <spring.boot.plugin>1.5.1.RELEASE</spring.boot.plugin>
         <framework.version>0.0.3-SNAPSHOT</framework.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
-	</properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.7</java.version>
+    </properties>
 
-	<distributionManagement>
-		<repository>
-			<id>dlfc-release</id>
-			<name>dlfc release Respoitories</name>
-			<url>http://10.32.156.187:9091/nexus/content/repositories/dlfc-release/</url>
-		</repository>
-		<snapshotRepository>
-			<id>dlfc-snapshots</id>
-			<name>dlfc snapshots repo</name>
-			<url>http://10.32.156.187:9091/nexus/content/repositories/dlfc-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>dlfc-release</id>
+            <name>dlfc release Respoitories</name>
+            <url>http://10.32.156.187:9091/nexus/content/repositories/dlfc-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>dlfc-snapshots</id>
+            <name>dlfc snapshots repo</name>
+            <url>http://10.32.156.187:9091/nexus/content/repositories/dlfc-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.housecenter.framework.commons</groupId>
             <artifactId>dlfc-commons</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
@@ -112,11 +112,10 @@
             <artifactId>dlfc-framework-starter-cors</artifactId>
         </dependency>
         <dependency>
-        <groupId>com.housecenter.dlfc.framework.ca.api</groupId>
-        <artifactId>dlfc-framework-ca-api</artifactId>
-        <version>1.1.0-RELEASE</version>
-    </dependency>
-
+            <groupId>com.housecenter.dlfc.framework.ca.api</groupId>
+            <artifactId>dlfc-framework-ca-api</artifactId>
+            <version>1.1.0-RELEASE</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -139,8 +138,8 @@
         </dependencies>
     </dependencyManagement>
 
-	<build>
-		<plugins>
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -203,5 +202,5 @@
                 </configuration>
             </plugin>
         </plugins>
-	</build>
+    </build>
 </project>
