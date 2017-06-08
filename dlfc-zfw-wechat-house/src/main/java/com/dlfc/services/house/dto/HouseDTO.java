@@ -125,7 +125,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 期限要求
      */
-    private String TermRequirement;
+    private String termRequirement;
 
     /**
      * 租住限制
