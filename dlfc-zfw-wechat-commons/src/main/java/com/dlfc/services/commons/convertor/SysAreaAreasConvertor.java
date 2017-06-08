@@ -21,8 +21,9 @@ public class SysAreaAreasConvertor extends AbstractConvertor<SysAreaAreas, CodeN
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());
-            dto.setCode(model.getAreaId());
+            dto.setValue(model.getAreaId());
             dto.setName(model.getArea());
+            dto.setParent("0");
         }
         return dto;
     }

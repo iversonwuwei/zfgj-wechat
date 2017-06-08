@@ -21,8 +21,9 @@ public class SysTradeAreasConvertor extends AbstractConvertor<SysTradeAreas, Cod
         CodeNameDTO dto = new CodeNameDTO();
         if (null != model) {
             dto.setId(model.getId());
-            dto.setCode(model.getTradeId());
+            dto.setValue(model.getTradeId());
             dto.setName(model.getName());
+            dto.setParent(model.getParentId());
         }
         return dto;
     }

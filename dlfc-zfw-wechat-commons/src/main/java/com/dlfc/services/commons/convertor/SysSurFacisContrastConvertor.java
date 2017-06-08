@@ -20,7 +20,7 @@ public class SysSurFacisContrastConvertor extends AbstractConvertor<SysSurFacisC
     public CodeNameDTO toDTO(SysSurFacisContrast model, Object... objects) {
         CodeNameDTO dto = new CodeNameDTO();
         dto.setId(model.getId());
-        dto.setCode(model.getCode());
+        dto.setValue(model.getCode());
         dto.setName(model.getName());
         return dto;
     }

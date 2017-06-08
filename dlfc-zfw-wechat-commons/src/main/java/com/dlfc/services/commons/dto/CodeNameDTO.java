@@ -12,7 +12,9 @@ import lombok.Setter;
 @Setter
 public class CodeNameDTO extends AbstractDTO {
 
-    private String code;
+    private String parent;
+
+    private String value;
 
     private String name;
 }

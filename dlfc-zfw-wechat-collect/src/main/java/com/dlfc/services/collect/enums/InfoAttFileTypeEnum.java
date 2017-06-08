@@ -36,6 +36,7 @@ import java.util.Map;
  */
 public class InfoAttFileTypeEnum extends ValuedEnum {
 
+
 	/**
 	 * 
 	 */
@@ -78,14 +79,18 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 * 下载承诺书PDF
 	 */
 	private static final int DW_COMMITBOOK_PDF = 9;
-	/**
-	 * 房源图片
-	 */
+	//房源图片
 	private static final int HOUSE_PIC = 11;
-	/**
-	 * 房间图片
-	 */
+	//房间图片
 	private static final int ROOM_PIC = 12;
+	/**
+	 * 广告房源图片
+	 */
+	private static final int AD_HOUSE_PIC = 13;
+	/**
+	 * 广告媒体图片
+	 */
+	private static final int AD_MEDIA_PIC = 14;
 	/**
 	 * 意见反馈图片
 	 */
@@ -118,6 +123,19 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 * 治安责任保证书
 	 */
 	private static final int SECURITY_BOOK = 22;
+	
+	/**
+	 * 宽带业务图片
+	 */
+	private static final int BROADBAND_PIC = 23;
+	/**
+	 * 呼入录音
+	 */
+	private static final int IN_AUDIO = 24;
+	/**
+	 * 呼出录音
+	 */
+	private static final int OUT_AUDIO = 25;
 	/**
 	 * 租金分期房主协议
 	 */
@@ -126,6 +144,18 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 * 租金分期房客协议
 	 */
 	private static final int STAGES_LESSEE = 27;
+	/**
+	 * 备案服务房客身份证图片
+	 */
+	private static final int BAZX_TENANT_ID = 28;
+	/**
+	 * 备案服务房主身份证图片
+	 */
+	private static final int BAZX_OWNER_ID = 29;
+	/**
+	 * 备案服务产权图片
+	 */
+	private static final int BAZX_PROPERTY = 30;
 	
 	private InfoAttFileTypeEnum(String name, int value) {
 		super(name, value);
@@ -163,31 +193,20 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 * 下载押金分配协议PDF
 	 */
 	public static final InfoAttFileTypeEnum DW_DEPO_DIST_PDF_ENUM = new InfoAttFileTypeEnum("下载押金分配协议PDF", DW_DEPO_DIST_PDF);
-	/**
-	 * 下载承诺书PDF
-	 */
-	public static final InfoAttFileTypeEnum DW_COMMITBOOK_PDF_ENUM = new InfoAttFileTypeEnum("下载承诺书PDF", DW_COMMITBOOK_PDF);
 	
 	public static final InfoAttFileTypeEnum HOUSE_PIC_ENUM = new InfoAttFileTypeEnum("房源图片", HOUSE_PIC);
 	
 	public static final InfoAttFileTypeEnum ROOM_PIC_ENUM = new InfoAttFileTypeEnum("房间图片", ROOM_PIC);
 	
-	/**
-	 * 意见反馈图片
-	 */
+	public static final InfoAttFileTypeEnum AD_HOUSE_PIC_ENUM = new InfoAttFileTypeEnum("广告房源图片", AD_HOUSE_PIC);
+	
+	public static final InfoAttFileTypeEnum AD_MEDIA_PIC_ENUM = new InfoAttFileTypeEnum("广告媒体图片", AD_MEDIA_PIC);
+	
 	public static final InfoAttFileTypeEnum FEEDBACK_PIC_ENUM = new InfoAttFileTypeEnum("意见反馈图片", FEEDBACK_PIC);
-	/**
-	 * 经纪人资格认证
-	 */
-	public static final InfoAttFileTypeEnum EMP_CERT_CARD_ENUM = new InfoAttFileTypeEnum("经纪人资格认证图片", EMP_CERT_CARD);
-	/**
-	 * 用户身份认证证件图片
-	 */
-	public static final InfoAttFileTypeEnum USER_ID_CARD_ENUM = new InfoAttFileTypeEnum("用户身份认证证件图片", USER_ID_CARD);
-	/**
-	 * 用户证件图片
-	 */
-	public static final InfoAttFileTypeEnum USER_CERT_CARD_ENUM = new InfoAttFileTypeEnum("用户证件图片", USER_CERT_CARD);
+	
+	public static final InfoAttFileTypeEnum IN_AUDIO_ENUM = new InfoAttFileTypeEnum("呼入录音", IN_AUDIO);
+	
+	public static final InfoAttFileTypeEnum OUT_AUDIO_ENUM = new InfoAttFileTypeEnum("呼出录音", OUT_AUDIO);
 	/**
 	 * 头像图片
 	 */
@@ -201,6 +220,38 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 */
 	public static final InfoAttFileTypeEnum EMP_ERWEIMA_ENUM = new InfoAttFileTypeEnum("经纪人二维码", EMP_ERWEIMA);
 	/**
+	 * 宽带业务图片
+	 */
+	public static final InfoAttFileTypeEnum BROADBAND_PIC_ENUM = new InfoAttFileTypeEnum("宽带业务图片", BROADBAND_PIC);
+	/**
+	 * 经纪人资格认证
+	 */
+	public static final InfoAttFileTypeEnum EMP_CERT_CARD_ENUM = new InfoAttFileTypeEnum("经纪人资格认证图片", EMP_CERT_CARD);
+	/**
+	 * 用户身份认证证件图片
+	 */
+	public static final InfoAttFileTypeEnum USER_ID_CARD_ENUM = new InfoAttFileTypeEnum("用户身份认证证件图片", USER_ID_CARD);
+	/**
+	 * 用户证件图片
+	 */
+	public static final InfoAttFileTypeEnum USER_CERT_CARD_ENUM = new InfoAttFileTypeEnum("用户证件图片", USER_CERT_CARD);
+	/**
+	 * 备案服务房客身份证图片
+	 */
+	public static final InfoAttFileTypeEnum BAZX_TENANT_ID_ENUM = new InfoAttFileTypeEnum("备案服务房客身份证图片",BAZX_TENANT_ID);
+	/**
+	 * 备案服务房主身份证图片
+	 */
+	public static final InfoAttFileTypeEnum BAZX_OWNER_ID_ENUM = new InfoAttFileTypeEnum("备案服务房主身份证图片",BAZX_OWNER_ID);
+	/**
+	 * 备案服务产权图片
+	 */
+	public static final InfoAttFileTypeEnum BAZX_PROPERTY_ENUM = new InfoAttFileTypeEnum("备案服务产权图片",BAZX_PROPERTY);
+	/**
+	 * 下载承诺书PDF
+	 */
+	public static final InfoAttFileTypeEnum DW_COMMITBOOK_PDF_ENUM = new InfoAttFileTypeEnum("下载承诺书PDF", DW_COMMITBOOK_PDF);
+	/**
 	 * 治安责任保证书图片
 	 */
 	public static final InfoAttFileTypeEnum SECURITY_BOOK_ENUM = new InfoAttFileTypeEnum("治安责任保证书", SECURITY_BOOK);
@@ -213,7 +264,7 @@ public class InfoAttFileTypeEnum extends ValuedEnum {
 	 */
 	public static final InfoAttFileTypeEnum STAGES_LESSEE_ENUM = new InfoAttFileTypeEnum("租金分期房客协议图片", STAGES_LESSEE);
 	
-	
+
 	public static InfoAttFileTypeEnum getEnum(int temp) {
 		return (InfoAttFileTypeEnum) getEnum(InfoAttFileTypeEnum.class, temp);
 	}
