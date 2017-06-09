@@ -23,6 +23,9 @@ public class SysInfoServiceImpl implements SysInfoAttService {
 
         String sysInfoAtt = sysInfoAttRService.findByLidAndFileType(lid, InfoAttFileTypeEnum.AVATAR_ENUM.getValue());
         List<SysInfoAtt> sysInfoAtts = convertor.convert2Objects(sysInfoAtt, SysInfoAtt.class);
+        if (sysInfoAtts.isEmpty()){
+            return null;
+        }
         return sysInfoAtts.get(0);
     }
 }
