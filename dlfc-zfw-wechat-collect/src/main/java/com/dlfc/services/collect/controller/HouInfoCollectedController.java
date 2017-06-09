@@ -69,11 +69,16 @@ public class HouInfoCollectedController {
     }
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
-    public ResultDTO<Void> collect(@RequestParam String hid){
+    public ResultDTO<Void> collect(@RequestParam String hid, @RequestHeader String token){
         String test = validateRepository.validateHouseBy(hid);
+        UserDTO userDTO = null;
+        AjaxResult user = principalService.principal(token);
+        if (user != null){
+            userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
+        }
         if (test.contains("success")){
             UsrHouCollection usrHouCollection = new UsrHouCollection();
-            usrHouCollection.setUid("3c007a5512804d5183d737b4c9e5b26a");
+            usrHouCollection.setUid(userDTO.getId());
             usrHouCollection.setHid(hid);
             if (houCollectionService.collect(usrHouCollection)){
                 return ResultDTO.success();
