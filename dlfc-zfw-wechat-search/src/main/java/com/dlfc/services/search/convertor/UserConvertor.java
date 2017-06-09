@@ -29,6 +29,7 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
     @Override
     public UserDTO toDTO(UserEntity userEntity, Object... strings) {
         UserDTO userDTO = new UserDTO();
+        Person person = null;
         userDTO.setId(userEntity.getId());
         userDTO.setUid(userEntity.getPerId());
         userDTO.setPhoneNumber(userEntity.getMobile());
@@ -36,9 +37,13 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
         sysInfoAtt = sysInfoAttService.findByLidAndFileType(userEntity.getId());
         if (sysInfoAtt != null){
             userDTO.setImgUrl(sysInfoAtt.getFilePath());
+        }else {
+            userDTO.setImgUrl("/logo/underLogo.png");
         }
-        Person person = sysPersonService.findById(userEntity.getPerId());
-        userDTO.setRealName(person.getName());
+        if (userEntity.getPerId() != null) {
+            person = sysPersonService.findById(userEntity.getPerId());
+            userDTO.setRealName(person.getName());
+        }
         return userDTO;
     }
 }
