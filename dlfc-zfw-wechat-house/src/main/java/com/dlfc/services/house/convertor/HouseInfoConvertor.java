@@ -29,17 +29,17 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     public HouLeaseInfo toModel(HouseDTO dto) {
         HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
-        model.setDistrict(dto.getDistrictArea() + "," + dto.getDistrictTrade());
+        model.setDistrict(generate(dto.getDistrictArea(), dto.getDistrictTrade()));
         model.setDistrictName(dto.getDistrictAreaName() + StringUtils.SPACE + dto.getDistrictTradeName());
         model.setVillageName(dto.getVillageName());
         model.setRentalArea(dto.getHouseArea());
-        model.setApartmentLayout(dto.getLayoutRoom() + "," + dto.getLayoutHall() + "," + dto.getLayoutToilet());
+        model.setApartmentLayout(generate(dto.getLayoutRoom(), dto.getLayoutHall(), dto.getLayoutToilet()));
         model.setOrientation(dto.getOrientation());
-        model.setFloor(dto.getLiveFloor() + "," + dto.getSumFloor());
+        model.setFloor(generate(dto.getLiveFloor(), dto.getSumFloor()));
         model.setLeaseMode(dto.getLeaseMode());
         model.setRequirement(dto.getTermRequirement());
         model.setRent(dto.getPrice());
-        model.setRentType(dto.getDepositType() + "," + dto.getPaymentType());
+        model.setRentType(generate(dto.getDepositType(), dto.getPaymentType()));
         model.setUid(dto.getUid());
         model.setReleaseStatus(dto.getHouStatus());
         model.setAuditStatus(AuditStatusEnum.UNAUDITED_ENUM.getValue());
@@ -93,5 +93,19 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             return array[i];
         }
         return null;
+    }
+
+    private String generate(String... array) {
+        StringBuffer buffer = new StringBuffer();
+        if (null != array && array.length > 0) {
+            for (String str : array) {
+                if (StringUtils.isNotEmpty(str)) {
+                    buffer.append(str);
+                }
+                buffer.append(",");
+            }
+            buffer.deleteCharAt(array.length - 1);
+        }
+        return buffer.toString();
     }
 }
