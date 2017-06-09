@@ -130,11 +130,12 @@ public class HouLeaseController {
      * @throws CustomRuntimeException
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResultDTO<String> details(@RequestBody HouseDTO dto) throws CustomRuntimeException {
-        UsrUser user = new UsrUser();
-        dto.setUid(user.getId());
+    public ResultDTO<String> details(@RequestBody HouseDTO dto, @RequestHeader String token) throws CustomRuntimeException {
+        AjaxResult user = principalService.principal(token);
+        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
+        dto.setUid(userDTO.getId());
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
-        String id = houseLeaseInfoService.save(houLeaseInfo, user);
+        String id = houseLeaseInfoService.save(houLeaseInfo);
         if (StringUtils.isEmpty(id)) {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);

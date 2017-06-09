@@ -19,5 +19,5 @@ public interface HouseLeaseInfoService {
 
     List<HouLeaseInfo> findByParams(HouLeaseInfoDTO dto);
 
-    String save(HouLeaseInfo houLeaseInfo, UsrUser user);
+    String save(HouLeaseInfo houLeaseInfo);
 }

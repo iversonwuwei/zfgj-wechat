@@ -78,9 +78,8 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     }
 
     @Override
-    public String save(HouLeaseInfo houLeaseInfo,
-                       UsrUser user) {
-        return lesseeRService.save(houLeaseInfo, user);
+    public String save(HouLeaseInfo houLeaseInfo) {
+        return lesseeRService.save(houLeaseInfo);
     }
 
 }
