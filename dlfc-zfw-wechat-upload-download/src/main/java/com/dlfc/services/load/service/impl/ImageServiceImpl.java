@@ -5,7 +5,6 @@ import com.dlfc.admin.common.utils.PropertyUtils;
 import com.dlfc.services.load.service.ImageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,8 +18,7 @@ import java.math.BigDecimal;
  * Created by K on 2017/5/5.
  */
 
-@Transactional
-@Service("houseForW")
+@Service
 public class ImageServiceImpl implements ImageService {
 
     /**
@@ -45,10 +43,6 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public String generateLeaseImage(String srcFilePath, int wmType) throws IOException {
-
-        String parentDirName = "house/" + DateUtils.getDate(DATE_FORMAT);
-        String filePath =
-                PropertyUtils.getSysVal("upload.file.temporary.directory") + parentDirName + "/" + srcFilePath;
         String dbFilePath = PropertyUtils.getSysVal("image.lease.url")
                 + DateUtils.getDate(DATE_FORMAT) + "/" + getFileNameWithoutExtension(srcFilePath);
         String destFilePath = PropertyUtils.getSysVal("upload.file.real.directory") + dbFilePath;
@@ -59,7 +53,7 @@ public class ImageServiceImpl implements ImageService {
             destFolder.mkdirs();
         }
         // 读入文件
-        File file = new File(filePath).getAbsoluteFile();
+        File file = new File(srcFilePath).getAbsoluteFile();
 
         Image img = ImageIO.read(file);
         // 取得图片宽度
@@ -135,20 +129,23 @@ public class ImageServiceImpl implements ImageService {
     /**
      * 获取没有扩展名的文件名
      *
-     * @param fileName 文件名
+     * @param filepath 文件路径
      * @return 没有扩展名的文件名
      */
-    private String getFileNameWithoutExtension(String fileName) {
-        String newFileName = "";
-        if (StringUtils.isNotEmpty(fileName)) {
-            int index = fileName.lastIndexOf(".");
+    private String getFileNameWithoutExtension(String filepath) {
+        if (StringUtils.isNotEmpty(filepath)) {
+            int index;
+            index = filepath.lastIndexOf(".");
             if (index > 0) {
-                newFileName = fileName.substring(0, index);
-            } else {
-                newFileName = fileName;
+                filepath = filepath.substring(0, index);
+            }
+            filepath.replace("\\", "/");
+            index = filepath.lastIndexOf("/");
+            if (index > 0) {
+                filepath = filepath.substring(index + 1);
             }
         }
-        return newFileName;
+        return filepath;
     }
 
     public void pressImage(String targetImg, String watermarkImgFilePath) throws IOException {

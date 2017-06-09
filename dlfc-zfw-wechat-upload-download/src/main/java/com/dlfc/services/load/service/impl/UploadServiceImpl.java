@@ -1,15 +1,15 @@
 package com.dlfc.services.load.service.impl;
 
+import com.dlfc.admin.common.utils.DateUtils;
+import com.dlfc.admin.common.utils.PropertyUtils;
+import com.dlfc.admin.common.utils.StringUtils;
 import com.dlfc.services.load.common.FileUtils;
-import com.dlfc.services.load.enums.InfoAttFileTypeEnum;
 import com.dlfc.services.load.service.UploadService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.utils.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Date;
+import java.io.IOException;
 
 /**
  * Created by K on 2017/6/8.
@@ -18,49 +18,24 @@ import java.util.Date;
 @Service
 public class UploadServiceImpl implements UploadService<MultipartFile> {
 
-    private static final long UPLOAD_FILE_MAX_SIZE = 4194304;
-    private static final String UPLOAD_FILE_EXT_ALLOWED = ".png,.jpg,.jpeg,.bmp";
-    private static final String UPLOAD_FILE_REAL_DIRECTORY = "/mnt/samba/realImg";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private File file;
-    private int i;
 
     @Override
-    public String upload(MultipartFile multipartFile,
-                         int type) {
-        String dateFormat = "/" + DateUtils.formatDate(new Date(), DATE_FORMAT);
-        String filePathFix = StringUtils.EMPTY;
-        String fileName = FileUtils.generateUUID();
-        if (InfoAttFileTypeEnum.HOUSE_PIC_ENUM.getValue() == type) {
-            filePathFix = "/lea";
-            for (i = 0; i < 4; i++) {
-                if (i == 0) {
-                    fileName+="normal";
-                }
-            }
-        }
-        String path = UPLOAD_FILE_REAL_DIRECTORY + filePathFix + dateFormat;
-        file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return null;
-    }
-
-    @Override
-    public String validate(MultipartFile file,
-                           int type) {
+    public String validate(MultipartFile file) {
         if (null != file && file.getSize() > 0) {
+            // 上传文件大小限制
+            long maxSize = StringUtils.toLong(PropertyUtils.getSysVal("upload.file.max.size"));
             // 文件大小不合法
-            if (file.getSize() > UPLOAD_FILE_MAX_SIZE) {
-                return "上传文件大小不得超过" + UPLOAD_FILE_MAX_SIZE / 1048576 + "M。";
+            if (file.getSize() > maxSize) {
+                return PropertyUtils.getErrorMsg("SYS-0113", new Object[]{maxSize / 1048576});
             }
             // 上传文件扩展名限制
-            String[] extAllowedArray = UPLOAD_FILE_EXT_ALLOWED.split(",");
-            String fileRealName = file.getOriginalFilename();
+            String extAllowed = PropertyUtils.getSysVal("upload.file.ext.allowed");
+            String[] extAllowedArray = extAllowed.split(",");
             // 获得文件后缀名
-            String ext = fileRealName.substring(fileRealName.lastIndexOf(".")).toLowerCase();
+            String ext = FileUtils.getExt(file);
             boolean extFlag = false;
             for (String str : extAllowedArray) {
                 if (str.equals(ext)) {
@@ -70,12 +45,27 @@ public class UploadServiceImpl implements UploadService<MultipartFile> {
             }
             //文件后缀名不合法
             if (!extFlag) {
-                return "请上传后缀名为" + UPLOAD_FILE_EXT_ALLOWED.replace(",.", "/") + "的图片。";
+                String str = extAllowed.replace(",.", "/");
+                return PropertyUtils.getErrorMsg("SYS-0114", new Object[]{str.substring(1, str.length())});
             }
         } else {
             // 文件为空
-            return "上传文件不能为空";
+            return PropertyUtils.getErrorMsg("SYS-0115");
         }
         return null;
+    }
+
+    @Override
+    public String uploadTemp(MultipartFile multipartFile) throws IOException {
+        String tempDir = PropertyUtils.getSysVal("upload.file.temporary.directory");
+        tempDir += DateUtils.getDate(DATE_FORMAT) + "/";
+        file = new File(tempDir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String fileName = FileUtils.generateFileName(multipartFile);
+        file = new File(file.getAbsolutePath() + "/" + fileName);
+        multipartFile.transferTo(file);
+        return tempDir + "/" + fileName;
     }
 }
