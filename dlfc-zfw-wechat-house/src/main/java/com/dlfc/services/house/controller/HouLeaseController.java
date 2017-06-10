@@ -147,24 +147,28 @@ public class HouLeaseController {
         }
         if (this.isNull(dto.getAround())) {
             for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()){
+                sysSurFaciesDTO.setLid(id);
                 surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
                 sysSurFaciService.save(surFacis);
             }
         }
         if (isNull(dto.getEquips())) {
             for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()){
+                sysHouEquipsDTO.setLid(id);
                 sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
                 sysHouEquipsService.save(sysHouEquips);
             }
         }
         if (isNull(dto.getVehicles())) {
             for (SysTranfficLinesDTO sysTranfficLinesDTO : dto.getVehicles()){
+                sysTranfficLinesDTO.setLid(id);
                 sysTrafficLines = tranfficLinesConvertor.toModel(sysTranfficLinesDTO);
                 sysTrafficLinesService.save(sysTrafficLines);
             }
         }
         if (isNull(dto.getDescriptionDTOS())) {
             for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()){
+                sysDescriptionDTO.setLid(id);
                 sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
                 sysDescriptionsService.save(sysDescriptions);
             }
