@@ -156,4 +156,8 @@ public class HouseDTO extends AbstractDTO {
      * 用户ID
      */
     private String uid;
+
+    private String latitude;
+
+    private String longitude;
 }

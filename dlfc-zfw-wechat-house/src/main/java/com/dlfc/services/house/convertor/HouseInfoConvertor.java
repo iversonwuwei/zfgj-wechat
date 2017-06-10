@@ -119,6 +119,9 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         } catch (CustomRuntimeException e) {
             e.printStackTrace();
         }
+
+        dto.setLatitude(model.getLatitude());
+        dto.setLongitude(model.getLongitude());
         return dto;
     }
 
