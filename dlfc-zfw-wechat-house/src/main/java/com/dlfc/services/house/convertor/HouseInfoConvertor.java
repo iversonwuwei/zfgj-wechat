@@ -44,6 +44,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private SysTranfficLinesConvertor tranfficLinesConvertor;
     @Autowired
     private SysSurFaciesConvertor sysSurFaciesConvertor;
+    @Autowired
+    private SysDescriptionConvertor sysDescriptionConvertor;
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
@@ -110,6 +112,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setHouImg(getImgPaths(sysInfoAtts));
         dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
         try {
+            dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
             dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysHouEquipsService.findByLid(model.getId())));
             dto.setAround(sysSurFaciesConvertor.toResultDTO(sysSurFaciService.findByLid(model.getId())));
             dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));

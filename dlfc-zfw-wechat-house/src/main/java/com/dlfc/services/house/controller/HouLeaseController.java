@@ -163,9 +163,11 @@ public class HouLeaseController {
                 sysTrafficLinesService.save(sysTrafficLines);
             }
         }
-        if (isNull(dto)) {
-            sysDescriptions = sysDescriptionConvertor.toModel(dto);
-            //sysDescriptionsService.save(sysDescriptions);
+        if (isNull(dto.getDescriptionDTOS())) {
+            for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()){
+                sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
+                sysDescriptionsService.save(sysDescriptions);
+            }
         }
 
         return ResultDTO.success(id);

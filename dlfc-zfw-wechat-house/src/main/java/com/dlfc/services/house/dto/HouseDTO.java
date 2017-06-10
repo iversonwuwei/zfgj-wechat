@@ -104,19 +104,9 @@ public class HouseDTO extends AbstractDTO {
     private List<SysTranfficLinesDTO> vehicles;
 
     /**
-     * 公交地铁其它
-     */
-    private String otherVehicles;
-
-    /**
      * 周边商业
      */
     private List<SysSurFaciesDTO> around;
-
-    /**
-     * 周边商业
-     */
-    private String aroundOthers;
 
     /**
      * 发布状态
@@ -137,21 +127,6 @@ public class HouseDTO extends AbstractDTO {
      * 描述
      */
     private List<SysDescriptionDTO> descriptionDTOS;
-    /**
-     * 租住限制
-     */
-    private String liveRequirement;
-
-    /**
-     * 房主承担费用
-     */
-    private String ownerBears;
-
-    /**
-     * 其他描述
-     */
-    private String otherDcpt;
-
     /**
      * 商圈（区）
      */
