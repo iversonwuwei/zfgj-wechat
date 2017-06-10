@@ -1,12 +1,15 @@
 package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.dto.HouseDTO;
+import com.dlfc.services.house.dto.SysHouEquipsDTO;
+import com.dlfc.services.house.dto.SysSurFaciesDTO;
+import com.dlfc.services.house.dto.SysTranfficLinesDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysInfoAtt;
 import com.dlfc.services.house.enums.AuditStatusEnum;
-import com.dlfc.services.house.service.HouCollectionService;
-import com.dlfc.services.house.service.SysInfoAttService;
+import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
+import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,23 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private SysInfoAttService sysInfoAttService;
     @Autowired
     private HouCollectionService houCollectionService;
+
+    @Autowired
+    private SysHouEquipsService sysHouEquipsService;
+    @Autowired
+    private SysDescriptionsService sysDescriptionsService;
+    @Autowired
+    private SysSurFaciService sysSurFaciService;
+    @Autowired
+    private SysTrafficLinesService sysTrafficLinesService;
+
+
+    @Autowired
+    private SysHouEquipsConvertor sysHouEquipsConvertor;
+    @Autowired
+    private SysTranfficLinesConvertor tranfficLinesConvertor;
+    @Autowired
+    private SysSurFaciesConvertor sysSurFaciesConvertor;
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
@@ -89,6 +109,13 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
         dto.setHouImg(getImgPaths(sysInfoAtts));
         dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
+        try {
+            dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysHouEquipsService.findByLid(model.getId())));
+            dto.setAround(sysSurFaciesConvertor.toResultDTO(sysSurFaciService.findByLid(model.getId())));
+            dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));
+        } catch (CustomRuntimeException e) {
+            e.printStackTrace();
+        }
         return dto;
     }
 

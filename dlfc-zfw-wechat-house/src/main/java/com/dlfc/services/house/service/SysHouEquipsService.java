@@ -1,6 +1,7 @@
 package com.dlfc.services.house.service;
 
 import com.dlfc.services.house.entity.SysHouEquips;
+import com.dlfc.services.house.entity.SysTrafficLines;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface SysHouEquipsService {
     String save(SysHouEquips sysSurFacis);
 
     void saveWithLidAndCode(String id, List<String> equips);
+
+    List<SysHouEquips> findByLid(String lid);
 }

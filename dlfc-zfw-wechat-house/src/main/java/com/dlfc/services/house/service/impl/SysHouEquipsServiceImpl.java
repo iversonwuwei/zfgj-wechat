@@ -2,6 +2,7 @@ package com.dlfc.services.house.service.impl;
 
 import com.dlfc.services.house.entity.SysHouEquips;
 import com.dlfc.services.house.entity.SysHouEquipsContrast;
+import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysHouEquipsService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -25,6 +26,8 @@ public class SysHouEquipsServiceImpl implements SysHouEquipsService {
     private SystemRService systemRService;
     @Autowired
     private IConvertor convertor;
+    @Autowired
+    private MoreRService moreRService;
 
     @Override
     public String save(SysHouEquips sysSurFacis) {
@@ -43,5 +46,14 @@ public class SysHouEquipsServiceImpl implements SysHouEquipsService {
             entity.setEquipmentName(entity2.getName());
             save(entity);
         }
+    }
+
+    @Override
+    public List<SysHouEquips> findByLid(String lid) {
+        String houEquips = moreRService.findsysHouEquipsByLid(lid);
+        if (houEquips == null){
+            return null;
+        }
+        return convertor.convert2Objects(houEquips, SysHouEquips.class);
     }
 }

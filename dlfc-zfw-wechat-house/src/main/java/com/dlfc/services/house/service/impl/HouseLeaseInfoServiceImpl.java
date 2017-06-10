@@ -41,6 +41,9 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         result = lesseeRService.getLesseeById(id);
+        if(result == null){
+            return null;
+        }
         return convertor.convert2Object(result, HouLeaseInfo.class);
     }
 

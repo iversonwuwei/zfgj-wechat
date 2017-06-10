@@ -13,4 +13,6 @@ public interface SysTrafficLinesService {
     void saveWithLidAndLines(String id, List<String> vehicles);
 
     void saveWithLidAndOthers(String id, String otherVehicles);
+
+    List<SysTrafficLines> findByLid(String lid);
 }
