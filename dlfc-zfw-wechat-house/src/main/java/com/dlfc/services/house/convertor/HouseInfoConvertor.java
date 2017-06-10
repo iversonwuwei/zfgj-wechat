@@ -51,23 +51,39 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         HouseDTO dto = new HouseDTO();
         dto.setId(model.getId());
         dto.setDesc(model.getTitle());
-        dto.setDistrictArea(split(model.getDistrict(), ",", 0));
-        dto.setDistrictTrade(split(model.getDistrict(), ",", 1));
-        dto.setDistrictArea(split(model.getDistrictName(), StringUtils.SPACE, 0));
-        dto.setDistrictTrade(split(model.getDistrictName(), StringUtils.SPACE, 1));
+        String[] dictrict = split(model.getDistrict(),",");
+        if (dictrict != null) {
+            dto.setDistrictArea(dictrict[0]);
+            dto.setDistrictTrade(dictrict[1]);
+        }
+        String[] dictrictName = split(model.getDistrictName(), StringUtils.SPACE);
+        if (dictrictName != null) {
+            dto.setDistrictAreaName(dictrictName[0]);
+            dto.setDistrictTradeName(dictrictName[1]);
+        }
         dto.setVillageName(model.getVillageName());
         dto.setHouseArea(model.getRentalArea());
-        dto.setLayoutRoom(split(model.getApartmentLayout(), ",", 0));
-        dto.setLayoutHall(split(model.getApartmentLayout(), ",", 1));
-        dto.setLayoutToilet(split(model.getApartmentLayout(), ",", 2));
+        String[] layout = split(model.getApartmentLayout(), ",");
+        if (layout != null){
+            dto.setLayoutRoom(layout[0]);
+            dto.setLayoutHall(layout[1]);
+            dto.setLayoutToilet(layout[2]);
+        }
         dto.setOrientation(model.getOrientation());
-        dto.setLiveFloor(split(model.getFloor(), ",", 0));
-        dto.setSumFloor(split(model.getFloor(), ",", 1));
+        String[] floor = split(model.getFloor(), ",");
+        if (floor != null){
+            dto.setLiveFloor(floor[0]);
+            dto.setSumFloor(floor[1]);
+        }
         dto.setLeaseMode(model.getLeaseMode());
         dto.setTermRequirement(model.getRequirement());
         dto.setPrice(model.getRent());
-        dto.setDepositType(split(model.getRentType(), ",", 0));
-        dto.setPaymentType(split(model.getRentType(), ",", 1));
+        String[] type = split(model.getRentType(), ",");
+        if (type != null){
+            dto.setDepositType(type[0]);
+            dto.setPaymentType(type[1]);
+        }
+
         dto.setHouStatus(model.getReleaseStatus());
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
@@ -84,13 +100,12 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         return imgPaths;
     }
 
-    private String split(String district,
-                         String fix,
-                         int i) {
+    private String[] split(String district,
+                         String fix) {
         if (StringUtils.isNotEmpty(district)
                 && StringUtils.isNotEmpty(fix)) {
-            array = district.split(fix);
-            return array[i];
+            array=org.springframework.util.StringUtils.delimitedListToStringArray(district, fix);
+            return array;
         }
         return null;
     }

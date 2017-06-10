@@ -9,7 +9,6 @@ import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.UserDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysDescriptions;
-import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -23,6 +22,7 @@ import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -101,7 +101,7 @@ public class HouLeaseController {
         UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
         houLeaseInfoList = houseLeaseInfoService.findByUid(userDTO.getId());
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-            throw new CustomRuntimeException("", "");
+            houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
     }
@@ -134,18 +134,36 @@ public class HouLeaseController {
         AjaxResult user = principalService.principal(token);
         UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
         dto.setUid(userDTO.getId());
+        SysDescriptions sysDescriptions = null;
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
         String id = houseLeaseInfoService.save(houLeaseInfo);
         if (StringUtils.isEmpty(id)) {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);
         }
-        sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
-        sysHouEquipsService.saveWithLidAndCode(id, dto.getEquips());
-        sysTrafficLinesService.saveWithLidAndLines(id, dto.getVehicles());
-        sysTrafficLinesService.saveWithLidAndOthers(id, dto.getOtherVehicles());
-        SysDescriptions sysDescriptions = sysDescriptionConvertor.toModel(dto);
+        if (this.isNull(dto.getAround())) {
+            sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
+        }
+        if (isNull(dto.getAround())) {
+            sysHouEquipsService.saveWithLidAndCode(id, dto.getEquips());
+        }
+        if (isNull(dto.getVehicles())) {
+            sysTrafficLinesService.saveWithLidAndLines(id, dto.getVehicles());
+        }
+        if (isNull(dto.getAround())) {
+            sysTrafficLinesService.saveWithLidAndOthers(id, dto.getOtherVehicles());
+        }
+        if (isNull(dto)) {
+            sysDescriptions = sysDescriptionConvertor.toModel(dto);
+        }
         sysDescriptionsService.save(sysDescriptions);
         return ResultDTO.success(id);
+    }
+
+    private boolean isNull(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        return true;
     }
 }
