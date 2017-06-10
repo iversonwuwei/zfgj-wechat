@@ -113,6 +113,11 @@ public class HouseDTO extends AbstractDTO {
     private List<String> around;
 
     /**
+     * 周边商业
+     */
+    private String aroundOthers;
+
+    /**
      * 发布状态
      */
     private Integer houStatus;

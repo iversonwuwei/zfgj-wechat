@@ -43,35 +43,35 @@ public class UploadController {
     private ClassfyUploadService classfyUploadService;
 
     @RequestMapping(value = "/uploadHouPic", method = RequestMethod.POST)
-    public ResultDTO<String> uploadHouPic(@RequestBody MultipartFile file) {
-        String path = StringUtils.EMPTY;
-        result = uploadService.validate(file);
+    public ResultDTO<String> uploadHouPic(@RequestBody MultipartFile files) {
+        String path;
+        result = uploadService.validate(files);
         if (StringUtils.isNotEmpty(result)) {
-            return ResultDTO.failure(path, new ResultError(result, null));
+            return ResultDTO.failure(StringUtils.EMPTY, new ResultError(result, null));
         }
         try {
-            path = uploadService.uploadTemp(file);
+            path = uploadService.uploadTemp(files);
             path = imageService.generateLeaseImage(path, WATER_MARK_TYPE_LOGO);
         } catch (IOException e) {
             log.error(e.getMessage());
-            return ResultDTO.failure(path,
+            return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
         return ResultDTO.success(path);
     }
 
     @RequestMapping(value = "/uploadUserAvatar", method = RequestMethod.POST)
-    public ResultDTO<String> uploadUserAvatar(@RequestBody MultipartFile file) {
-        String path = StringUtils.EMPTY;
-        result = uploadService.validate(file);
+    public ResultDTO<String> uploadUserAvatar(@RequestBody MultipartFile files) {
+        String path;
+        result = uploadService.validate(files);
         if (StringUtils.isNotEmpty(result)) {
-            return ResultDTO.failure(path, new ResultError(result, null));
+            return ResultDTO.failure(StringUtils.EMPTY, new ResultError(result, null));
         }
         try {
-            path = (String) classfyUploadService.upload(file);
+            path = (String) classfyUploadService.upload(files);
         } catch (IOException e) {
             log.error(e.getMessage());
-            return ResultDTO.failure(path,
+            return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
         return ResultDTO.success(path);

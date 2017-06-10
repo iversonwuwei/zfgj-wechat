@@ -44,4 +44,13 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
             save(entity);
         }
     }
+
+    @Override
+    public void saveWithLidAndOthers(String lid,
+                                     String aroundOthers) {
+        entity = new SysSurFacis();
+        entity.setLid(lid);
+        entity.setOthers(aroundOthers);
+        save(entity);
+    }
 }

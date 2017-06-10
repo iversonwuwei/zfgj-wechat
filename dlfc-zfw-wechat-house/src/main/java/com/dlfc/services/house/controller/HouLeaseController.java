@@ -144,13 +144,16 @@ public class HouLeaseController {
         if (this.isNull(dto.getAround())) {
             sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
         }
-        if (isNull(dto.getAround())) {
+        if (this.isNull(dto.getAroundOthers())) {
+            sysSurFaciService.saveWithLidAndOthers(id, dto.getAroundOthers());
+        }
+        if (isNull(dto.getEquips())) {
             sysHouEquipsService.saveWithLidAndCode(id, dto.getEquips());
         }
         if (isNull(dto.getVehicles())) {
             sysTrafficLinesService.saveWithLidAndLines(id, dto.getVehicles());
         }
-        if (isNull(dto.getAround())) {
+        if (isNull(dto.getOtherVehicles())) {
             sysTrafficLinesService.saveWithLidAndOthers(id, dto.getOtherVehicles());
         }
         if (isNull(dto)) {

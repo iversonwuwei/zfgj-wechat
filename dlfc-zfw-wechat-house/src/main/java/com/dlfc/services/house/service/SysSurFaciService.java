@@ -12,4 +12,6 @@ public interface SysSurFaciService {
     String save(SysSurFacis sysSurFacis);
 
     void saveWithLidAndCode(String lid, List<String> around);
+
+    void saveWithLidAndOthers(String lid, String aroundOthers);
 }
