@@ -20,7 +20,7 @@ public class SysSurFaciesConvertor extends AbstractConvertor<SysSurFacis, SysSur
             sysSurFacis.setOthers(sysSurFaciesDTO.getOthers());
         }
 
-        return null;
+        return sysSurFacis;
     }
 
     @Override

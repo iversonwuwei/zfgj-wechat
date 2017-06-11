@@ -17,24 +17,24 @@ public interface SystemRService {
     String findSysInfoAttByLidAndFileType(@RequestParam(name = "lid") String lid,
                                           @RequestParam(name = "fileType") Integer fileType);
 
-    @RequestMapping(value = "/wc/datas/sysSurFacis/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/wc/datas/sysSurroundingFacilities/save", method = RequestMethod.POST)
     String saveSysSurFacis(@RequestBody SysSurFacis sysSurFacis);
 
-    @RequestMapping(value = "/wc/datas/sysSurFacis/findByLid", method = RequestMethod.GET)
+    @RequestMapping(value = "/wc/datas/sysSurroundingFacilities/findByLid", method = RequestMethod.GET)
     String findSysSurFacisByLid(@RequestParam(name = "lid") String lid);
 
     @RequestMapping(value = "/wc/datas/sysSurFacisContrast/findByCode", method = RequestMethod.GET)
     String findSysSurFacisContrastByCode(@RequestParam(name = "code") String code);
 
-    @RequestMapping(value = "/wc/datas/sysHouEquips/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/wc/datas/sysHouEquipments/save", method = RequestMethod.POST)
     String saveSysHouEquips(@RequestBody SysHouEquips sysSurFacis);
 
     @RequestMapping(value = "/wc/datas/sysHouEquipsContrast/findByCode", method = RequestMethod.GET)
     String findSysHouEquipsContrastByCode(@RequestParam(name = "code") String code);
 
-    @RequestMapping(value = "/wc/datas/saveSysTrafficLines/save", method = RequestMethod.POST)
-    String saveSysTrafficLines(SysTrafficLines sysSurFacis);
+    @RequestMapping(value = "/wc/datas/sysTrafficLines/save", method = RequestMethod.POST)
+    String saveSysTrafficLines(@RequestBody SysTrafficLines sysSurFacis);
 
     @RequestMapping(value = "/wc/datas/sysDescriptions/save", method = RequestMethod.POST)
-    void saveSysDescriptions(SysDescriptions sysDescriptions);
+    void saveSysDescriptions(@RequestBody SysDescriptions sysDescriptions);
 }
