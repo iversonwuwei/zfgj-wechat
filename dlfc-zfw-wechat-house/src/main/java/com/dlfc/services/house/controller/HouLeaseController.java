@@ -69,7 +69,7 @@ public class HouLeaseController {
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
         houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-            throw new CustomRuntimeException("", "");
+            return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
     }
