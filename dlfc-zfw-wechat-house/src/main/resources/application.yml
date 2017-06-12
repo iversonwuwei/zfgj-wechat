@@ -9,3 +9,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
+
+static:
+  resource:
+    mapping: /img/**=file:.//mnt/samba/realImg/
