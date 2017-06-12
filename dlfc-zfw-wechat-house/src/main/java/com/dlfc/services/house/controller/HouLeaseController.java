@@ -75,6 +75,22 @@ public class HouLeaseController {
     }
 
     /**
+     * 出租信息编辑后更新
+     * @param houseDTO
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO){
+        HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(houseDTO);
+        if (houLeaseInfo != null){
+            if (houseLeaseInfoService.update(houLeaseInfo)){
+                return ResultDTO.success();
+            }
+        }
+        return ResultDTO.failure();
+    }
+
+    /**
      * 房源上架
      * @param lid
      * @return

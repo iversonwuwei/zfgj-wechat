@@ -118,4 +118,16 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
         return lesseeRService.save(houLeaseInfo);
     }
 
+    @Override
+    public boolean update(HouLeaseInfo houLeaseInfo) {
+
+        if (houLeaseInfo != null) {
+            String lid = lesseeRService.update(houLeaseInfo);
+            if (lid!= null){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
