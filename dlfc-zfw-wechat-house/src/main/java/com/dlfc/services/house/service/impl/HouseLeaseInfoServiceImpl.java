@@ -4,7 +4,6 @@ package com.dlfc.services.house.service.impl;
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysSurFacis;
-import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.repository.LesseeRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.HouseLeaseInfoService;
@@ -81,6 +80,37 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             }
         }
         return houLeaseInfoList;
+    }
+
+    @Override
+    public boolean publish(String id) {
+
+        String lesseeInfo = lesseeRService.getLesseeById(id);
+        if (lesseeInfo != null){
+            HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
+            houLeaseInfo.setReleaseStatus(1);
+            String lid = lesseeRService.update(houLeaseInfo);
+            if (lid != null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean shutdown(String id) {
+        String lesseeInfo = lesseeRService.getLesseeById(id);
+        if (lesseeInfo != null){
+            HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
+            houLeaseInfo.setReleaseStatus(0);
+            String lid = lesseeRService.update(houLeaseInfo);
+            if (lid != null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

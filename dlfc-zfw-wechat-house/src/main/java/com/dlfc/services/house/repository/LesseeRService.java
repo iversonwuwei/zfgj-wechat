@@ -24,6 +24,9 @@ public interface LesseeRService {
     @RequestMapping(value = "/wc/datas/houLeaseInfo/save", method = RequestMethod.POST)
     String save(@RequestBody HouLeaseInfo houLeaseInfo);
 
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/updateById", method = RequestMethod.POST)
+    String update(@RequestBody HouLeaseInfo houLeaseInfo);
+
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findAll", method = RequestMethod.GET)
     String findAll(@RequestParam(defaultValue = "10", name = "pageSize") Integer pageSize,
                            @RequestParam(defaultValue = "1", name = "pageNo") Integer pageNo);

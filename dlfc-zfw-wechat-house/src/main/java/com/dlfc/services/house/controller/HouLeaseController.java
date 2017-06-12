@@ -75,6 +75,34 @@ public class HouLeaseController {
     }
 
     /**
+     * 房源上架
+     * @param lid
+     * @return
+     */
+    @RequestMapping(value = "/publish", method = RequestMethod.PUT)
+    public ResultDTO<Void> publish(@RequestParam String lid){
+        boolean result = houseLeaseInfoService.publish(lid);
+        if (result){
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
+    }
+
+    /**
+     * 房源下架
+     * @param lid
+     * @return
+     */
+    @RequestMapping(value = "/shutdown", method = RequestMethod.PUT)
+    public ResultDTO<Void> shutdown(@RequestParam String lid){
+        boolean result = houseLeaseInfoService.shutdown(lid);
+        if (result){
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
+    }
+
+    /**
      * 搜索默认的出租信息-默认为第一页 10条
      *
      * @param pageNo
