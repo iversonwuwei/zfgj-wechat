@@ -118,7 +118,7 @@ public class HouLeaseController {
     public ResultDTO<HouseDTO> details(@RequestParam String lid) throws CustomRuntimeException {
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
         if (houLeaseInfo == null) {
-            throw new CustomRuntimeException("", "");
+            return null;
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfo);
     }
