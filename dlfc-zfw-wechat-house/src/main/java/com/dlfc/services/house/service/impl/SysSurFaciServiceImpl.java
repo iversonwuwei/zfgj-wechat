@@ -2,6 +2,7 @@ package com.dlfc.services.house.service.impl;
 
 import com.dlfc.services.house.entity.SysSurFacis;
 import com.dlfc.services.house.entity.SysSurFacisContrast;
+import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysSurFaciService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -25,6 +26,8 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
     private SystemRService systemRService;
     @Autowired
     private IConvertor convertor;
+    @Autowired
+    private MoreRService moreRService;
 
     @Override
     public String save(SysSurFacis sysSurFacis) {
@@ -32,25 +35,11 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
     }
 
     @Override
-    public void saveWithLidAndCode(String lid,
-                                   List<String> around) {
-        for (String str : around) {
-            entity = new SysSurFacis();
-            entity.setLid(lid);
-            entity.setFacilityCode(str);
-            result = systemRService.findSysSurFacisContrastByCode(str);
-            entity2 = (SysSurFacisContrast) convertor.convert2Object(result, SysSurFacisContrast.class);
-            entity.setFacilityName(entity2.getName());
-            save(entity);
+    public List<SysSurFacis> findByLid(String lid) {
+        String surFacis = moreRService.findsysSurroundingFacilitiesByLid(lid);
+        if (surFacis == null){
+            return null;
         }
-    }
-
-    @Override
-    public void saveWithLidAndOthers(String lid,
-                                     String aroundOthers) {
-        entity = new SysSurFacis();
-        entity.setLid(lid);
-        entity.setOthers(aroundOthers);
-        save(entity);
+        return convertor.convert2Objects(surFacis, SysSurFacis.class);
     }
 }

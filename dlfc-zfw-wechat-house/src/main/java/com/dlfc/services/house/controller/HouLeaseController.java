@@ -1,14 +1,8 @@
 package com.dlfc.services.house.controller;
 
-import com.dlfc.services.house.convertor.ConditionConvertor;
-import com.dlfc.services.house.convertor.HouseInfoConvertor;
-import com.dlfc.services.house.convertor.SysDescriptionConvertor;
-import com.dlfc.services.house.dto.HouLeaseInfoDTO;
-import com.dlfc.services.house.dto.HouseConditionDTO;
-import com.dlfc.services.house.dto.HouseDTO;
-import com.dlfc.services.house.dto.UserDTO;
-import com.dlfc.services.house.entity.HouLeaseInfo;
-import com.dlfc.services.house.entity.SysDescriptions;
+import com.dlfc.services.house.convertor.*;
+import com.dlfc.services.house.dto.*;
+import com.dlfc.services.house.entity.*;
 import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -56,6 +50,13 @@ public class HouLeaseController {
     @Autowired
     private UserInfoRService userInfoRService;
 
+    @Autowired
+    private SysHouEquipsConvertor sysHouEquipsConvertor;
+    @Autowired
+    private SysTranfficLinesConvertor tranfficLinesConvertor;
+    @Autowired
+    private SysSurFaciesConvertor sysSurFaciesConvertor;
+
     /**
      * 查找房源
      *
@@ -68,7 +69,7 @@ public class HouLeaseController {
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
         houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-            throw new CustomRuntimeException("", "");
+            return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
     }
@@ -132,9 +133,12 @@ public class HouLeaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultDTO<String> details(@RequestBody HouseDTO dto, @RequestHeader String token) throws CustomRuntimeException {
         AjaxResult user = principalService.principal(token);
+        SysSurFacis surFacis = null;
+        SysHouEquips sysHouEquips = null;
+        SysTrafficLines sysTrafficLines = null;
+        SysDescriptions sysDescriptions = null;
         UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
         dto.setUid(userDTO.getId());
-        SysDescriptions sysDescriptions = null;
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
         String id = houseLeaseInfoService.save(houLeaseInfo);
         if (StringUtils.isEmpty(id)) {
@@ -142,24 +146,34 @@ public class HouLeaseController {
             return ResultDTO.failure(id, resultError);
         }
         if (this.isNull(dto.getAround())) {
-            sysSurFaciService.saveWithLidAndCode(id, dto.getAround());
-        }
-        if (this.isNull(dto.getAroundOthers())) {
-            sysSurFaciService.saveWithLidAndOthers(id, dto.getAroundOthers());
+            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()){
+                sysSurFaciesDTO.setLid(id);
+                surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
+                sysSurFaciService.save(surFacis);
+            }
         }
         if (isNull(dto.getEquips())) {
-            sysHouEquipsService.saveWithLidAndCode(id, dto.getEquips());
+            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()){
+                sysHouEquipsDTO.setLid(id);
+                sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
+                sysHouEquipsService.save(sysHouEquips);
+            }
         }
         if (isNull(dto.getVehicles())) {
-            sysTrafficLinesService.saveWithLidAndLines(id, dto.getVehicles());
+            for (SysTranfficLinesDTO sysTranfficLinesDTO : dto.getVehicles()){
+                sysTranfficLinesDTO.setLid(id);
+                sysTrafficLines = tranfficLinesConvertor.toModel(sysTranfficLinesDTO);
+                sysTrafficLinesService.save(sysTrafficLines);
+            }
         }
-        if (isNull(dto.getOtherVehicles())) {
-            sysTrafficLinesService.saveWithLidAndOthers(id, dto.getOtherVehicles());
+        if (isNull(dto.getDescriptionDTOS())) {
+            for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()){
+                sysDescriptionDTO.setLid(id);
+                sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
+                sysDescriptionsService.save(sysDescriptions);
+            }
         }
-        if (isNull(dto)) {
-            sysDescriptions = sysDescriptionConvertor.toModel(dto);
-        }
-        sysDescriptionsService.save(sysDescriptions);
+
         return ResultDTO.success(id);
     }
 

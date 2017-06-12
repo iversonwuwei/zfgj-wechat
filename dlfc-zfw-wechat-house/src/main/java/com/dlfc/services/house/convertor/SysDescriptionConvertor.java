@@ -1,30 +1,33 @@
 package com.dlfc.services.house.convertor;
 
 
+import com.dlfc.services.house.convertor.base.AbstractConvertor;
 import com.dlfc.services.house.dto.HouseDTO;
+import com.dlfc.services.house.dto.SysDescriptionDTO;
 import com.dlfc.services.house.entity.SysDescriptions;
-import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SysDescriptionConvertor extends AbstractConvertor<SysDescriptions, HouseDTO> {
+public class SysDescriptionConvertor extends AbstractConvertor<SysDescriptions, SysDescriptionDTO> {
+
     @Override
-    public SysDescriptions toModel(HouseDTO dto) {
+    public SysDescriptions toModel(SysDescriptionDTO sysDescriptionDTO) {
         SysDescriptions sysDescriptions = new SysDescriptions();
-        sysDescriptions.setDescription1(dto.getLiveRequirement());
-        sysDescriptions.setDescription2(dto.getOwnerBears());
-        sysDescriptions.setDescription3(dto.getOtherDcpt());
-        sysDescriptions.setLid(dto.getId());
+        sysDescriptions.setLid(sysDescriptionDTO.getLid());
+        sysDescriptions.setDescription1(sysDescriptionDTO.getLiveRequire());
+        sysDescriptions.setDescription2(sysDescriptionDTO.getOwnerBears());
+        sysDescriptions.setDescription3(sysDescriptionDTO.getOthers());
         return sysDescriptions;
     }
 
     @Override
-    public HouseDTO toDTO(SysDescriptions sysDescriptions, Object... objects) {
-        HouseDTO dto = new HouseDTO();
-        dto.setId(sysDescriptions.getLid());
-        dto.setLiveRequirement(sysDescriptions.getDescription1());
-        dto.setOwnerBears(sysDescriptions.getDescription2());
-        dto.setOtherDcpt(sysDescriptions.getDescription3());
-        return dto;
+    public SysDescriptionDTO toDTO(SysDescriptions sysDescriptions, Object... objects) {
+        SysDescriptionDTO sysDescriptionDTO = new SysDescriptionDTO();
+        sysDescriptionDTO.setLid(sysDescriptions.getLid());
+        sysDescriptionDTO.setLiveRequire(sysDescriptions.getDescription1());
+        sysDescriptionDTO.setOwnerBears(sysDescriptions.getDescription2());
+        sysDescriptionDTO.setOthers(sysDescriptions.getDescription3());
+
+        return sysDescriptionDTO;
     }
 }

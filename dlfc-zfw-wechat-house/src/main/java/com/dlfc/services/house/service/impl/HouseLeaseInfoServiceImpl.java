@@ -41,6 +41,9 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         result = lesseeRService.getLesseeById(id);
+        if(result == null){
+            return null;
+        }
         return convertor.convert2Object(result, HouLeaseInfo.class);
     }
 
@@ -59,8 +62,11 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
         for (HouLeaseInfo item : entityList) {
             boolean flag = true;
             result = systemRService.findSysSurFacisByLid(item.getId());
-            List<SysSurFacis> sysSurFacisList = sysSurFacisIConvertor.convert2Objects(result, SysSurFacis.class);
-            if (sysSurFacisList.size() != facilityIdList.size()) {
+            List<SysSurFacis> sysSurFacisList = null;
+            if (result != null) {
+                sysSurFacisList = sysSurFacisIConvertor.convert2Objects(result, SysSurFacis.class);
+            }
+            if (facilityIdList!= null && sysSurFacisList.size() != facilityIdList.size()) {
                 flag = false;
             } else {
                 for (SysSurFacis sysSurFacis : sysSurFacisList) {

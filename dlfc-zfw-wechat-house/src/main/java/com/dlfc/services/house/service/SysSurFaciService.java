@@ -1,6 +1,7 @@
 package com.dlfc.services.house.service;
 
 import com.dlfc.services.house.entity.SysSurFacis;
+import com.dlfc.services.house.entity.SysTrafficLines;
 
 import java.util.List;
 
@@ -11,7 +12,5 @@ public interface SysSurFaciService {
 
     String save(SysSurFacis sysSurFacis);
 
-    void saveWithLidAndCode(String lid, List<String> around);
-
-    void saveWithLidAndOthers(String lid, String aroundOthers);
+    List<SysSurFacis> findByLid(String lid);
 }

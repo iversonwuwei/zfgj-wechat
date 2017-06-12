@@ -1,6 +1,7 @@
 package com.dlfc.services.house.dto;
 
 import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
+import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -95,27 +96,17 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 配套设施
      */
-    private List<String> equips;
+    private List<SysHouEquipsDTO> equips;
 
     /**
      * 公交地铁
      */
-    private List<String> vehicles;
-
-    /**
-     * 公交地铁其它
-     */
-    private String otherVehicles;
+    private List<SysTranfficLinesDTO> vehicles;
 
     /**
      * 周边商业
      */
-    private List<String> around;
-
-    /**
-     * 周边商业
-     */
-    private String aroundOthers;
+    private List<SysSurFaciesDTO> around;
 
     /**
      * 发布状态
@@ -133,20 +124,9 @@ public class HouseDTO extends AbstractDTO {
     private String termRequirement;
 
     /**
-     * 租住限制
+     * 描述
      */
-    private String liveRequirement;
-
-    /**
-     * 房主承担费用
-     */
-    private String ownerBears;
-
-    /**
-     * 其他描述
-     */
-    private String otherDcpt;
-
+    private List<SysDescriptionDTO> descriptionDTOS;
     /**
      * 商圈（区）
      */
@@ -176,4 +156,8 @@ public class HouseDTO extends AbstractDTO {
      * 用户ID
      */
     private String uid;
+
+    private String latitude;
+
+    private String longitude;
 }

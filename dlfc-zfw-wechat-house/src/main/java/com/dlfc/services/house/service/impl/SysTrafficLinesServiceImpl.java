@@ -1,6 +1,7 @@
 package com.dlfc.services.house.service.impl;
 
 import com.dlfc.services.house.entity.SysTrafficLines;
+import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysTrafficLinesService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
@@ -23,6 +24,8 @@ public class SysTrafficLinesServiceImpl implements SysTrafficLinesService {
     private SystemRService systemRService;
     @Autowired
     private IConvertor convertor;
+    @Autowired
+    private MoreRService moreRService;
 
     @Override
     public String save(SysTrafficLines sysSurFacis) {
@@ -47,5 +50,14 @@ public class SysTrafficLinesServiceImpl implements SysTrafficLinesService {
         entity.setLid(lid);
         entity.setOthers(others);
         save(entity);
+    }
+
+    @Override
+    public List<SysTrafficLines> findByLid(String lid) {
+        String lines = moreRService.findsysTrafficLinesById(lid);
+        if (lines == null){
+            return null;
+        }
+        return convertor.convert2Objects(lines, SysTrafficLines.class);
     }
 }
