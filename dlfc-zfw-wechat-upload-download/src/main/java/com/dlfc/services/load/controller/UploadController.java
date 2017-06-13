@@ -7,6 +7,7 @@ import com.dlfc.services.load.service.UploadService;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
+import com.housecenter.dlfc.framework.starter.web.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/ww/upload")
 @Slf4j
-public class UploadController {
+public class UploadController extends BaseController {
 
     /**
      * 水印类型 LOGO
@@ -44,6 +45,7 @@ public class UploadController {
 
     @RequestMapping(value = "/uploadHouPic", method = RequestMethod.POST)
     public ResultDTO<String> uploadHouPic(@RequestBody MultipartFile files) {
+        getRequest();
         String path;
         result = uploadService.validate(files);
         if (StringUtils.isNotEmpty(result)) {

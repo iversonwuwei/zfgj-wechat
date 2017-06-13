@@ -1,7 +1,6 @@
 package com.dlfc.services.house.dto;
 
 import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
-import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,7 +55,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 出租方式
      */
-    private Integer leaseMode;
+    private String leaseMode;
 
     /**
      * 租金
