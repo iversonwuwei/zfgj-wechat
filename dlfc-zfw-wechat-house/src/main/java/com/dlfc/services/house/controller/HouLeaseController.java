@@ -46,9 +46,10 @@ public class HouLeaseController {
     private IConvertor<UserDTO> convertor;
     @Autowired
     private PrincipalService principalService;
-
     @Autowired
     private UserInfoRService userInfoRService;
+    @Autowired
+    private SysInfoAttService sysInfoAttService;
 
     @Autowired
     private SysHouEquipsConvertor sysHouEquipsConvertor;
@@ -56,6 +57,8 @@ public class HouLeaseController {
     private SysTranfficLinesConvertor tranfficLinesConvertor;
     @Autowired
     private SysSurFaciesConvertor sysSurFaciesConvertor;
+    @Autowired
+    private SysInfoAttConvertor sysInfoAttConvertor;
 
     /**
      * 查找房源
@@ -76,25 +79,35 @@ public class HouLeaseController {
 
     /**
      * 出租信息编辑后更新
+     *
      * @param houseDTO
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO){
+    public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO) {
         SysSurFacis surFacis = null;
         SysHouEquips sysHouEquips = null;
         SysTrafficLines sysTrafficLines = null;
         SysDescriptions sysDescriptions = null;
+        SysInfoAtt sysInfoAtt = null;
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(houseDTO);
-        if (houLeaseInfo != null){
-            if (houseLeaseInfoService.update(houLeaseInfo)){
+        if (houLeaseInfo != null) {
+            if (houseLeaseInfoService.update(houLeaseInfo)) {
                 if (StringUtils.isEmpty(houseDTO.getId())) {
                     ResultError resultError = new ResultError("", "");
                     return ResultDTO.failure(resultError);
                 }
+                if (this.isNull(houseDTO.getHouImg())) {
+                    sysInfoAttService.remove(houseDTO.getId());
+                    for (String imgUrl : houseDTO.getHouImg()) {
+                        sysInfoAtt = sysInfoAttConvertor.toModel(imgUrl);
+                        sysInfoAtt.setLid(houseDTO.getId());
+                        sysInfoAttService.save(sysInfoAtt);
+                    }
+                }
                 if (this.isNull(houseDTO.getAround())) {
                     sysSurFaciService.remove(houseDTO.getId());
-                    for (SysSurFaciesDTO sysSurFaciesDTO : houseDTO.getAround()){
+                    for (SysSurFaciesDTO sysSurFaciesDTO : houseDTO.getAround()) {
                         sysSurFaciesDTO.setLid(houseDTO.getId());
                         surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
                         sysSurFaciService.save(surFacis);
@@ -102,7 +115,7 @@ public class HouLeaseController {
                 }
                 if (isNull(houseDTO.getEquips())) {
                     sysHouEquipsService.remove(houseDTO.getId());
-                    for (SysHouEquipsDTO sysHouEquipsDTO : houseDTO.getEquips()){
+                    for (SysHouEquipsDTO sysHouEquipsDTO : houseDTO.getEquips()) {
                         sysHouEquipsDTO.setLid(houseDTO.getId());
                         sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
                         sysHouEquipsService.save(sysHouEquips);
@@ -110,7 +123,7 @@ public class HouLeaseController {
                 }
                 if (isNull(houseDTO.getVehicles())) {
                     sysTrafficLinesService.remove(houseDTO.getId());
-                    for (SysTranfficLinesDTO sysTranfficLinesDTO : houseDTO.getVehicles()){
+                    for (SysTranfficLinesDTO sysTranfficLinesDTO : houseDTO.getVehicles()) {
                         sysTranfficLinesDTO.setLid(houseDTO.getId());
                         sysTrafficLines = tranfficLinesConvertor.toModel(sysTranfficLinesDTO);
                         sysTrafficLinesService.save(sysTrafficLines);
@@ -118,7 +131,7 @@ public class HouLeaseController {
                 }
                 if (isNull(houseDTO.getDescriptionDTOS())) {
                     sysDescriptionsService.remove(houseDTO.getId());
-                    for (SysDescriptionDTO sysDescriptionDTO : houseDTO.getDescriptionDTOS()){
+                    for (SysDescriptionDTO sysDescriptionDTO : houseDTO.getDescriptionDTOS()) {
                         sysDescriptionDTO.setLid(houseDTO.getId());
                         sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
                         sysDescriptionsService.save(sysDescriptions);
@@ -132,13 +145,14 @@ public class HouLeaseController {
 
     /**
      * 房源上架
+     *
      * @param lid
      * @return
      */
     @RequestMapping(value = "/publish", method = RequestMethod.PUT)
-    public ResultDTO<Void> publish(@RequestParam String lid){
+    public ResultDTO<Void> publish(@RequestParam String lid) {
         boolean result = houseLeaseInfoService.publish(lid);
-        if (result){
+        if (result) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();
@@ -146,13 +160,14 @@ public class HouLeaseController {
 
     /**
      * 房源下架
+     *
      * @param lid
      * @return
      */
     @RequestMapping(value = "/shutdown", method = RequestMethod.PUT)
-    public ResultDTO<Void> shutdown(@RequestParam String lid){
+    public ResultDTO<Void> shutdown(@RequestParam String lid) {
         boolean result = houseLeaseInfoService.shutdown(lid);
-        if (result){
+        if (result) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();
@@ -221,6 +236,7 @@ public class HouLeaseController {
         SysHouEquips sysHouEquips = null;
         SysTrafficLines sysTrafficLines = null;
         SysDescriptions sysDescriptions = null;
+        SysInfoAtt sysInfoAtt = null;
         UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
         dto.setUid(userDTO.getId());
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
@@ -229,29 +245,36 @@ public class HouLeaseController {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);
         }
+        if (this.isNull(dto.getHouImg())) {
+            for (String imgUrl : dto.getHouImg()) {
+                sysInfoAtt = sysInfoAttConvertor.toModel(imgUrl);
+                sysInfoAtt.setLid(id);
+                sysInfoAttService.save(sysInfoAtt);
+            }
+        }
         if (this.isNull(dto.getAround())) {
-            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()){
+            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
                 sysSurFaciesDTO.setLid(id);
                 surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
                 sysSurFaciService.save(surFacis);
             }
         }
         if (isNull(dto.getEquips())) {
-            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()){
+            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
                 sysHouEquipsDTO.setLid(id);
                 sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
                 sysHouEquipsService.save(sysHouEquips);
             }
         }
         if (isNull(dto.getVehicles())) {
-            for (SysTranfficLinesDTO sysTranfficLinesDTO : dto.getVehicles()){
+            for (SysTranfficLinesDTO sysTranfficLinesDTO : dto.getVehicles()) {
                 sysTranfficLinesDTO.setLid(id);
                 sysTrafficLines = tranfficLinesConvertor.toModel(sysTranfficLinesDTO);
                 sysTrafficLinesService.save(sysTrafficLines);
             }
         }
         if (isNull(dto.getDescriptionDTOS())) {
-            for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()){
+            for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()) {
                 sysDescriptionDTO.setLid(id);
                 sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
                 sysDescriptionsService.save(sysDescriptions);

@@ -1,9 +1,6 @@
 package com.dlfc.services.house.repository;
 
-import com.dlfc.services.house.entity.SysDescriptions;
-import com.dlfc.services.house.entity.SysHouEquips;
-import com.dlfc.services.house.entity.SysSurFacis;
-import com.dlfc.services.house.entity.SysTrafficLines;
+import com.dlfc.services.house.entity.*;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,4 +34,7 @@ public interface SystemRService {
 
     @RequestMapping(value = "/wc/datas/sysDescriptions/save", method = RequestMethod.POST)
     void saveSysDescriptions(@RequestBody SysDescriptions sysDescriptions);
+
+    @RequestMapping(value = "/wc/datas/sysInfoAtt/save", method = RequestMethod.POST)
+    String saveSysInfoAtt(@RequestBody SysInfoAtt sysInfoAtt);
 }

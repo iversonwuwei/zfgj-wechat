@@ -31,4 +31,7 @@ public interface MoreRService {
 
     @RequestMapping(value = "/wc/datas/sysSurroundingFacilities/removeByLid", method = RequestMethod.DELETE)
     void surFacRemove(@RequestParam(name = "lid") String lid);
+
+    @RequestMapping(value = "/wc/datas/sysInfoAtt/removeByLid", method = RequestMethod.DELETE)
+    void SysInfoAttRemove(@RequestParam(name = "lid") String lid);
 }
