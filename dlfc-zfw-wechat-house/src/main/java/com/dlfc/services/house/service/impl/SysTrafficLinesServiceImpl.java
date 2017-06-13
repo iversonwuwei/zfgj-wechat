@@ -60,4 +60,9 @@ public class SysTrafficLinesServiceImpl implements SysTrafficLinesService {
         }
         return convertor.convert2Objects(lines, SysTrafficLines.class);
     }
+
+    @Override
+    public void remove(String lid) {
+        moreRService.trafficRemove(lid);
+    }
 }

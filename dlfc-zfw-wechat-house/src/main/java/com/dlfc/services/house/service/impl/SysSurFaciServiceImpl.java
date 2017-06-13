@@ -42,4 +42,9 @@ public class SysSurFaciServiceImpl implements SysSurFaciService {
         }
         return convertor.convert2Objects(surFacis, SysSurFacis.class);
     }
+
+    @Override
+    public void remove(String lid) {
+        moreRService.surFacRemove(lid);
+    }
 }

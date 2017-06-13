@@ -48,6 +48,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     public HouLeaseInfo toModel(HouseDTO dto) {
         HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
+        model.setId(dto.getId());
         model.setDistrict(generate(dto.getDistrictArea(), dto.getDistrictTrade()));
         model.setDistrictName(dto.getDistrictAreaName() + StringUtils.SPACE + dto.getDistrictTradeName());
         model.setVillageName(dto.getVillageName());
