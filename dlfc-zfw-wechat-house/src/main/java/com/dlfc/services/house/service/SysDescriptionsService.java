@@ -12,4 +12,6 @@ public interface SysDescriptionsService {
     void save(SysDescriptions sysDescriptions);
 
     List<SysDescriptions> findByLid(String lid);
+
+    void remove(String lid);
 }

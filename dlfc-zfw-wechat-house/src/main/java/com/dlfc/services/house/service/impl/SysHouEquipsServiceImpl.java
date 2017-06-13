@@ -56,4 +56,9 @@ public class SysHouEquipsServiceImpl implements SysHouEquipsService {
         }
         return convertor.convert2Objects(houEquips, SysHouEquips.class);
     }
+
+    @Override
+    public void remove(String lid) {
+        moreRService.houEquipRemove(lid);
+    }
 }

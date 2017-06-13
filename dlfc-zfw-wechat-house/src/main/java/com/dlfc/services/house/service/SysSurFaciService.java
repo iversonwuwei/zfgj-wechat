@@ -13,4 +13,6 @@ public interface SysSurFaciService {
     String save(SysSurFacis sysSurFacis);
 
     List<SysSurFacis> findByLid(String lid);
+
+    void remove(String lid);
 }

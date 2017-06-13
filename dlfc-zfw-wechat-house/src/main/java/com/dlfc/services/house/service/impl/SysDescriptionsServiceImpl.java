@@ -37,4 +37,9 @@ public class SysDescriptionsServiceImpl implements SysDescriptionsService {
         }
         return convertor.convert2Objects(descriptions, SysDescriptions.class);
     }
+
+    @Override
+    public void remove(String lid) {
+        moreRService.descRemove(lid);
+    }
 }

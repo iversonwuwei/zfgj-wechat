@@ -14,4 +14,6 @@ public interface SysHouEquipsService {
     void saveWithLidAndCode(String id, List<String> equips);
 
     List<SysHouEquips> findByLid(String lid);
+
+    void remove(String lid);
 }

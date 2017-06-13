@@ -54,8 +54,10 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public List<HouLeaseInfo> findByParams(HouLeaseInfoDTO dto) {
-        result = lesseeRService.findByParams(dto);
-        entityList = convertor.convert2Objects(result, HouLeaseInfo.class);
+        if(lesseeRService.findByParams(dto)!=null) {
+            result = lesseeRService.findByParams(dto);
+            entityList = convertor.convert2Objects(result, HouLeaseInfo.class);
+        }
         List<HouLeaseInfo> houLeaseInfoList = new ArrayList<>();
         List<String> facilityIdList = dto.getFacilityIdList();
         for (HouLeaseInfo item : entityList) {

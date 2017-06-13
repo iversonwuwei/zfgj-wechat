@@ -81,9 +81,49 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO){
+        SysSurFacis surFacis = null;
+        SysHouEquips sysHouEquips = null;
+        SysTrafficLines sysTrafficLines = null;
+        SysDescriptions sysDescriptions = null;
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(houseDTO);
         if (houLeaseInfo != null){
             if (houseLeaseInfoService.update(houLeaseInfo)){
+                if (StringUtils.isEmpty(houseDTO.getId())) {
+                    ResultError resultError = new ResultError("", "");
+                    return ResultDTO.failure(resultError);
+                }
+                if (this.isNull(houseDTO.getAround())) {
+                    sysSurFaciService.remove(houseDTO.getId());
+                    for (SysSurFaciesDTO sysSurFaciesDTO : houseDTO.getAround()){
+                        sysSurFaciesDTO.setLid(houseDTO.getId());
+                        surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
+                        sysSurFaciService.save(surFacis);
+                    }
+                }
+                if (isNull(houseDTO.getEquips())) {
+                    sysHouEquipsService.remove(houseDTO.getId());
+                    for (SysHouEquipsDTO sysHouEquipsDTO : houseDTO.getEquips()){
+                        sysHouEquipsDTO.setLid(houseDTO.getId());
+                        sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
+                        sysHouEquipsService.save(sysHouEquips);
+                    }
+                }
+                if (isNull(houseDTO.getVehicles())) {
+                    sysTrafficLinesService.remove(houseDTO.getId());
+                    for (SysTranfficLinesDTO sysTranfficLinesDTO : houseDTO.getVehicles()){
+                        sysTranfficLinesDTO.setLid(houseDTO.getId());
+                        sysTrafficLines = tranfficLinesConvertor.toModel(sysTranfficLinesDTO);
+                        sysTrafficLinesService.save(sysTrafficLines);
+                    }
+                }
+                if (isNull(houseDTO.getDescriptionDTOS())) {
+                    sysDescriptionsService.remove(houseDTO.getId());
+                    for (SysDescriptionDTO sysDescriptionDTO : houseDTO.getDescriptionDTOS()){
+                        sysDescriptionDTO.setLid(houseDTO.getId());
+                        sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
+                        sysDescriptionsService.save(sysDescriptions);
+                    }
+                }
                 return ResultDTO.success();
             }
         }
