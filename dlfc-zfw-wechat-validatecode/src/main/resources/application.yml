@@ -25,6 +25,6 @@ dlfc:
       username: rep1
       password: mysql
     master:
-      url: jdbc:mysql://10.32.156.86:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://10.32.156.224:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
       username: rep1
       password: mysql
