@@ -6,17 +6,25 @@ spring:
     name: dlfc-zfw-validatecode-services
 
 eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 20
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
 
+feign:
+  hystrix:
+    enabled: false
+
 dlfc:
   jdbc:
     slave:
-      url: jdbc:mysql://10.32.156.86:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
-      username: root
-      password: root
+      url: jdbc:mysql://10.32.156.224:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
+      username: rep1
+      password: mysql
     master:
       url: jdbc:mysql://10.32.156.86:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
-      username: root
-      password: root
+      username: rep1
+      password: mysql
