@@ -6,10 +6,35 @@ spring:
     name: dlfc-zfw-house-services
 
 eureka:
+  instance:
+    instance-id:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 20
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
 
+feign:
+  hystrix:
+    enabled: false
+
 static:
   resource:
     mapping: /img/**=file:.//mnt/samba/realImg/
+
+
+    #服务提供端
+    #客户端注册到服务端的实例id为ip地址+端口号
+    #eureka.instance.instance-id=${spring.cloud.client.ipAddress}:${server.port}
+    #使用ip地址（多网卡时，使用第一个回环地址）进行注册服务，调用的时候也是ip调用
+    #eureka.instance.prefer-ip-address=true
+    #客户端向服务端发送心跳周期
+    #eureka.instance.lease-renewal-interval-in-seconds=20
+    #服务端检查客户端超时周期
+    #eureka.instance.lease-expiration-duration-in-seconds=60
+    #客户端健康检查，必须使用spring-boot-starter-actuator包
+    #eureka.client.healthcheck.enabled=false
+
+    #服务调用端
+    #feign不使用hysrix
+    #feign.hystrix.enabled=false
