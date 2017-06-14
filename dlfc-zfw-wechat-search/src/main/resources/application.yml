@@ -6,10 +6,17 @@ spring:
     name: dlfc-zfw-search-services
 
 eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 20
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
 
+feign:
+  hystrix:
+    enabled: false
 static:
   resource:
     mapping: /img/**=file:.//mnt/samba/realImg/
