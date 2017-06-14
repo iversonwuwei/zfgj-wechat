@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 /**
  * Created by K on 2017/6/13.
  */
-
 @Component
 public class SysInfoAttConvertor extends AbstractConvertor<SysInfoAtt, String> {
     @Override
