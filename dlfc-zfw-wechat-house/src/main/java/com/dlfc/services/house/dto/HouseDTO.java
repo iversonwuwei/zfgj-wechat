@@ -95,7 +95,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 配套设施
      */
-    private List<SysHouEquipsDTO> equips;
+        private List<SysHouEquipsDTO> equips;
 
     /**
      * 公交地铁

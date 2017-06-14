@@ -17,13 +17,15 @@ public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, House
     public HouLeaseInfoDTO toModel(HouseConditionDTO conditionDTO) {
         HouLeaseInfoDTO dto = new HouLeaseInfoDTO();
         if (null != conditionDTO) {
+            String orderBy = "FRESH_TIME DESC";
             if (StringUtils.isNotEmpty(conditionDTO.getOrderByPrice())) {
                 if ("0".equals(conditionDTO.getOrderByPrice())) {
-                    dto.setOrderBy("RENT ASC");
+                    orderBy += ", RENT ASC";
                 } else if ("1".equals(conditionDTO.getOrderByPrice())) {
-                    dto.setOrderBy("RENT DESC");
+                    orderBy += ", RENT DESC";
                 }
             }
+            dto.setOrderBy(orderBy);
             dto.setPageSize(conditionDTO.getPageSize());
             dto.setPageNo(conditionDTO.getPageNo());
             dto.setDistrictId(conditionDTO.getDistrictId());

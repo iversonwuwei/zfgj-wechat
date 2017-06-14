@@ -4,6 +4,7 @@ package com.dlfc.services.house.service.impl;
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysSurFacis;
+import com.dlfc.services.house.enums.HouseReleaseStatusEnum;
 import com.dlfc.services.house.repository.LesseeRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.HouseLeaseInfoService;
@@ -33,14 +34,15 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public List<HouLeaseInfo> findAll(Integer pageNo, Integer pageSize) {
-        String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo);
+        Integer releaseStatus = HouseReleaseStatusEnum.YES_ENUM.getValue();
+        String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo, releaseStatus);
         return convertor.convert2Objects(houLeaseInfos, HouLeaseInfo.class);
     }
 
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         result = lesseeRService.getLesseeById(id);
-        if(result == null){
+        if (result == null) {
             return null;
         }
         return convertor.convert2Object(result, HouLeaseInfo.class);
@@ -54,7 +56,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public List<HouLeaseInfo> findByParams(HouLeaseInfoDTO dto) {
-        if(lesseeRService.findByParams(dto)!=null) {
+        if (lesseeRService.findByParams(dto) != null) {
             result = lesseeRService.findByParams(dto);
             entityList = convertor.convert2Objects(result, HouLeaseInfo.class);
         }
@@ -67,7 +69,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             if (result != null) {
                 sysSurFacisList = sysSurFacisIConvertor.convert2Objects(result, SysSurFacis.class);
             }
-            if (facilityIdList!= null && sysSurFacisList.size() != facilityIdList.size()) {
+            if (facilityIdList != null && sysSurFacisList.size() != facilityIdList.size()) {
                 flag = false;
             } else {
                 for (SysSurFacis sysSurFacis : sysSurFacisList) {
@@ -88,7 +90,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     public boolean publish(String id) {
 
         String lesseeInfo = lesseeRService.getLesseeById(id);
-        if (lesseeInfo != null){
+        if (lesseeInfo != null) {
             HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
             houLeaseInfo.setReleaseStatus(1);
             String lid = lesseeRService.update(houLeaseInfo);
@@ -103,7 +105,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public boolean shutdown(String id) {
         String lesseeInfo = lesseeRService.getLesseeById(id);
-        if (lesseeInfo != null){
+        if (lesseeInfo != null) {
             HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
             houLeaseInfo.setReleaseStatus(0);
             String lid = lesseeRService.update(houLeaseInfo);
@@ -125,7 +127,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
         if (houLeaseInfo != null) {
             String lid = lesseeRService.update(houLeaseInfo);
-            if (lid!= null){
+            if (lid != null) {
                 return true;
             }
         }

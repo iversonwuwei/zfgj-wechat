@@ -1,5 +1,6 @@
 package com.dlfc.services.house.convertor;
 
+import com.dlfc.admin.common.utils.PropertyUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysInfoAtt;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -145,8 +147,16 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     private List<String> getImgPaths(List<SysInfoAtt> sysinfos) {
         List<String> imgPaths = new ArrayList<>();
+        array = PropertyUtils.getSysVal("image.house.types").split(",");
+        List<String> types = Arrays.asList(array);
+        String path = StringUtils.EMPTY;
         for (SysInfoAtt sysInfoAtt : sysinfos) {
-            imgPaths.add(sysInfoAtt.getFilePath());
+            if (types.contains(sysInfoAtt.getFileName())) {
+                path += sysInfoAtt.getFileName();
+                path += "/";
+            }
+            path += sysInfoAtt.getFilePath();
+            imgPaths.add(path);
         }
         return imgPaths;
     }

@@ -2,7 +2,6 @@ package com.dlfc.services.house.repository;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
-import com.dlfc.services.house.entity.UsrUser;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +28,6 @@ public interface LesseeRService {
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findAll", method = RequestMethod.GET)
     String findAll(@RequestParam(defaultValue = "10", name = "pageSize") Integer pageSize,
-                           @RequestParam(defaultValue = "1", name = "pageNo") Integer pageNo);
+                   @RequestParam(defaultValue = "1", name = "pageNo") Integer pageNo,
+                   @RequestParam(defaultValue = "1", name = "releaseStatus") Integer releaseStatus);
 }

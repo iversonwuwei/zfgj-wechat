@@ -57,10 +57,10 @@ public class HouseConditionDTO {
     /**
      * 单页显示条数
      */
-    private Integer pageSize;
+    private Integer pageSize = 10;
 
     /**
      * 页码
      */
-    private Integer pageNo;
+    private Integer pageNo = 1;
 }
