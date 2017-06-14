@@ -99,8 +99,8 @@ public class HouLeaseController {
                 }
                 if (this.isNull(houseDTO.getHouImg())) {
                     sysInfoAttService.remove(houseDTO.getId());
-                    for (String imgUrl : houseDTO.getHouImg()) {
-                        sysInfoAtt = sysInfoAttConvertor.toModel(imgUrl);
+                    for (ImgDTO imgDTO : houseDTO.getHouImg()) {
+                        sysInfoAtt = sysInfoAttConvertor.toModel(imgDTO);
                         sysInfoAtt.setLid(houseDTO.getId());
                         sysInfoAttService.save(sysInfoAtt);
                     }
@@ -246,8 +246,8 @@ public class HouLeaseController {
             return ResultDTO.failure(id, resultError);
         }
         if (this.isNull(dto.getHouImg())) {
-            for (String imgUrl : dto.getHouImg()) {
-                sysInfoAtt = sysInfoAttConvertor.toModel(imgUrl);
+            for (ImgDTO imgDTO : dto.getHouImg()) {
+                sysInfoAtt = sysInfoAttConvertor.toModel(imgDTO);
                 sysInfoAtt.setLid(id);
                 sysInfoAttService.save(sysInfoAtt);
             }

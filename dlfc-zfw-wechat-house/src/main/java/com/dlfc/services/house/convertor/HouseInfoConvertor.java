@@ -2,6 +2,7 @@ package com.dlfc.services.house.convertor;
 
 import com.dlfc.admin.common.utils.PropertyUtils;
 import com.dlfc.services.house.dto.HouseDTO;
+import com.dlfc.services.house.dto.ImgDTO;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysInfoAtt;
 import com.dlfc.services.house.enums.AuditStatusEnum;
@@ -45,6 +46,9 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private SysSurFaciesConvertor sysSurFaciesConvertor;
     @Autowired
     private SysDescriptionConvertor sysDescriptionConvertor;
+
+    @Autowired
+    private SysInfoAttConvertor sysInfoAttConvertor;
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
@@ -145,18 +149,14 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         return dto;
     }
 
-    private List<String> getImgPaths(List<SysInfoAtt> sysinfos) {
-        List<String> imgPaths = new ArrayList<>();
-        array = PropertyUtils.getSysVal("image.house.types").split(",");
-        List<String> types = Arrays.asList(array);
-        String path = StringUtils.EMPTY;
-        for (SysInfoAtt sysInfoAtt : sysinfos) {
-            if (types.contains(sysInfoAtt.getFileName())) {
-                path += sysInfoAtt.getFileName();
+    private List<ImgDTO> getImgPaths(List<SysInfoAtt> sysinfos) {
+        List<ImgDTO> imgPaths = new ArrayList<>();
+        ImgDTO imgDTO = null;
+        for(SysInfoAtt sysInfoAtt:sysinfos){
+            if (sysInfoAtt != null) {
+                imgDTO = sysInfoAttConvertor.toDTO(sysInfoAtt);
             }
-            path += "/";
-            path += sysInfoAtt.getFilePath();
-            imgPaths.add(path);
+            imgPaths.add(imgDTO);
         }
         return imgPaths;
     }

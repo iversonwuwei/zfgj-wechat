@@ -15,7 +15,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 房屋图片
      */
-    private List<String> houImg;
+    private List<ImgDTO> houImg;
 
     /**
      * 房源标题
