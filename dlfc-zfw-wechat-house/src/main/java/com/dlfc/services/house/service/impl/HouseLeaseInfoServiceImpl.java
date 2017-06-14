@@ -60,8 +60,11 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             result = lesseeRService.findByParams(dto);
             entityList = convertor.convert2Objects(result, HouLeaseInfo.class);
         }
-        List<HouLeaseInfo> houLeaseInfoList = new ArrayList<>();
         List<String> facilityIdList = dto.getFacilityIdList();
+        if (null == facilityIdList || facilityIdList.size() == 0) {
+            return entityList;
+        }
+        List<HouLeaseInfo> houLeaseInfoList = new ArrayList<>();
         for (HouLeaseInfo item : entityList) {
             boolean flag = true;
             result = systemRService.findSysSurFacisByLid(item.getId());
@@ -69,11 +72,15 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             if (result != null) {
                 sysSurFacisList = sysSurFacisIConvertor.convert2Objects(result, SysSurFacis.class);
             }
-            if (facilityIdList != null && sysSurFacisList.size() != facilityIdList.size()) {
+            if (sysSurFacisList.size() < facilityIdList.size()) {
                 flag = false;
             } else {
+                List<String> codeList = new ArrayList<>();
                 for (SysSurFacis sysSurFacis : sysSurFacisList) {
-                    if (!facilityIdList.contains(sysSurFacis.getFacilityCode())) {
+                    codeList.add(sysSurFacis.getFacilityCode());
+                }
+                for (String str : facilityIdList) {
+                    if (!codeList.contains(str)) {
                         flag = false;
                         break;
                     }
