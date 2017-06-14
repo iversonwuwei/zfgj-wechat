@@ -125,7 +125,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             dto.setDepositType(type[0]);
             dto.setPaymentType(type[1]);
         }
-
+        dto.setDistrictTradeName(model.getDistrictName());
         dto.setHouStatus(model.getReleaseStatus());
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
