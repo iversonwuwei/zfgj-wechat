@@ -2,6 +2,7 @@ package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
 import com.dlfc.services.house.dto.HouseConditionDTO;
+import com.dlfc.services.house.enums.HouseReleaseStatusEnum;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,7 @@ public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, House
             dto.setRentMode(conditionDTO.getRentMode());
             dto.setOrientation(conditionDTO.getOrientation());
             dto.setPaymentStyle(conditionDTO.getPaymentStyle());
+            dto.setReleaseStatus(HouseReleaseStatusEnum.YES_ENUM.getValue());
         }
         return dto;
     }

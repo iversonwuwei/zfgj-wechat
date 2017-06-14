@@ -153,8 +153,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         for (SysInfoAtt sysInfoAtt : sysinfos) {
             if (types.contains(sysInfoAtt.getFileName())) {
                 path += sysInfoAtt.getFileName();
-                path += "/";
             }
+            path += "/";
             path += sysInfoAtt.getFilePath();
             imgPaths.add(path);
         }

@@ -70,4 +70,9 @@ public class HouLeaseInfoDTO {
      * 周边设施
      */
     private List<String> facilityIdList;
+
+    /**
+     * 发布状态
+     */
+    private Integer releaseStatus;
 }
