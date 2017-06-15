@@ -3,8 +3,10 @@ package com.dlfc.services.house.convertor;
 import com.dlfc.admin.common.utils.PropertyUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
+import com.dlfc.services.house.entity.AgtEmpInfo;
 import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysInfoAtt;
+import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.enums.AuditStatusEnum;
 import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
@@ -49,6 +51,11 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     @Autowired
     private SysInfoAttConvertor sysInfoAttConvertor;
+
+    @Autowired
+    private AgtUserService agtUserService;
+    @Autowired
+    private UsrUserService usrUserService;
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
@@ -146,6 +153,14 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
         dto.setLatitude(model.getLatitude());
         dto.setLongitude(model.getLongitude());
+        UsrUser usrUser = usrUserService.findById(model.getUid());
+        AgtEmpInfo agtEmpInfo = agtUserService.findById(model.getEid());
+        if (usrUser == null){
+            dto.setPhone(agtEmpInfo.getPhone());
+        }
+        if (agtEmpInfo == null){
+            dto.setPhone(usrUser.getMobile());
+        }
         return dto;
     }
 

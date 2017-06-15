@@ -159,4 +159,6 @@ public class HouseDTO extends AbstractDTO {
     private String latitude;
 
     private String longitude;
+
+    private String phone;
 }
