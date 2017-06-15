@@ -70,7 +70,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 上次刷新时间
      */
-    private Date refreshTime;
+    private String refreshTime;
 
     /**
      * 出租面积
