@@ -223,6 +223,18 @@ public class HouLeaseController {
     }
 
     /**
+     * 删除房源
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResultDTO<Void> delete(@RequestParam String lid){
+        boolean success = houseLeaseInfoService.delete(lid);
+        if (success){
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
+    }
+
+    /**
      * 发布房源
      *
      * @param dto

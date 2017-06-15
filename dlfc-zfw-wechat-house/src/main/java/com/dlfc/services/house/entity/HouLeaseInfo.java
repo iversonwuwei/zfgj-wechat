@@ -398,7 +398,7 @@ public class HouLeaseInfo {
      *
      * @mbggenerated Wed May 31 16:50:59 CST 2017
      */
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date freshTime;
 
     /**

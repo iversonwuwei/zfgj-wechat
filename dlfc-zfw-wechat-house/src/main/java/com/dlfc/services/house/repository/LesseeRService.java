@@ -30,4 +30,7 @@ public interface LesseeRService {
     String findAll(@RequestParam(defaultValue = "10", name = "pageSize") Integer pageSize,
                    @RequestParam(defaultValue = "1", name = "pageNo") Integer pageNo,
                    @RequestParam(defaultValue = "1", name = "releaseStatus") Integer releaseStatus);
+
+    @RequestMapping(value = "/wc/datas/houLeaseInfo/removeById", method = RequestMethod.DELETE)
+    String removeById(@RequestParam(name = "id") String id);
 }

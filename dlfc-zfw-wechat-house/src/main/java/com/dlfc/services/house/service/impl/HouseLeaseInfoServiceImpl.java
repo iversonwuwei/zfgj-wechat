@@ -141,4 +141,13 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
         return false;
     }
 
+    @Override
+    public boolean delete(String lid) {
+        String id = lesseeRService.removeById(lid);
+        if (id != null){
+            return true;
+        }
+        return false;
+    }
+
 }

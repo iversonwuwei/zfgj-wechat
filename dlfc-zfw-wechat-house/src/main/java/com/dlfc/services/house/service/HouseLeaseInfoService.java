@@ -25,4 +25,6 @@ public interface HouseLeaseInfoService {
     String save(HouLeaseInfo houLeaseInfo);
 
     boolean update(HouLeaseInfo houLeaseInfo);
+
+    boolean delete(String lid);
 }
