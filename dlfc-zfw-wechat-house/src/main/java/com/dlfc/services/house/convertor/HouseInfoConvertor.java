@@ -1,6 +1,5 @@
 package com.dlfc.services.house.convertor;
 
-import com.dlfc.admin.common.utils.PropertyUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
 import com.dlfc.services.house.entity.AgtEmpInfo;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -163,6 +161,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         }
 
         dto.setRefreshTime(model.getFreshTime());
+
+        dto.setHouNumber(model.getLno());
         return dto;
     }
 

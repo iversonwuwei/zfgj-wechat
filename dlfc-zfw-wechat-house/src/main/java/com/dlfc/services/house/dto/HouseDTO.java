@@ -13,6 +13,10 @@ import java.util.List;
 public class HouseDTO extends AbstractDTO {
 
     /**
+     * 出租信息编号
+     */
+    private String houNumber;
+    /**
      * 房屋图片
      */
     private List<ImgDTO> houImg;
