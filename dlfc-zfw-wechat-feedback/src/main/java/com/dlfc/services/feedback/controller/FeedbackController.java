@@ -4,7 +4,6 @@ package com.dlfc.services.feedback.controller;
 import com.dlfc.services.feedback.convertor.FeedbackConvertor;
 import com.dlfc.services.feedback.dto.FeedbackDTO;
 import com.dlfc.services.feedback.dto.UserDTO;
-import com.dlfc.services.feedback.entity.CmsGuestbook;
 import com.dlfc.services.feedback.entity.UsrFeedback;
 import com.dlfc.services.feedback.repository.UserInfoRService;
 import com.dlfc.services.feedback.service.FeedbackService;
@@ -27,14 +26,15 @@ public class FeedbackController {
     private PrincipalService principalService;
     @Autowired
     private UserInfoRService userInfoRService;
+
     @Autowired
-    private IConvertor convertor;
+    private IConvertor<UserDTO> convertor;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResultDTO<Void> feedback(@RequestBody FeedbackDTO feedbackDTO, @RequestHeader String token){
         AjaxResult user = principalService.principal(token);
         String uid = userInfoRService.findUserByUser(user.getData().toString());
-        UserDTO userDTO = (UserDTO) convertor.convert2Object(uid, UserDTO.class);
+        UserDTO userDTO = convertor.convert2Object(uid, UserDTO.class);
         feedbackDTO.setUid(userDTO.getId());
         UsrFeedback usrFeedback = feedbackConvertor.toModel(feedbackDTO);
         String id = (String) feedbackFeedbackService.feedback(usrFeedback);

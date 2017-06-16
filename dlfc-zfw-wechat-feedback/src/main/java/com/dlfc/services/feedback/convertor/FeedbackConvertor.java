@@ -1,13 +1,8 @@
 package com.dlfc.services.feedback.convertor;
 
 import com.dlfc.services.feedback.dto.FeedbackDTO;
-import com.dlfc.services.feedback.dto.UserDTO;
-import com.dlfc.services.feedback.entity.CmsGuestbook;
 import com.dlfc.services.feedback.entity.UsrFeedback;
-import com.dlfc.services.feedback.repository.UserInfoRService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
-import com.housecenter.dlfc.framework.ca.api.PrincipalService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
