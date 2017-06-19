@@ -2,6 +2,7 @@ package com.dlfc.services.feedback.convertor;
 
 import com.dlfc.services.feedback.dto.FeedbackDTO;
 import com.dlfc.services.feedback.entity.UsrFeedback;
+import com.dlfc.services.feedback.enums.FeedBackEnum;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ public class FeedbackConvertor extends AbstractConvertor<UsrFeedback, FeedbackDT
         UsrFeedback usrFeedback = new UsrFeedback();
         usrFeedback.setContent(feedbackDTO.getFeedback());
         usrFeedback.setId(feedbackDTO.getUid());
+        usrFeedback.setResource(FeedBackEnum.HOUSECENTER_WeChat.getValue());
         return usrFeedback;
     }
 
