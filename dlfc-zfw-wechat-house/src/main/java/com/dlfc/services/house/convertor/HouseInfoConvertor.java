@@ -1,5 +1,7 @@
 package com.dlfc.services.house.convertor;
 
+import com.dlfc.admin.common.utils.Const;
+import com.dlfc.admin.common.utils.OrderUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
 import com.dlfc.services.house.entity.AgtEmpInfo;
@@ -7,6 +9,7 @@ import com.dlfc.services.house.entity.HouLeaseInfo;
 import com.dlfc.services.house.entity.SysInfoAtt;
 import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.enums.AuditStatusEnum;
+import com.dlfc.services.house.enums.LeaseInfoSysSourceEnum;
 import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
@@ -78,6 +81,10 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setUid(dto.getUid());
         model.setReleaseStatus(dto.getHouStatus());
         model.setAuditStatus(AuditStatusEnum.UNAUDITED_ENUM.getValue());
+        // 房源编号
+        model.setLno(OrderUtils.getBusinessNO(Const.BUSINESS_TYPE_LEASE));
+        // 房源来源
+        model.setSysSource(LeaseInfoSysSourceEnum.WECHAT.getValue());
         return model;
     }
 
@@ -153,10 +160,10 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setLongitude(model.getLongitude());
         UsrUser usrUser = usrUserService.findById(model.getUid());
         AgtEmpInfo agtEmpInfo = agtUserService.findById(model.getEid());
-        if (usrUser == null){
+        if (usrUser == null) {
             dto.setPhone(agtEmpInfo.getPhone());
         }
-        if (agtEmpInfo == null){
+        if (agtEmpInfo == null) {
             dto.setPhone(usrUser.getMobile());
         }
 
@@ -169,7 +176,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private List<ImgDTO> getImgPaths(List<SysInfoAtt> sysinfos) {
         List<ImgDTO> imgPaths = new ArrayList<>();
         ImgDTO imgDTO = null;
-        for(SysInfoAtt sysInfoAtt:sysinfos){
+        for (SysInfoAtt sysInfoAtt : sysinfos) {
             if (sysInfoAtt != null) {
                 imgDTO = sysInfoAttConvertor.toDTO(sysInfoAtt);
             }
