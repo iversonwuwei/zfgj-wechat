@@ -1,6 +1,7 @@
 package com.dlfc.services.house.convertor;
 
 import com.dlfc.admin.common.utils.Const;
+import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.OrderUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
@@ -85,6 +86,10 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setLno(OrderUtils.getBusinessNO(Const.BUSINESS_TYPE_LEASE));
         // 房源来源
         model.setSysSource(LeaseInfoSysSourceEnum.WECHAT.getValue());
+        // 刷新时间
+        model.setFreshTime(DateUtils.getSynchTime());
+        // 上架时间
+        model.setReleaseTime(DateUtils.getSynchTime());
         return model;
     }
 
