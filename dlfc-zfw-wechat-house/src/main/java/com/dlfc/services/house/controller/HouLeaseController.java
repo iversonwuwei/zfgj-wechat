@@ -216,6 +216,7 @@ public class HouLeaseController {
             ResultError resultError = null;
             if (e.getMessage().contains("500") || e.getMessage().contains("404")){
                 resultError = new ResultError();
+                resultError.setErrcode("250");
                 resultError.setErrmsg("token expired please re-login!");
                 return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
             }else{
