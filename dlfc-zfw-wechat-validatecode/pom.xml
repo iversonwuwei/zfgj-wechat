@@ -17,12 +17,6 @@
             <artifactId>dlfc-framework-sms</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>
-                com.housecenter.dlfc.framework.starter.data.mybatis
-            </groupId>
-            <artifactId>dlfc-framework-starter-data-mybatis</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
