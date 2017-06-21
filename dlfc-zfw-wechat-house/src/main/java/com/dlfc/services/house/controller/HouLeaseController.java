@@ -1,9 +1,12 @@
 package com.dlfc.services.house.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dlfc.services.house.convertor.*;
 import com.dlfc.services.house.dto.*;
 import com.dlfc.services.house.entity.*;
 import com.dlfc.services.house.repository.UserInfoRService;
+import com.dlfc.services.house.repository.ValidateRService;
 import com.dlfc.services.house.service.*;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
@@ -13,12 +16,13 @@ import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/ww/houseinfos")
 public class HouLeaseController {
@@ -60,6 +64,9 @@ public class HouLeaseController {
     @Autowired
     private SysInfoAttConvertor sysInfoAttConvertor;
 
+    @Autowired
+    private ValidateRService validateRService;
+
     /**
      * 查找房源
      *
@@ -67,6 +74,7 @@ public class HouLeaseController {
      * @return
      * @throws CustomRuntimeException
      */
+
     @RequestMapping(method = RequestMethod.POST)
     public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO) throws CustomRuntimeException {
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
@@ -197,11 +205,24 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public ListResultDTO<HouseDTO> myHouses(@RequestHeader String token) throws CustomRuntimeException {
-        AjaxResult user = principalService.principal(token);
-        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
-        houLeaseInfoList = houseLeaseInfoService.findByUid(userDTO.getId());
-        if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-            houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
+        UserDTO userDTO = null;
+        try{
+            ResultDTO<UserDTO> user = validateRService.validateUserBy(token);
+            houLeaseInfoList = houseLeaseInfoService.findByUid(user.getData().getId());
+            if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
+                houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
+            }
+        }catch (Exception e){
+            ResultError resultError = null;
+            if (e.getMessage().contains("500") || e.getMessage().contains("404")){
+                resultError = new ResultError();
+                resultError.setErrmsg("token expired please re-login!");
+                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
+            }else{
+                resultError = new ResultError();
+                resultError.setErrmsg(e.getMessage());
+                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
+            }
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
     }

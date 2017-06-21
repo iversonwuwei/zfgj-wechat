@@ -4,6 +4,7 @@ import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

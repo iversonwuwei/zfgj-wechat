@@ -139,7 +139,15 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
         dto.setHouImg(getImgPaths(sysInfoAtts));
-        dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
+        if (strs[0].equals("")) {
+            if (model.getUid() != null) {
+                dto.setCollected(houCollectionService.collected(model.getUid(), model.getId()));
+            } else {
+                dto.setCollected(false);
+            }
+        }else{
+            dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
+        }
         try {
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
             dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysHouEquipsService.findByLid(model.getId())));
@@ -148,7 +156,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         } catch (CustomRuntimeException e) {
             e.printStackTrace();
         }
-
+        dto.setUid(model.getUid());
         dto.setLatitude(model.getLatitude());
         dto.setLongitude(model.getLongitude());
         UsrUser usrUser = usrUserService.findById(model.getUid());
