@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LesseeRService {
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findById", method = RequestMethod.GET)
-    String getLesseeById(@RequestParam(name = "id") String id);
+    HouLeaseInfo getLesseeById(@RequestParam(name = "id") String id);
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findByUid", method = RequestMethod.GET)
     String findByUid(@RequestParam(name = "uid") String uid);
