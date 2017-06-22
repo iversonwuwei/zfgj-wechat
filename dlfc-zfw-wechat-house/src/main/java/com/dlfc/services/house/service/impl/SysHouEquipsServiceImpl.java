@@ -1,10 +1,11 @@
 package com.dlfc.services.house.service.impl;
 
-import com.dlfc.services.house.entity.SysHouEquips;
-import com.dlfc.services.house.entity.SysHouEquipsContrast;
 import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysHouEquipsService;
+import com.dlfc.zfw.wechat.entities.entity.SysHouEquips;
+import com.dlfc.zfw.wechat.entities.entity.SysHouEquipsContrast;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,6 @@ import java.util.List;
 @Service
 public class SysHouEquipsServiceImpl implements SysHouEquipsService {
 
-    private String result;
-    private SysHouEquips entity;
-    private SysHouEquipsContrast entity2;
-
     @Autowired
     private SystemRService systemRService;
     @Autowired
@@ -30,28 +27,20 @@ public class SysHouEquipsServiceImpl implements SysHouEquipsService {
     private MoreRService moreRService;
 
     @Override
-    public String save(SysHouEquips sysSurFacis) {
-        return systemRService.saveSysHouEquips(sysSurFacis);
-    }
-
-    @Override
-    public void saveWithLidAndCode(String lid,
-                                   List<String> around) {
-        for (String str : around) {
-            entity = new SysHouEquips();
-            entity.setLid(lid);
-            entity.setEquipmentCode(str);
-            result = systemRService.findSysHouEquipsContrastByCode(str);
-            entity2 = (SysHouEquipsContrast) convertor.convert2Object(result, SysHouEquipsContrast.class);
-            entity.setEquipmentName(entity2.getName());
-            save(entity);
+    public String save(SysHouEquips sysHouEquips,
+                       UsrUser user) {
+        if (null != sysHouEquips
+                && null != user) {
+            sysHouEquips.preInsert(user);
+            return systemRService.saveSysHouEquips(sysHouEquips);
         }
+        return null;
     }
 
     @Override
     public List<SysHouEquips> findByLid(String lid) {
         String houEquips = moreRService.findsysHouEquipsByLid(lid);
-        if (houEquips == null){
+        if (houEquips == null) {
             return null;
         }
         return convertor.convert2Objects(houEquips, SysHouEquips.class);

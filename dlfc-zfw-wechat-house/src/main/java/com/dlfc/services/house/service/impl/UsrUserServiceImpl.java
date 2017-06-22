@@ -1,8 +1,8 @@
 package com.dlfc.services.house.service.impl;
 
-import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.service.UsrUserService;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.framework.boot.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,10 @@
 package com.dlfc.services.house.service.impl;
 
-import com.dlfc.services.house.entity.SysDescriptions;
 import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysDescriptionsService;
+import com.dlfc.zfw.wechat.entities.entity.SysDescriptions;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,14 @@ public class SysDescriptionsServiceImpl implements SysDescriptionsService {
     private MoreRService moreRService;
 
     @Override
-    public void save(SysDescriptions sysDescriptions) {
-        systemRService.saveSysDescriptions(sysDescriptions);
+    public String save(SysDescriptions sysDescriptions,
+                     UsrUser user) {
+        if (null != sysDescriptions
+                && null != user) {
+            sysDescriptions.preInsert(user);
+            return systemRService.saveSysDescriptions(sysDescriptions);
+        }
+        return null;
     }
 
     @Override

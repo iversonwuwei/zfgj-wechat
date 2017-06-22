@@ -1,11 +1,12 @@
 package com.dlfc.services.house.service.impl;
 
 
-import com.dlfc.services.house.entity.SysInfoAtt;
 import com.dlfc.services.house.enums.InfoAttFileTypeEnum;
 import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysInfoAttService;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,14 @@ public class SysInfoServiceImpl implements SysInfoAttService {
     }
 
     @Override
-    public String save(SysInfoAtt sysInfoAtt) {
-        return systemRService.saveSysInfoAtt(sysInfoAtt);
+    public String save(SysInfoAtt sysInfoAtt,
+                       UsrUser user) {
+        if (null != sysInfoAtt
+                && null != user) {
+            sysInfoAtt.preInsert(user);
+            return systemRService.saveSysInfoAtt(sysInfoAtt);
+        }
+        return null;
     }
 
     @Override

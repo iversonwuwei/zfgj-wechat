@@ -1,7 +1,7 @@
 package com.dlfc.services.house.repository;
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
-import com.dlfc.services.house.entity.HouLeaseInfo;
+import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

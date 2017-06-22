@@ -1,6 +1,6 @@
 package com.dlfc.services.house.service;
 
-import com.dlfc.services.house.entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 
 /**
  * Created by walden on 17-6-15.

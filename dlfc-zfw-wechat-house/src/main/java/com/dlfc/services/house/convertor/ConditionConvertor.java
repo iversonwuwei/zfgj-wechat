@@ -7,6 +7,8 @@ import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 /**
  * Created by K on 2017/6/2.
  */
@@ -45,6 +47,10 @@ public class ConditionConvertor extends AbstractConvertor<HouLeaseInfoDTO, House
             dto.setOrientation(conditionDTO.getOrientation());
             dto.setPaymentStyle(conditionDTO.getPaymentStyle());
             dto.setReleaseStatus(HouseReleaseStatusEnum.YES_ENUM.getValue());
+            if (null != conditionDTO.getSurroundingFacilities()
+                    && conditionDTO.getSurroundingFacilities().length > 0) {
+                dto.setFacilityIdList(Arrays.asList(conditionDTO.getSurroundingFacilities()));
+            }
         }
         return dto;
     }
