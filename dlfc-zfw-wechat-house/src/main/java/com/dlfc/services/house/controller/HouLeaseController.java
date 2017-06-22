@@ -191,8 +191,16 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ListResultDTO<HouseDTO> findAllHouses(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) throws CustomRuntimeException {
+                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @RequestHeader String token) throws CustomRuntimeException {
+        AjaxResult user = null;
+        UserDTO userDTO = null;
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
+        if (token != null){
+            user = principalService.principal(token);
+            String usrUser = userInfoRService.findUserByUser(user.getData().toString());
+            userDTO = convertor.convert2Object(usrUser, UserDTO.class);
+            return houseInfoConvertor.toResultDTO(houLeaseInfos, userDTO.getId());
+        }
         return houseInfoConvertor.toResultDTO(houLeaseInfos);
     }
 
