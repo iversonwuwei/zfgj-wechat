@@ -193,13 +193,11 @@ public class HouLeaseController {
     public ListResultDTO<HouseDTO> findAllHouses(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @RequestHeader String token) throws CustomRuntimeException {
         AjaxResult user = null;
-        UserDTO userDTO = null;
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         if (token != null){
             user = principalService.principal(token);
-            String usrUser = userInfoRService.findUserByUser(user.getData().toString());
-            userDTO = convertor.convert2Object(usrUser, UserDTO.class);
-            return houseInfoConvertor.toResultDTO(houLeaseInfos, userDTO.getId());
+            UsrUser usrUser = userInfoRService.findUserByUser(user.getData().toString());
+            return houseInfoConvertor.toResultDTO(houLeaseInfos, usrUser.getId());
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfos);
     }
@@ -244,8 +242,17 @@ public class HouLeaseController {
      * @throws CustomRuntimeException
      */
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ResultDTO<HouseDTO> details(@RequestParam String lid) throws CustomRuntimeException {
+    public ResultDTO<HouseDTO> details(@RequestParam String lid, @RequestHeader String token) throws CustomRuntimeException {
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
+        if (token != null && houLeaseInfo == null){
+            AjaxResult user = principalService.principal(token);
+            if (user!= null){
+                UsrUser usrUser = userInfoRService.findUserByUser(user.getData().toString());
+                if (usrUser != null){
+                    return houseInfoConvertor.toResultDTO(houLeaseInfo, usrUser.getId());
+                }
+            }
+        }
         if (houLeaseInfo == null) {
             return null;
         }
@@ -279,8 +286,8 @@ public class HouLeaseController {
         SysTrafficLines sysTrafficLines = null;
         SysDescriptions sysDescriptions = null;
         SysInfoAtt sysInfoAtt = null;
-        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
-        dto.setUid(userDTO.getId());
+        UsrUser usrUser = userInfoRService.findUserByUser(user.getData().toString());
+        dto.setUid(usrUser.getId());
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
         String id = houseLeaseInfoService.save(houLeaseInfo);
         if (StringUtils.isEmpty(id)) {
