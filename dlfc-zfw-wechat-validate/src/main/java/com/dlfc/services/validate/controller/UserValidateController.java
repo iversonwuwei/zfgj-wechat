@@ -2,8 +2,8 @@ package com.dlfc.services.validate.controller;
 
 import com.dlfc.services.validate.convertor.UserValidateConvertor;
 import com.dlfc.services.validate.dto.ValidateResultDTO;
-import com.dlfc.services.validate.entity.User;
 import com.dlfc.services.validate.repository.UserInfoRService;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
@@ -24,8 +24,6 @@ public class UserValidateController {
     @Autowired
     private PrincipalService principalService;
     @Autowired
-    private IConvertor<User> convertor;
-    @Autowired
     private UserInfoRService userInfoRService;
     @Autowired
     private UserValidateConvertor userValidateConvertor;
@@ -33,10 +31,11 @@ public class UserValidateController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResultDTO<ValidateResultDTO> userValidation(@RequestParam String token){
         AjaxResult user = null;
-        User userEntity = null;
+        UsrUser userEntity = null;
         if (!token.equals("") && token != null) {
             user = principalService.principal(token);
-            userEntity = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), User.class);
+            //userEntity = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), User.class);
+            userEntity = userInfoRService.findUserByUser(user.getData().toString());
         }
         return userValidateConvertor.toResultDTO(userEntity);
     }

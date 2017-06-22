@@ -1,7 +1,7 @@
 package com.dlfc.services.validate.convertor;
 
 import com.dlfc.services.validate.dto.ValidateResultDTO;
-import com.dlfc.services.validate.entity.User;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
  * Created by walden on 17-6-21.
  */
 @Component
-public class UserValidateConvertor extends AbstractConvertor<User, ValidateResultDTO> {
+public class UserValidateConvertor extends AbstractConvertor<UsrUser, ValidateResultDTO> {
     @Override
-    public User toModel(ValidateResultDTO validateResultDTO) {
+    public UsrUser toModel(ValidateResultDTO validateResultDTO) {
         return null;
     }
 
     @Override
-    public ValidateResultDTO toDTO(User user, Object... objects) {
+    public ValidateResultDTO toDTO(UsrUser user, Object... objects) {
         ValidateResultDTO validateResultDTO = new ValidateResultDTO();
         validateResultDTO.setUsername(user.getUsername());
         validateResultDTO.setAgtCert(user.getAgtCert());
