@@ -244,7 +244,7 @@ public class HouLeaseController {
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ResultDTO<HouseDTO> details(@RequestParam String lid, @RequestHeader String token) throws CustomRuntimeException {
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
-        if (token != null && houLeaseInfo == null){
+        if (token != null && houLeaseInfo != null){
             AjaxResult user = principalService.principal(token);
             if (user!= null){
                 UsrUser usrUser = userInfoRService.findUserByUser(user.getData().toString());
