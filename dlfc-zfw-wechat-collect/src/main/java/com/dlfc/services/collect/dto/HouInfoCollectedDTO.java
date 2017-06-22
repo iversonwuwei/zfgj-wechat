@@ -26,11 +26,13 @@ public class HouInfoCollectedDTO extends AbstractDTO {
 
     private String area;
 
-    private String layout;
+    private String layoutRoom;
+
+    private String layoutHall;
+
+    private String layoutToilet;
 
     private String rentType;
-
-    private String leaseRoom;
 
     private Integer leaseMode;
 

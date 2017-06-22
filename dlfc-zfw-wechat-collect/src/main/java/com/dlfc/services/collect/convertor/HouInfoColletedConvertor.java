@@ -18,6 +18,8 @@ import java.util.List;
 @Component
 public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection, HouInfoCollectedDTO> {
 
+    private String[] array;
+
     @Autowired
     private HouseLeaseInfoService houseLeaseInfoService;
 
@@ -42,27 +44,32 @@ public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection
             }
         }
         houInfoCollectedDTO.setHouImg(imgUrls);
-        String[] daId = this.splite(houLeaseInfo.getDistrict(), ",");
+        String[] daId = this.split(houLeaseInfo.getDistrict(), ",");
         houInfoCollectedDTO.setDistrictId(daId[0]);
         houInfoCollectedDTO.setAreaId(daId[1]);
         houInfoCollectedDTO.setId(houLeaseInfo.getId());
         houInfoCollectedDTO.setChId(usrHouCollection.getId());
-        String[] areas = this.splite(houLeaseInfo.getDistrictName(), " ");
+        String[] areas = this.split(houLeaseInfo.getDistrictName(), " ");
         houInfoCollectedDTO.setDistrict(areas[0]);
         houInfoCollectedDTO.setArea(areas[1]);
         houInfoCollectedDTO.setDesc(houLeaseInfo.getTitle());
-        String[] layouts = splite(houLeaseInfo.getApartmentLayout(), ",");
-        houInfoCollectedDTO.setLayout(houLeaseInfo.getApartmentLayout());
+        String[] layouts = split(houLeaseInfo.getApartmentLayout(), ",");
+        houInfoCollectedDTO.setLayoutRoom(layouts[0]);
+        houInfoCollectedDTO.setLayoutHall(layouts[1]);
+        houInfoCollectedDTO.setLayoutToilet(layouts[2]);
         houInfoCollectedDTO.setRentType(houLeaseInfo.getRentType());
-        houInfoCollectedDTO.setLeaseRoom(houLeaseInfo.getRoom());
         houInfoCollectedDTO.setPrice(houLeaseInfo.getRent());
         houInfoCollectedDTO.setLeaseMode(houLeaseInfo.getLeaseMode());
         return houInfoCollectedDTO;
     }
 
-    private String[] splite(String str, String spliteToken){
-        String[] strings = StringUtils.delimitedListToStringArray(str, spliteToken);
-
-        return strings;
+    private String[] split(String district,
+                           String fix) {
+        if (com.housecenter.dlfc.framework.common.util.StringUtils.isNotEmpty(district)
+                && com.housecenter.dlfc.framework.common.util.StringUtils.isNotEmpty(fix)) {
+            array = org.springframework.util.StringUtils.delimitedListToStringArray(district, fix);
+            return array;
+        }
+        return null;
     }
 }
