@@ -179,8 +179,9 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         if (agtEmpInfo == null) {
             dto.setPhone(usrUser.getMobile());
         }
-
-        dto.setRefreshTime(new Date(model.getFreshTime()));
+        if(model.getFreshTime()!=null) {
+            dto.setRefreshTime(new Date(model.getFreshTime()));
+        }
 
         dto.setHouNumber(model.getLno());
         return dto;
