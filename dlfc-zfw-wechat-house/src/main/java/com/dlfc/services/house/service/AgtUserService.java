@@ -1,6 +1,6 @@
 package com.dlfc.services.house.service;
 
-import com.dlfc.services.house.entity.AgtEmpInfo;
+import com.dlfc.zfw.wechat.entities.entity.AgtEmpInfo;
 
 /**
  * Created by walden on 17-6-15.

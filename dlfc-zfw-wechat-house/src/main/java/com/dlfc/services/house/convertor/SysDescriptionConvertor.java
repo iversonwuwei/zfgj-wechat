@@ -2,9 +2,8 @@ package com.dlfc.services.house.convertor;
 
 
 import com.dlfc.services.house.convertor.base.AbstractConvertor;
-import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.SysDescriptionDTO;
-import com.dlfc.services.house.entity.SysDescriptions;
+import com.dlfc.zfw.wechat.entities.entity.SysDescriptions;
 import org.springframework.stereotype.Component;
 
 @Component

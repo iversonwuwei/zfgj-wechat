@@ -1,7 +1,7 @@
 package com.dlfc.services.house.service;
 
-import com.dlfc.services.house.entity.SysSurFacis;
-import com.dlfc.services.house.entity.SysTrafficLines;
+import com.dlfc.zfw.wechat.entities.entity.SysSurFacis;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SysSurFaciService {
 
-    String save(SysSurFacis sysSurFacis);
+    String save(SysSurFacis sysSurFacis, UsrUser user);
 
     List<SysSurFacis> findByLid(String lid);
 

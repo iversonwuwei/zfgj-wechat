@@ -1,9 +1,8 @@
 package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.convertor.base.AbstractConvertor;
-import com.dlfc.services.house.dto.SysSurFaciesDTO;
 import com.dlfc.services.house.dto.SysTranfficLinesDTO;
-import com.dlfc.services.house.entity.SysTrafficLines;
+import com.dlfc.zfw.wechat.entities.entity.SysTrafficLines;
 import org.springframework.stereotype.Component;
 
 

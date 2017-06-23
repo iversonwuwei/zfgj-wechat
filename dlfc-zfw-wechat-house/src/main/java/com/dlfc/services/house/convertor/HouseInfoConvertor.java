@@ -5,13 +5,13 @@ import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.OrderUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
-import com.dlfc.services.house.entity.AgtEmpInfo;
-import com.dlfc.services.house.entity.HouLeaseInfo;
-import com.dlfc.services.house.entity.SysInfoAtt;
-import com.dlfc.services.house.entity.UsrUser;
 import com.dlfc.services.house.enums.AuditStatusEnum;
 import com.dlfc.services.house.enums.LeaseInfoSysSourceEnum;
 import com.dlfc.services.house.service.*;
+import com.dlfc.zfw.wechat.entities.entity.AgtEmpInfo;
+import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -87,9 +88,9 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         // 房源来源
         model.setSysSource(LeaseInfoSysSourceEnum.WECHAT.getValue());
         // 刷新时间
-        model.setFreshTime(DateUtils.getSynchTime());
+        model.setFreshTime(DateUtils.getSynchTime().getTime());
         // 上架时间
-        model.setReleaseTime(DateUtils.getSynchTime());
+        model.setReleaseTime(DateUtils.getSynchTime().getTime());
         return model;
     }
 
@@ -136,9 +137,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
                     break;
                 }
             }
-            if (StringUtils.isEmpty(dto.getLeaseMode())) {
-                dto.setTermRequirement("0");
-            }
+        } else {
+            dto.setTermRequirement("0");
         }
         dto.setPrice(model.getRent());
         String[] type = split(model.getRentType(), ",");
@@ -157,7 +157,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             } else {
                 dto.setCollected(false);
             }
-        }else{
+        } else {
             dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
         }
         try {
@@ -180,7 +180,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             dto.setPhone(usrUser.getMobile());
         }
 
-        dto.setRefreshTime(model.getFreshTime());
+        dto.setRefreshTime(new Date(model.getFreshTime()));
 
         dto.setHouNumber(model.getLno());
         return dto;
@@ -217,7 +217,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
                 }
                 buffer.append(",");
             }
-            buffer.deleteCharAt(array.length - 1);
+            buffer.deleteCharAt(buffer.length() - 1);
         }
         return buffer.toString();
     }

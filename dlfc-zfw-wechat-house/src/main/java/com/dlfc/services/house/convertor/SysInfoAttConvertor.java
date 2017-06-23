@@ -1,10 +1,9 @@
 package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.dto.ImgDTO;
-import com.dlfc.services.house.entity.SysInfoAtt;
 import com.dlfc.services.house.enums.InfoAttFileTypeEnum;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
-import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,7 +29,6 @@ public class SysInfoAttConvertor extends AbstractConvertor<SysInfoAtt, ImgDTO> {
         imgDTO.setName(sysInfoAtt.getFileName());
         imgDTO.setPosition(sysInfoAtt.getSort());
         imgDTO.setPath(sysInfoAtt.getFilePath());
-
         return imgDTO;
     }
 }

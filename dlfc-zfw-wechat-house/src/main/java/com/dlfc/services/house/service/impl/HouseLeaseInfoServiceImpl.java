@@ -2,12 +2,13 @@ package com.dlfc.services.house.service.impl;
 
 
 import com.dlfc.services.house.dto.HouLeaseInfoDTO;
-import com.dlfc.services.house.entity.HouLeaseInfo;
-import com.dlfc.services.house.entity.SysSurFacis;
 import com.dlfc.services.house.enums.HouseReleaseStatusEnum;
 import com.dlfc.services.house.repository.LesseeRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.HouseLeaseInfoService;
+import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
+import com.dlfc.zfw.wechat.entities.entity.SysSurFacis;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,8 +120,14 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     }
 
     @Override
-    public String save(HouLeaseInfo houLeaseInfo) {
-        return lesseeRService.save(houLeaseInfo);
+    public String save(HouLeaseInfo houLeaseInfo,
+                       UsrUser user) {
+        if (null != houLeaseInfo
+                && null != user) {
+            houLeaseInfo.preInsert(user);
+            return lesseeRService.save(houLeaseInfo);
+        }
+        return null;
     }
 
     @Override

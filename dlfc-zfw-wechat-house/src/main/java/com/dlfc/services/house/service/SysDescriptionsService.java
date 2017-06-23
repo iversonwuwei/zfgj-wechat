@@ -1,7 +1,7 @@
 package com.dlfc.services.house.service;
 
-import com.dlfc.services.house.entity.SysDescriptions;
-import com.dlfc.services.house.entity.SysTrafficLines;
+import com.dlfc.zfw.wechat.entities.entity.SysDescriptions;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by K on 2017/6/7.
  */
 public interface SysDescriptionsService {
-    void save(SysDescriptions sysDescriptions);
+    String save(SysDescriptions sysDescriptions, UsrUser user);
 
     List<SysDescriptions> findByLid(String lid);
 
