@@ -1,8 +1,8 @@
 package com.dlfc.services.contract.service.impl;
 
-import entity.ConHouseUser;
 import com.dlfc.services.contract.repository.ContractRService;
-import entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dlfc.services.contract.service.HouseUserService;

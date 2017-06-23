@@ -1,9 +1,9 @@
 package com.dlfc.services.contract.service.impl;
 
-import entity.ConContract;
 import com.dlfc.services.contract.repository.ContractRService;
 import com.dlfc.services.contract.service.ContractService;
-import entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.ConContract;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

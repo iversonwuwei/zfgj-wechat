@@ -1,8 +1,8 @@
 package com.dlfc.services.contract.repository;
 
-import entity.ConContract;
-import entity.ConHouseUser;
-import entity.ConHouseUserChildren;
+import com.dlfc.zfw.wechat.entities.entity.ConContract;
+import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
+import com.dlfc.zfw.wechat.entities.entity.ConHouseUserChildren;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

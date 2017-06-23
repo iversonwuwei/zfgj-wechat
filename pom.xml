@@ -22,7 +22,6 @@
         <module>dlfc-zfw-wechat-validatecode</module>
         <module>dlfc-zfw-wechat-feedback</module>
         <module>dlfc-zfw-wechat-contract</module>
-        <module>dlfc-zfw-wechat-date</module>
     </modules>
     <packaging>pom</packaging>
 

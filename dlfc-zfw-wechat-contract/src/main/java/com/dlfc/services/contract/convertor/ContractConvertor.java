@@ -3,7 +3,7 @@ package com.dlfc.services.contract.convertor;
 import com.dlfc.services.contract.dto.ContractDTO;
 import com.dlfc.services.contract.enums.ConSourceEnum;
 import com.dlfc.services.contract.enums.ConStatusEnum;
-import entity.ConContract;
+import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
