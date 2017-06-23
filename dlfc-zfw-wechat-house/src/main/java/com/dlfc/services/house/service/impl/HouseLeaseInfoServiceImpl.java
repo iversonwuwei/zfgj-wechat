@@ -42,11 +42,11 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
-        result = lesseeRService.getLesseeById(id);
+        HouLeaseInfo result = lesseeRService.getLesseeById(id);
         if (result == null) {
             return null;
         }
-        return convertor.convert2Object(result, HouLeaseInfo.class);
+        return result;
     }
 
     @Override
@@ -93,11 +93,10 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public boolean publish(String id) {
 
-        String lesseeInfo = lesseeRService.getLesseeById(id);
+        HouLeaseInfo lesseeInfo = lesseeRService.getLesseeById(id);
         if (lesseeInfo != null) {
-            HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
-            houLeaseInfo.setReleaseStatus(1);
-            String lid = lesseeRService.update(houLeaseInfo);
+            lesseeInfo.setReleaseStatus(1);
+            String lid = lesseeRService.update(lesseeInfo);
             if (lid != null) {
                 return true;
             }
@@ -108,11 +107,10 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public boolean shutdown(String id) {
-        String lesseeInfo = lesseeRService.getLesseeById(id);
+        HouLeaseInfo lesseeInfo = lesseeRService.getLesseeById(id);
         if (lesseeInfo != null) {
-            HouLeaseInfo houLeaseInfo = convertor.convert2Object(lesseeInfo, HouLeaseInfo.class);
-            houLeaseInfo.setReleaseStatus(0);
-            String lid = lesseeRService.update(houLeaseInfo);
+            lesseeInfo.setReleaseStatus(0);
+            String lid = lesseeRService.update(lesseeInfo);
             if (lid != null) {
                 return true;
             }
