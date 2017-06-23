@@ -1,10 +1,27 @@
+##DataSourceType
+dlfc:
+  jdbc:
+    type: com.alibaba.druid.pool.DruidDataSource
+    readSize: 1
+    master:
+      config: /mnt/samba/config/dbconfig-test155.properties
+    slave:
+      config: /mnt/samba/config/dbconfig-test155.properties
+      driverClassName: com.mysql.jdbc.Driver
+      maxActive: 30
+      initialSize: 1
+      minIdle: 1
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      maxOpenPreparedStatements: 20
+      filters: stat,config,log4j,wall
+
 server:
   port: 28096
-
 spring:
   application:
     name: dlfc-zfw-validatecode-services
-
 eureka:
   instance:
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
@@ -13,18 +30,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
-
 feign:
   hystrix:
     enabled: false
-
-dlfc:
-  jdbc:
-    slave:
-      url: jdbc:mysql://10.32.156.224:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
-      username: rep1
-      password: mysql
-    master:
-      url: jdbc:mysql://10.32.156.224:3306/dlfc_155?useUnicode=true&characterEncoding=utf-8
-      username: rep1
-      password: mysql

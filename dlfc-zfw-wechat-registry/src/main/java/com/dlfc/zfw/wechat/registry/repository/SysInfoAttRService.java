@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by K on 6/19/17.
  */
 
-@FeignClient("data-center-system")
+@FeignClient("dlfc-datacenter-system")
 public interface SysInfoAttRService {
 
-    @RequestMapping(value = "/wc/datas/sysInfoAtt", method = RequestMethod.POST)
+    @RequestMapping(value = "/wc/datas/sysInfoAtt/save", method = RequestMethod.POST)
     String saveSysInfoAtt(@RequestBody SysInfoAtt sysInfoAtt);
 }
