@@ -1,4 +1,4 @@
-package com.dlfc.services.date.dto;
+package com.dlfc.services.contract.dto;
 
 import lombok.Getter;
 import lombok.Setter;

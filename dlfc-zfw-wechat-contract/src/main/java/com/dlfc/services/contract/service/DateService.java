@@ -1,4 +1,4 @@
-package com.dlfc.services.date.service;
+package com.dlfc.services.contract.service;
 
 import java.util.Date;
 

@@ -4,10 +4,10 @@ import com.dlfc.services.contract.convertor.ContractConvertor;
 import com.dlfc.services.contract.convertor.HouseUserChildrenConvertor;
 import com.dlfc.services.contract.convertor.HouseUserConvertor;
 import com.dlfc.services.contract.dto.ContractDTO;
+import com.dlfc.services.contract.dto.ContractEndDateDTO;
 import com.dlfc.services.contract.dto.HouseUserChildrenDTO;
 import com.dlfc.services.contract.dto.HouseUserDTO;
-import com.dlfc.services.contract.service.HouseUserChildrenService;
-import com.dlfc.services.contract.service.UserService;
+import com.dlfc.services.contract.service.*;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
 import com.dlfc.zfw.wechat.entities.entity.ConHouseUserChildren;
@@ -17,8 +17,8 @@ import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.dlfc.services.contract.service.ContractService;
-import com.dlfc.services.contract.service.HouseUserService;
+
+import java.util.Date;
 
 /**
  * Created by K on 6/19/17.
@@ -46,6 +46,8 @@ public class SignController {
     private HouseUserChildrenService houseUserChildrenService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DateService dateService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResultDTO<Void> sign(@RequestBody ContractDTO contractDTO,
@@ -74,5 +76,10 @@ public class SignController {
             }
         }
         return ResultDTO.success();
+    }
+
+    @RequestMapping(value = "/endDate", method = RequestMethod.POST)
+    public Date getEndDate(@RequestBody ContractEndDateDTO dto) {
+        return dateService.getEndDate(dto.getStartDate(), dto.getYears(), dto.getMonths());
     }
 }

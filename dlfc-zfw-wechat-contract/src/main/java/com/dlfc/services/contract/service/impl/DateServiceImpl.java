@@ -1,6 +1,6 @@
-package com.dlfc.services.date.service.impl;
+package com.dlfc.services.contract.service.impl;
 
-import com.dlfc.services.date.service.DateService;
+import com.dlfc.services.contract.service.DateService;
 import com.housecenter.dlfc.framework.common.util.DateUtils;
 import org.springframework.stereotype.Service;
 
