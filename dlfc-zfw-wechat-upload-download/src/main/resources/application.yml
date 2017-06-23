@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: dlfc-zfw-validate-services
+    name: dlfc-zfw-updown-services
 
 eureka:
   instance:
