@@ -192,14 +192,11 @@ public class HouLeaseController {
     @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ListResultDTO<HouseDTO> findAllHouses(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @RequestHeader String token) throws CustomRuntimeException {
-        AjaxResult user = null;
-        UserDTO userDTO = null;
+        getUser(token);
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
-        if (token != null){
-            user = principalService.principal(token);
-            String usrUser = userInfoRService.findUserByUser(user.getData().toString());
-            userDTO = convertor.convert2Object(usrUser, UserDTO.class);
-            return houseInfoConvertor.toResultDTO(houLeaseInfos, userDTO.getId());
+        if (token != null) {
+            user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
+            return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfos);
     }
@@ -333,10 +330,12 @@ public class HouLeaseController {
     }
 
     private void getUser(String token) {
-        AjaxResult ajaxResult = principalService.principal(token);
-        result = userInfoRService.findUserByUser(ajaxResult.getData().toString());
-        if (StringUtils.isNotEmpty(result)) {
-            user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
+        if (StringUtils.isNotEmpty(token)) {
+            AjaxResult ajaxResult = principalService.principal(token);
+            result = userInfoRService.findUserByUser(ajaxResult.getData().toString());
+            if (StringUtils.isNotEmpty(result)) {
+                user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
+            }
         }
     }
 }
