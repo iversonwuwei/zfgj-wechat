@@ -1,7 +1,7 @@
 package com.dlfc.services.contract.convertor;
 
 import com.dlfc.services.contract.dto.HouseUserChildrenDTO;
-import entity.ConHouseUserChildren;
+import com.dlfc.zfw.wechat.entities.entity.ConHouseUserChildren;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

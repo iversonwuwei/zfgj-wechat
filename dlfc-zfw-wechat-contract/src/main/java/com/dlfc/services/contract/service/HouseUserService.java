@@ -1,7 +1,7 @@
 package com.dlfc.services.contract.service;
 
-import entity.ConHouseUser;
-import entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 
 /**
  * Created by K on 6/19/17.

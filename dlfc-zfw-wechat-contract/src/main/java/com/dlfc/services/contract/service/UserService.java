@@ -1,6 +1,6 @@
 package com.dlfc.services.contract.service;
 
-import entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 
 /**
  * Created by K on 6/20/17.
