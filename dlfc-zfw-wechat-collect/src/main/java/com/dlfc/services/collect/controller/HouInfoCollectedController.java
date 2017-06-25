@@ -1,5 +1,6 @@
 package com.dlfc.services.collect.controller;
 
+import com.dlfc.services.collect.controller.base.BaseController;
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.dto.UserDTO;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ws/houses/collection")
-public class HouInfoCollectedController extends BaseController{
+public class HouInfoCollectedController extends BaseController {
 
     @Autowired
     private HouCollectionService houCollectionService;

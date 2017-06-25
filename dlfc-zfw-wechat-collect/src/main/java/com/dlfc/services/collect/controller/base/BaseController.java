@@ -1,4 +1,4 @@
-package com.dlfc.services.collect.controller;
+package com.dlfc.services.collect.controller.base;
 
 import com.dlfc.services.collect.repository.UserInfoRService;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
