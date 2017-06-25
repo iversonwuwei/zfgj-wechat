@@ -1,10 +1,9 @@
 package com.dlfc.services.collect.service.impl;
 
-
-import com.dlfc.services.collect.entity.SysInfoAtt;
 import com.dlfc.services.collect.enums.InfoAttFileTypeEnum;
 import com.dlfc.services.collect.repository.SysInfoAttRService;
 import com.dlfc.services.collect.service.SysInfoAttService;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

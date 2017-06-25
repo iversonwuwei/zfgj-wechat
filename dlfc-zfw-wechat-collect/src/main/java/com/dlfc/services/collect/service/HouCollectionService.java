@@ -1,7 +1,7 @@
 package com.dlfc.services.collect.service;
 
-
-import com.dlfc.services.collect.entity.UsrHouCollection;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface HouCollectionService {
 
     boolean cancelCollect(String chid);
 
-    boolean collect(UsrHouCollection usrHouCollection);
+    boolean collect(UsrHouCollection usrHouCollection, UsrUser user);
 }

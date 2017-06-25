@@ -1,12 +1,11 @@
 package com.dlfc.services.collect.repository;
 
-import com.dlfc.services.collect.entity.UsrHouCollection;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.misc.Request;
 
 @FeignClient("dlfc-datacenter-user")
 public interface HouCollectionRService {

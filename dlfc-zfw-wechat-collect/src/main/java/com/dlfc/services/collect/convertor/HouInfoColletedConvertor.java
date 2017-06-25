@@ -1,19 +1,17 @@
 package com.dlfc.services.collect.convertor;
 
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
-import com.dlfc.services.collect.entity.HouLeaseInfo;
-import com.dlfc.services.collect.entity.SysInfoAtt;
-import com.dlfc.services.collect.entity.UsrHouCollection;
 import com.dlfc.services.collect.service.HouseLeaseInfoService;
 import com.dlfc.services.collect.service.SysInfoAttService;
+import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Component
 public class HouInfoColletedConvertor extends AbstractConvertor<UsrHouCollection, HouInfoCollectedDTO> {

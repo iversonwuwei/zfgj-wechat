@@ -3,88 +3,66 @@ package com.dlfc.services.collect.controller;
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.dto.UserDTO;
-import com.dlfc.services.collect.entity.UsrHouCollection;
-import com.dlfc.services.collect.repository.HouseRService;
-import com.dlfc.services.collect.repository.UserInfoRService;
 import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
-import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
-import com.housecenter.dlfc.framework.ca.api.PrincipalService;
-import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ws/houses/collection")
-public class HouInfoCollectedController {
+public class HouInfoCollectedController extends BaseController{
 
     @Autowired
     private HouCollectionService houCollectionService;
-
     @Autowired
     private HouInfoColletedConvertor houInfoColletedConvertor;
-
     @Autowired
     private ValidateRepository validateRepository;
 
-    @Autowired
-    private UserInfoRService userInfoRService;
-    @Autowired
-    private PrincipalService principalService;
-    @Autowired
-    private IConvertor<UserDTO> convertor;
-
     @RequestMapping(value = "/collected", method = RequestMethod.GET)
-    public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList(@RequestHeader String token) throws CustomRuntimeException {
-        UserDTO userDTO = null;
+    public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList(@RequestHeader String token)
+            throws CustomRuntimeException {
         try {
-            AjaxResult user = principalService.principal(token);
-            if (user != null){
-                userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
-            }
-            List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses(userDTO.getId());
+            getUser(token);
+            List<UsrHouCollection> houCollections = houCollectionService.findCollectedHouses(user.getId());
             if (houCollections != null) {
                 return houInfoColletedConvertor.toResultDTO(houCollections);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return null;
         }
         return null;
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.PUT)
-    public ResultDTO<Void> cancel(@RequestParam String chid){
+    public ResultDTO<Void> cancel(@RequestParam String chid) {
         boolean cancel = houCollectionService.cancelCollect(chid);
-
-        if (cancel){
+        if (cancel) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();
     }
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
-    public ResultDTO<Void> collect(@RequestParam String hid, @RequestHeader String token){
+    public ResultDTO<Void> collect(@RequestParam String hid,
+                                   @RequestHeader String token) {
         String test = validateRepository.validateHouseBy(hid);
         UserDTO userDTO = null;
-        AjaxResult user = principalService.principal(token);
-        if (user != null){
-            userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
-        }
-        if (test.contains("success")){
+        getUser(token);
+        if (test.contains("success")) {
             UsrHouCollection usrHouCollection = new UsrHouCollection();
             usrHouCollection.setUid(userDTO.getId());
             usrHouCollection.setHid(hid);
-            if (houCollectionService.collect(usrHouCollection)){
+            if (houCollectionService.collect(usrHouCollection, user)) {
                 return ResultDTO.success();
             }
         }
         return ResultDTO.failure();
     }
-
 }

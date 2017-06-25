@@ -1,9 +1,9 @@
 package com.dlfc.services.collect.service.impl;
 
-import com.dlfc.services.collect.entity.HouLeaseInfo;
-import com.dlfc.services.collect.entity.UsrHouCollection;
 import com.dlfc.services.collect.repository.HouCollectionRService;
 import com.dlfc.services.collect.service.HouCollectionService;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,20 +31,22 @@ public class HouCollectionServiceImpl implements HouCollectionService {
     public boolean cancelCollect(String chid) {
 
         String cancel = houCollectionRService.cancelCollect(chid);
-        if (cancel != null){
+        if (cancel != null) {
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean collect(UsrHouCollection usrHouCollection) {
+    public boolean collect(UsrHouCollection usrHouCollection,
+                           UsrUser user) {
         String collect = "";
-        if (usrHouCollection != null){
+        if (usrHouCollection != null) {
+            usrHouCollection.preInsert(user);
             collect = houCollectionRService.collect(usrHouCollection);
         }
 
-        if (collect.equals("true")){
+        if (collect.equals("true")) {
             return true;
         }
 
