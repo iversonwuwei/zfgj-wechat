@@ -129,7 +129,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             model.setOwnerBearOther(dto.getOwnerBearOthers());
             model.setAdditionalTerms(dto.getOthers());
             // 非页面业务
-            model.setStatus((short) ConStatusEnum.WAIT_UPLOAD_ENUM.getValue());
+            model.setStatus((short) ConStatusEnum.CREATING_ENUM.getValue());
             model.setSource(ConSourceEnum.WECHAT_ENUM.getValue());
             model.setNo(OrderUtils.getBusinessNO(Const.BUSINESS_TYPE_CONTRACT));
             model.setHouseOwnerName(dto.getOwnerName());
@@ -138,7 +138,12 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             model.setHouseOwnerMobile(dto.getOwnerPhone());
             sysPersonEntity = findByNameInfos(dto.getOwnerName(), dto.getOwnerIdType(), dto.getOwnerIdNo());
             if (null != sysPersonEntity) {
+                model.setLessorPid(sysPersonEntity.getId());
                 model.setHouseOwnerPid(sysPersonEntity.getId());
+            }
+            sysPersonEntity = findByNameInfos(dto.getRenterName(), dto.getRenterIdType(), dto.getRenterIdNo());
+            if (null != sysPersonEntity) {
+                model.setLesseePid(sysPersonEntity.getId());
             }
         }
         return model;
