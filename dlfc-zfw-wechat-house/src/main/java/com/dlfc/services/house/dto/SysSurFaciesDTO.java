@@ -13,6 +13,4 @@ public class SysSurFaciesDTO extends AbstractDTO{
     private String name;
 
     private String lid;
-
-    private String others;
 }

@@ -5,13 +5,12 @@ import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.OrderUtils;
 import com.dlfc.services.house.dto.HouseDTO;
 import com.dlfc.services.house.dto.ImgDTO;
+import com.dlfc.services.house.dto.SysHouEquipsDTO;
+import com.dlfc.services.house.dto.SysSurFaciesDTO;
 import com.dlfc.services.house.enums.AuditStatusEnum;
 import com.dlfc.services.house.enums.LeaseInfoSysSourceEnum;
 import com.dlfc.services.house.service.*;
-import com.dlfc.zfw.wechat.entities.entity.AgtEmpInfo;
-import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
-import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
-import com.dlfc.zfw.wechat.entities.entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -59,6 +59,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     private AgtUserService agtUserService;
     @Autowired
     private UsrUserService usrUserService;
+    @Autowired
+    private SysCodeService sysCodeService;
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
@@ -91,6 +93,23 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setFreshTime(DateUtils.getSynchTime().getTime());
         // 上架时间
         model.setReleaseTime(DateUtils.getSynchTime().getTime());
+        StringBuilder sb = null;
+        if (dto.getAround() != null) {
+            sb = new StringBuilder();
+            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
+                sb.append(sysSurFaciesDTO.getCode());
+                sb.append(",");
+            }
+        }
+        model.setEnvironment(sb.toString());
+        if (dto.getEquips() != null) {
+            sb = new StringBuilder();
+            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
+                sb.append(sysHouEquipsDTO.getCode());
+                sb.append(",");
+            }
+        }
+        model.setFacilities(sb.toString());
         return model;
     }
 
@@ -161,9 +180,11 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             dto.setCollected(houCollectionService.collected((String) strs[0], model.getId()));
         }
         try {
+            List<String> facilities = toList(split(model.getFacilities(),","));
+            List<String> houEquips = toList(split(model.getEnvironment(),","));
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
-            dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysHouEquipsService.findByLid(model.getId())));
-            dto.setAround(sysSurFaciesConvertor.toResultDTO(sysSurFaciService.findByLid(model.getId())));
+            dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
+            dto.setAround(sysSurFaciesConvertor.toResultDTO(sysCodeService.findByType("hou_surroundings", facilities)));
             dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));
         } catch (CustomRuntimeException e) {
             e.printStackTrace();
@@ -207,6 +228,18 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             return array;
         }
         return null;
+    }
+
+    private List<String> toList(String[] array){
+        List<String> toList = new ArrayList<>();
+        if (array == null){
+            return null;
+        }
+        for (int i=0; i<array.length;i++){
+            toList.add(array[i]);
+        }
+
+        return toList;
     }
 
     private String generate(String... array) {

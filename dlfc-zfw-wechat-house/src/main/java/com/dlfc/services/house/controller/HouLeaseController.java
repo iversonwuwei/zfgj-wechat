@@ -95,6 +95,7 @@ public class HouLeaseController {
         getUser(token);
         SysSurFacis surFacis;
         SysHouEquips sysHouEquips;
+        SysCode sysCode;
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
@@ -111,22 +112,6 @@ public class HouLeaseController {
                         sysInfoAtt = sysInfoAttConvertor.toModel(imgDTO);
                         sysInfoAtt.setLid(houseDTO.getId());
                         sysInfoAttService.save(sysInfoAtt, user);
-                    }
-                }
-                if (this.isNull(houseDTO.getAround())) {
-                    sysSurFaciService.remove(houseDTO.getId());
-                    for (SysSurFaciesDTO sysSurFaciesDTO : houseDTO.getAround()) {
-                        sysSurFaciesDTO.setLid(houseDTO.getId());
-                        surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
-                        sysSurFaciService.save(surFacis, user);
-                    }
-                }
-                if (isNull(houseDTO.getEquips())) {
-                    sysHouEquipsService.remove(houseDTO.getId());
-                    for (SysHouEquipsDTO sysHouEquipsDTO : houseDTO.getEquips()) {
-                        sysHouEquipsDTO.setLid(houseDTO.getId());
-                        sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
-                        sysHouEquipsService.save(sysHouEquips, user);
                     }
                 }
                 if (isNull(houseDTO.getVehicles())) {
@@ -290,20 +275,7 @@ public class HouLeaseController {
                 sysInfoAttService.save(sysInfoAtt, user);
             }
         }
-        if (this.isNull(dto.getAround())) {
-            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
-                sysSurFaciesDTO.setLid(id);
-                surFacis = sysSurFaciesConvertor.toModel(sysSurFaciesDTO);
-                sysSurFaciService.save(surFacis, user);
-            }
-        }
-        if (isNull(dto.getEquips())) {
-            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
-                sysHouEquipsDTO.setLid(id);
-                sysHouEquips = sysHouEquipsConvertor.toModel(sysHouEquipsDTO);
-                sysHouEquipsService.save(sysHouEquips, user);
-            }
-        }
+
         if (isNull(dto.getVehicles())) {
             for (SysTranfficLinesDTO sysTranfficLinesDTO : dto.getVehicles()) {
                 sysTranfficLinesDTO.setLid(id);
