@@ -3,15 +3,19 @@ package com.dlfc.services.contract.controller;
 import com.dlfc.services.contract.controller.base.BaseController;
 import com.dlfc.services.contract.convertor.*;
 import com.dlfc.services.contract.dto.*;
+import com.dlfc.services.contract.enums.InfoAttFileTypeEnum;
 import com.dlfc.services.contract.service.*;
 import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
+import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.util.Date;
 
 /**
@@ -44,6 +48,8 @@ public class SignController extends BaseController {
     private OtherCostConvertor otherCostConvertor;
     @Autowired
     private OtherCostService otherCostService;
+    @Autowired
+    private SysInfoAttService sysInfoAttService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResultDTO<String> sign(@RequestBody ContractDTO contractDTO,
@@ -93,5 +99,27 @@ public class SignController extends BaseController {
     @RequestMapping(value = "/endDate", method = RequestMethod.POST)
     public Date getEndDate(@RequestBody ContractEndDateDTO dto) {
         return dateService.getEndDate(dto.getStartDate(), dto.getYears(), dto.getMonths());
+    }
+
+    @RequestMapping(value = "/lessorSign", method = RequestMethod.GET)
+    public ResultDTO<Void> lessorSign(@RequestParam String id,
+                                      @RequestParam String path) {
+        if (StringUtils.isEmpty(id) || StringUtils.isEmpty(path)) {
+            return ResultDTO.failure(new ResultError("用户名或者路径为空", null));
+        }
+        sysInfoAttService.saveSign(id, path, InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue(), user);
+        contractService.updateSignStatus(id, InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue(), user);
+        return ResultDTO.success();
+    }
+
+    @RequestMapping(value = "/lesseeSign", method = RequestMethod.GET)
+    public ResultDTO<Void> lesseeSign(@RequestParam String id,
+                                      @RequestParam String path) {
+        if (StringUtils.isEmpty(id) || StringUtils.isEmpty(path)) {
+            return ResultDTO.failure(new ResultError("用户名或者路径为空", null));
+        }
+        sysInfoAttService.saveSign(id, path, InfoAttFileTypeEnum.LESSEE_SIGN_ENUM.getValue(), user);
+        contractService.updateSignStatus(id, InfoAttFileTypeEnum.LESSEE_SIGN_ENUM.getValue(), user);
+        return ResultDTO.success();
     }
 }
