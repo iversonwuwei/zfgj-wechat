@@ -3,6 +3,7 @@ package com.dlfc.services.commons.service.impl;
 import com.dlfc.services.commons.entity.SysSurFacisContrast;
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,22 @@ import java.util.List;
  */
 
 @Service
-public class SysSurFacisContrastServiceImpl implements DataService<SysSurFacisContrast> {
+public class SysSurFacisContrastServiceImpl implements DataService<SysCode> {
 
-    private String result;
+    private List<SysCode> result;
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
     private IConvertor convertor;
 
     @Override
-    public List<SysSurFacisContrast> findBy(String param) {
+    public List<SysCode> findBy(String param) {
         return null;
     }
 
     @Override
-    public List<SysSurFacisContrast> findAll() {
-        result = repositoryService.findSysSurFacisContrastAll();
-        return convertor.convert2Objects(result, SysSurFacisContrast.class);
+    public List<SysCode> findAll() {
+        result = repositoryService.findByCode("house_facilities");
+        return result;
     }
 }

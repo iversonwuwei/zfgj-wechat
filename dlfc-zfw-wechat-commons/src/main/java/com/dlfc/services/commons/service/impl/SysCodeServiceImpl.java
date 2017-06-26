@@ -1,10 +1,11 @@
 package com.dlfc.services.commons.service.impl;
 
-import com.dlfc.services.commons.entity.SysCode;
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
  */
 
 @Service
-public class SysCodeServiceImpl   implements DataService<SysCode> {
+@Qualifier("sysCodeServiceImpl")
+public class SysCodeServiceImpl implements DataService<SysCode> {
 
     private String result;
     @Autowired
