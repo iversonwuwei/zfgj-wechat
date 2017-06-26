@@ -4,13 +4,12 @@ import com.dlfc.services.commons.convertor.SysCodeConvertor;
 import com.dlfc.services.commons.convertor.SysHouEquipmentsConvertor;
 import com.dlfc.services.commons.convertor.SysSurFacisContrastConvertor;
 import com.dlfc.services.commons.dto.CodeNameDTO;
-import com.dlfc.services.commons.entity.SysCode;
-import com.dlfc.services.commons.entity.SysHouEquipsContrast;
-import com.dlfc.services.commons.entity.SysSurFacisContrast;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +25,14 @@ import java.util.List;
 public class SysHouInfoController {
 
     @Autowired
+    @Qualifier("sysCodeServiceImpl")
     private DataService<SysCode> sysCodeService;
     @Autowired
-    private DataService<SysHouEquipsContrast> sysHouEquipmentsService;
+    @Qualifier("sysHouEquipsContrastImpl")
+    private DataService<SysCode> sysHouEquipmentsService;
     @Autowired
-    private DataService<SysSurFacisContrast> sysSurFacisContrastService;
+    @Qualifier("sysSurFacisContrastServiceImpl")
+    private DataService<SysCode> sysSurFacisContrastService;
     @Autowired
     private SysCodeConvertor sysCodeConvertor;
     @Autowired
@@ -58,7 +60,7 @@ public class SysHouInfoController {
      */
     @RequestMapping(value = "/houEquipments", method = RequestMethod.GET)
     public ListResultDTO<CodeNameDTO> houEquipments() throws CustomRuntimeException {
-        List<SysHouEquipsContrast> sysHouEquipsContrastList = sysHouEquipmentsService.findAll();
+        List<SysCode> sysHouEquipsContrastList = sysHouEquipmentsService.findAll();
         return sysHouEquipmentsConvertor.toResultDTO(sysHouEquipsContrastList);
     }
 
@@ -70,7 +72,7 @@ public class SysHouInfoController {
      */
     @RequestMapping(value = "/surroundingFacilities", method = RequestMethod.GET)
     public ListResultDTO<CodeNameDTO> surroundingFacilities() throws CustomRuntimeException {
-        List<SysSurFacisContrast> sysSurFacisContrastList = sysSurFacisContrastService.findAll();
+        List<SysCode> sysSurFacisContrastList = sysSurFacisContrastService.findAll();
         return sysSurFacisContrastConvertor.toResultDTO(sysSurFacisContrastList);
     }
 

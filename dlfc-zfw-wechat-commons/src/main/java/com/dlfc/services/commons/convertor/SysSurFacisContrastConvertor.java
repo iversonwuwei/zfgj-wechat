@@ -2,6 +2,7 @@ package com.dlfc.services.commons.convertor;
 
 import com.dlfc.services.commons.dto.CodeNameDTO;
 import com.dlfc.services.commons.entity.SysSurFacisContrast;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +11,14 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class SysSurFacisContrastConvertor extends AbstractConvertor<SysSurFacisContrast, CodeNameDTO> {
+public class SysSurFacisContrastConvertor extends AbstractConvertor<SysCode, CodeNameDTO> {
     @Override
-    public SysSurFacisContrast toModel(CodeNameDTO codeNameDTO) {
+    public SysCode toModel(CodeNameDTO codeNameDTO) {
         return null;
     }
 
     @Override
-    public CodeNameDTO toDTO(SysSurFacisContrast model, Object... objects) {
+    public CodeNameDTO toDTO(SysCode model, Object... objects) {
         CodeNameDTO dto = new CodeNameDTO();
         dto.setId(model.getId());
         dto.setValue(model.getCode());

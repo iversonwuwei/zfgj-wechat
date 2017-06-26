@@ -1,9 +1,12 @@
 package com.dlfc.services.commons.repository;
 
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @FeignClient("dlfc-datacenter-system")
 public interface RepositoryService {
@@ -25,4 +28,7 @@ public interface RepositoryService {
 
     @RequestMapping(value = "/wc/datas/sysTradeAreas/findAll", method = RequestMethod.GET)
     String findSysTradeAreasAll();
+
+    @RequestMapping(value = "/wc/datas/sysCode/findByType", method = RequestMethod.GET)
+    List<SysCode> findByCode(@RequestParam(name = "type") String type);
 }
