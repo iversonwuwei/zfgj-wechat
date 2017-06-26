@@ -45,4 +45,7 @@ public interface ContractRService {
 
     @RequestMapping(value = "/wc/datas/conOtherCosts/findByLid", method = RequestMethod.GET)
     List<ConOtherCosts> findConOtherCostsByLid(@RequestParam(name = "lid") String lid);
+
+    @RequestMapping(value = "/wc/datas/conContract/updateById", method = RequestMethod.POST)
+    String updateConContractById(@RequestBody ConContract conContract);
 }

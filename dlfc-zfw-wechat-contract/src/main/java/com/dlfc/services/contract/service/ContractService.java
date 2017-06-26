@@ -8,4 +8,8 @@ import com.dlfc.zfw.wechat.entities.entity.UsrUser;
  */
 public interface ContractService {
     String save(ConContract conContract, UsrUser user);
+
+    String updateById(ConContract conContract, UsrUser user);
+
+    String updateSignStatus(String id, int status, UsrUser user);
 }
