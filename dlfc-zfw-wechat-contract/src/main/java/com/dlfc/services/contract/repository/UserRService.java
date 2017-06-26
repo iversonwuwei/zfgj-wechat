@@ -1,5 +1,6 @@
 package com.dlfc.services.contract.repository;
 
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserRService {
 
     @RequestMapping(value = "/wc/datas/usrUser/findByUser", method = RequestMethod.GET)
-    String findUsrUserByUser(@RequestParam(name = "user") String user);
+    UsrUser findUsrUserByUser(@RequestParam(name = "user") String user);
 }

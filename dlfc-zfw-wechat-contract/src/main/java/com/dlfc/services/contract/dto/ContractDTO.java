@@ -22,7 +22,12 @@ public class ContractDTO extends AbstractDTO {
     private String ownerName;
 
     /**
-     * 房主身份证号码
+     * 房主证件类型
+     */
+    private Integer ownerIdType;
+
+    /**
+     * 房主证件号码
      */
     private String ownerIdNo;
 
@@ -57,7 +62,12 @@ public class ContractDTO extends AbstractDTO {
     private String renterName;
 
     /**
-     * 承租人身份证号码
+     * 承租人证件类型
+     */
+    private Integer renterIdType;
+
+    /**
+     * 承租人证件号码
      */
     private String renterIdNo;
 
@@ -89,7 +99,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 承租人民族
      */
-    private String renterNation;
+    private Integer renterNation;
 
     /**
      * 承租人户籍（省）
@@ -129,12 +139,12 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 产权证件类型
      */
-    private String propertyType;
+    private Integer propertyType;
 
     /**
      * 房屋结构
      */
-    private String houseStructure;
+    private Integer houseStructure;
 
     /**
      * 合同起始时间
@@ -194,7 +204,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 房主承担费用
      */
-    private String[] ownerBears;
+    private List<String> ownerBears;
 
     /**
      * 其它房主承担费用
@@ -205,4 +215,40 @@ public class ContractDTO extends AbstractDTO {
      * 其他约定
      */
     private String others;
+
+    /**
+     * 房屋交割清单
+     */
+    private List<HouseItemDTO> houseItemsList;
+
+    /**
+     * 其它相关费用
+     */
+    private List<OtherCostDTO> otherCostList;
+
+    // 非页面输入项
+    /**
+     * 编号
+     */
+    private String no;
+
+    /**
+     * 月租汉字
+     */
+    private String rentCN;
+
+    /**
+     * 支付方式说明
+     */
+    private List<String> paymentExplanation;
+
+    /**
+     * 房客承担
+     */
+    private List<String> renterBears;
+
+    /**
+     * 押金汉字
+     */
+    private String depositCN;
 }

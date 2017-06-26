@@ -35,7 +35,14 @@ public class HouseUserChildrenConvertor extends AbstractConvertor<ConHouseUserCh
     }
 
     @Override
-    public HouseUserChildrenDTO toDTO(ConHouseUserChildren conHouseUserChildren, Object... objects) {
-        return null;
+    public HouseUserChildrenDTO toDTO(ConHouseUserChildren model, Object... objects) {
+        HouseUserChildrenDTO dto = new HouseUserChildrenDTO();
+        if (null != model) {
+            dto.setName(model.getName());
+            dto.setIdNo(model.getIdNo());
+            dto.setGender(model.getGender());
+            dto.setBirthday(new Date(model.getBirthday()));
+        }
+        return dto;
     }
 }

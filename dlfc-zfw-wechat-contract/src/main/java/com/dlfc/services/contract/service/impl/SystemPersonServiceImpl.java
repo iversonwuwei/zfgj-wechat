@@ -1,7 +1,10 @@
 package com.dlfc.services.contract.service.impl;
 
+import com.dlfc.services.contract.repository.SystemRService;
+import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import com.housecenter.dlfc.framework.common.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dlfc.services.contract.service.SystemPersonService;
 
@@ -17,6 +20,9 @@ import java.util.Date;
 public class SystemPersonServiceImpl implements SystemPersonService {
 
     private static final String DATE_FORMAT = "yyyyMMdd";
+
+    @Autowired
+    private SystemRService systemRService;
 
     @Override
     public Integer getGenderFromIdNo(String idNo) {
@@ -39,6 +45,11 @@ public class SystemPersonServiceImpl implements SystemPersonService {
             log.error(e.getMessage(), e);
         }
         return birthday;
+    }
+
+    @Override
+    public SysPerson findByNameInfos(SysPerson sysPerson) {
+        return systemRService.findSysPersonByNameInfos(sysPerson);
     }
 
     private boolean checkIdNo(String idNo) {

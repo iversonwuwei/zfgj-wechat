@@ -14,16 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private String result;
-
     @Autowired
     private UserRService userRService;
-    @Autowired
-    private IConvertor convertor;
 
     @Override
     public UsrUser findUser(String id) {
-        result = userRService.findUsrUserByUser(id);
-        return (UsrUser) convertor.convert2Object(result, UsrUser.class);
+        return userRService.findUsrUserByUser(id);
     }
 }

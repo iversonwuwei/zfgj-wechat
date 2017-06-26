@@ -23,6 +23,7 @@ public class HouseUserChildrenDTO {
      */
     private String idNo;
 
+    // 非页面输入项
     /**
      * 性别
      */

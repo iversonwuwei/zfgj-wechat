@@ -7,6 +7,8 @@ import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by K on 6/20/17.
  */
@@ -22,5 +24,10 @@ public class HouseUserChildrenServiceImpl implements HouseUserChildrenService {
                      UsrUser user) {
         conHouseUserChildren.preInsert(user);
         contractRService.saveConHouseUserChildren(conHouseUserChildren);
+    }
+
+    @Override
+    public List<ConHouseUserChildren> findByLid(String lid) {
+        return contractRService.findConHouseUserChildrenByLid(lid);
     }
 }

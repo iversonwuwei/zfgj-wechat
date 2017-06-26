@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dlfc.services.contract.service.HouseUserService;
 
+import java.util.List;
+
 /**
  * Created by K on 6/19/17.
  */
@@ -22,5 +24,10 @@ public class HouseUserServiceImpl implements HouseUserService {
                      UsrUser user) {
         conHouseUser.preInsert(user);
         contractRService.saveConHouseUser(conHouseUser);
+    }
+
+    @Override
+    public List<ConHouseUser> findByLid(String lid) {
+        return contractRService.findConHouseUserByLid(lid);
     }
 }

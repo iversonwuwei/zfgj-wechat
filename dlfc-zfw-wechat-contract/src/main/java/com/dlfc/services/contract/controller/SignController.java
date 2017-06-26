@@ -1,18 +1,12 @@
 package com.dlfc.services.contract.controller;
 
-import com.dlfc.services.contract.convertor.ContractConvertor;
-import com.dlfc.services.contract.convertor.HouseUserChildrenConvertor;
-import com.dlfc.services.contract.convertor.HouseUserConvertor;
-import com.dlfc.services.contract.dto.ContractDTO;
-import com.dlfc.services.contract.dto.ContractEndDateDTO;
-import com.dlfc.services.contract.dto.HouseUserChildrenDTO;
-import com.dlfc.services.contract.dto.HouseUserDTO;
+import com.dlfc.services.contract.controller.base.BaseController;
+import com.dlfc.services.contract.convertor.*;
+import com.dlfc.services.contract.dto.*;
 import com.dlfc.services.contract.service.*;
-import com.dlfc.zfw.wechat.entities.entity.ConContract;
-import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
-import com.dlfc.zfw.wechat.entities.entity.ConHouseUserChildren;
-import com.dlfc.zfw.wechat.entities.entity.UsrUser;
+import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
+import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +20,8 @@ import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/ww/contractSign")
-public class SignController {
+public class SignController extends BaseController {
 
-    private String user;
-
-    @Autowired
-    private PrincipalService principalService;
     @Autowired
     private ContractConvertor contractConvertor;
     @Autowired
@@ -45,25 +35,29 @@ public class SignController {
     @Autowired
     private HouseUserChildrenService houseUserChildrenService;
     @Autowired
-    private UserService userService;
-    @Autowired
     private DateService dateService;
+    @Autowired
+    private HouseItemConvertor houseItemConvertor;
+    @Autowired
+    private HouseItemService houseItemService;
+    @Autowired
+    private OtherCostConvertor otherCostConvertor;
+    @Autowired
+    private OtherCostService otherCostService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResultDTO<Void> sign(@RequestBody ContractDTO contractDTO,
-                                @RequestHeader String token) {
-        AjaxResult ajaxResult = principalService.principal(token);
-        user = ajaxResult.getData().toString();
-        UsrUser usrUser = userService.findUser(user);
+    public ResultDTO<String> sign(@RequestBody ContractDTO contractDTO,
+                                  @RequestHeader String token) throws CustomRuntimeException {
+        getUser(token);
         ConContract conContract = contractConvertor.toModel(contractDTO);
-        String id = contractService.save(conContract, usrUser);
+        String id = contractService.save(conContract, user);
         if (null != contractDTO.getUserList()
                 && contractDTO.getUserList().size() > 0) {
             ConHouseUser conHouseUser;
             for (HouseUserDTO houseUser : contractDTO.getUserList()) {
                 conHouseUser = houseUserConvertor.toModel(houseUser);
                 conHouseUser.setCid(id);
-                houseUserService.save(conHouseUser, usrUser);
+                houseUserService.save(conHouseUser, user);
             }
         }
         if (null != contractDTO.getChildrenList()
@@ -72,10 +66,28 @@ public class SignController {
             for (HouseUserChildrenDTO children : contractDTO.getChildrenList()) {
                 conHouseUserChildren = houseUserChildrenConvertor.toModel(children);
                 conHouseUserChildren.setCid(id);
-                houseUserChildrenService.save(conHouseUserChildren, usrUser);
+                houseUserChildrenService.save(conHouseUserChildren, user);
             }
         }
-        return ResultDTO.success();
+        if (null != contractDTO.getHouseItemsList()
+                && contractDTO.getHouseItemsList().size() > 0) {
+            ConHouseItems conHouseItems;
+            for (HouseItemDTO houseItemDTO : contractDTO.getHouseItemsList()) {
+                conHouseItems = houseItemConvertor.toModel(houseItemDTO);
+                conHouseItems.setCid(id);
+                houseItemService.save(conHouseItems, user);
+            }
+        }
+        if (null != contractDTO.getOtherCostList()
+                && contractDTO.getOtherCostList().size() > 0) {
+            ConOtherCosts conOtherCosts;
+            for (OtherCostDTO otherCostDTO : contractDTO.getOtherCostList()) {
+                conOtherCosts = otherCostConvertor.toModel(otherCostDTO);
+                conOtherCosts.setCid(id);
+                otherCostService.save(conOtherCosts, user);
+            }
+        }
+        return ResultDTO.success(id);
     }
 
     @RequestMapping(value = "/endDate", method = RequestMethod.POST)
