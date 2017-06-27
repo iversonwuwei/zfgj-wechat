@@ -1,6 +1,7 @@
 package com.dlfc.services.contract.repository;
 
 import com.dlfc.zfw.wechat.entities.entity.SysCode;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
