@@ -1,8 +1,6 @@
 package com.dlfc.services.search.service;
 
-
-import com.dlfc.services.search.entity.SysInfoAtt;
-import com.dlfc.services.search.enums.InfoAttFileTypeEnum;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 
 public interface SysInfoAttService {
 

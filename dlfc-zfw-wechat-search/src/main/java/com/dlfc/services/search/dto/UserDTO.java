@@ -22,4 +22,10 @@ public class UserDTO extends AbstractDTO {
     private String certified;
 
     private String realName;
+
+    private Integer idNoType;
+
+    private String idNo;
+
+    private String email;
 }

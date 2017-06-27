@@ -1,9 +1,8 @@
 package com.dlfc.services.search.service.impl;
 
-
-import com.dlfc.services.search.entity.Person;
 import com.dlfc.services.search.repository.PersonInfoRService;
 import com.dlfc.services.search.service.SysPersonService;
+import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,8 @@ public class SysPersonServiceImpl implements SysPersonService {
     private PersonInfoRService personInfoRService;
 
     @Override
-    public Person findById(String id) {
+    public SysPerson findById(String id) {
         String personInfo = personInfoRService.findPersonById(id);
-        return (Person) convertor.convert2Object(personInfo, Person.class);
+        return (SysPerson) convertor.convert2Object(personInfo, SysPerson.class);
     }
 }

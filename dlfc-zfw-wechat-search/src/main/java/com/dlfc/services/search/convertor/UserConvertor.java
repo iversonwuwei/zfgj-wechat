@@ -1,18 +1,19 @@
 package com.dlfc.services.search.convertor;
 
 import com.dlfc.services.search.dto.UserDTO;
-import com.dlfc.services.search.entity.Person;
-import com.dlfc.services.search.entity.SysInfoAtt;
-import com.dlfc.services.search.entity.UserEntity;
 import com.dlfc.services.search.service.SysInfoAttService;
 import com.dlfc.services.search.service.SysPersonService;
+import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
+import com.dlfc.zfw.wechat.entities.entity.SysPerson;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
+public class UserConvertor extends AbstractConvertor<UsrUser, UserDTO> {
 
     @Autowired
     private SysInfoAttService sysInfoAttService;
@@ -22,28 +23,32 @@ public class UserConvertor extends AbstractConvertor<UserEntity, UserDTO> {
     private SysInfoAtt sysInfoAtt;
 
     @Override
-    public UserEntity toModel(UserDTO userDTO) {
+    public UsrUser toModel(UserDTO userDTO) {
         return null;
     }
 
     @Override
-    public UserDTO toDTO(UserEntity userEntity, Object... strings) {
+    public UserDTO toDTO(UsrUser model, Object... strings) {
         UserDTO userDTO = new UserDTO();
-        Person person = null;
-        userDTO.setId(userEntity.getId());
-        userDTO.setUid(userEntity.getPerId());
-        userDTO.setPhoneNumber(userEntity.getMobile());
-        userDTO.setCertified(userEntity.getAgtCert());
-        sysInfoAtt = sysInfoAttService.findByLidAndFileType(userEntity.getId());
-        if (sysInfoAtt != null){
+        userDTO.setId(model.getId());
+        userDTO.setUid(model.getPerId());
+        userDTO.setPhoneNumber(model.getMobile());
+        userDTO.setCertified(model.getAgtCert());
+        sysInfoAtt = sysInfoAttService.findByLidAndFileType(model.getId());
+        if (sysInfoAtt != null) {
             userDTO.setImgUrl(sysInfoAtt.getFilePath());
-        }else {
+        } else {
             userDTO.setImgUrl("/logo/underLogo.png");
         }
-        if (userEntity.getPerId() != null) {
-            person = sysPersonService.findById(userEntity.getPerId());
-            userDTO.setRealName(person.getName());
+        if (StringUtils.isNotEmpty(model.getPerId())) {
+            SysPerson person = sysPersonService.findById(model.getPerId());
+            if (null != person && 1 != person.getDeleteFlg()) {
+                userDTO.setRealName(person.getName());
+                userDTO.setIdNoType(person.getIdType());
+                userDTO.setIdNo(person.getIdNo());
+            }
         }
+        userDTO.setEmail(model.getEmail());
         return userDTO;
     }
 }

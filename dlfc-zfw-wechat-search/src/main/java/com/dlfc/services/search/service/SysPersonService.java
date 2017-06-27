@@ -1,8 +1,8 @@
 package com.dlfc.services.search.service;
 
-import com.dlfc.services.search.entity.Person;
+import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 
 public interface SysPersonService {
 
-    Person findById(String id);
+    SysPerson findById(String id);
 }
