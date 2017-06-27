@@ -45,4 +45,10 @@ public interface ContractRService {
 
     @RequestMapping(value = "/wc/datas/conOtherCosts/findByLid", method = RequestMethod.GET)
     List<ConOtherCosts> findConOtherCostsByLid(@RequestParam(name = "lid") String lid);
+
+    @RequestMapping(value = "/wc/datas/conContract/findActiveByPid", method = RequestMethod.GET)
+    List<ConContract> findActiveByPid(@RequestParam(name = "pid") String pid);
+
+    @RequestMapping(value = "/wc/datas/conContract/findInactiveByPid", method = RequestMethod.GET)
+    List<ConContract> findInactiveByPid(@RequestParam(name = "pid") String pid);
 }

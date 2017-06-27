@@ -1,5 +1,6 @@
 package com.dlfc.services.contract.service.impl;
 
+import com.dlfc.services.contract.enums.PersonIdTypeEnum;
 import com.dlfc.services.contract.repository.SystemRService;
 import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import com.housecenter.dlfc.framework.common.util.DateUtils;
@@ -50,6 +51,15 @@ public class SystemPersonServiceImpl implements SystemPersonService {
     @Override
     public SysPerson findByNameInfos(SysPerson sysPerson) {
         return systemRService.findSysPersonByNameInfos(sysPerson);
+    }
+
+    @Override
+    public boolean certification(String pid) {
+        SysPerson sysPerson = systemRService.findById(pid);
+        if (null != sysPerson && sysPerson.getIdType() == PersonIdTypeEnum.ID_CARD_ENUM.getValue()){
+            return true;
+        }
+        return false;
     }
 
     private boolean checkIdNo(String idNo) {

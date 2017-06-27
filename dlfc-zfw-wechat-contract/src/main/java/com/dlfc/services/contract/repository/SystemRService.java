@@ -22,4 +22,7 @@ public interface SystemRService {
 
     @RequestMapping(value = "/wc/datas/sysCode/findByType", method = RequestMethod.GET)
     List<SysCode> findSysCodeByType(@RequestParam(name = "type") String type);
+
+    @RequestMapping(value = "/wc/datas/sysPerson/findById", method = RequestMethod.GET)
+    SysPerson findById(@RequestParam(name = "id") String id);
 }

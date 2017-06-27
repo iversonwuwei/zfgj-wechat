@@ -13,4 +13,6 @@ public interface SystemPersonService {
     Date getBirthdayFromIdNo(String idNo);
 
     SysPerson findByNameInfos(SysPerson sysPerson);
+
+    boolean certification(String pid);
 }
