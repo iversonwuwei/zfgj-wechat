@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Map.Entry;
 
-import java.util.List;
+import java.util.*;
 
 
 @RestController
@@ -34,6 +35,22 @@ public class DistrictController {
     @RequestMapping(value = "/area", method = RequestMethod.GET)
     public ListResultDTO<CodeNameDTO> areas() throws CustomRuntimeException {
         List<SysAreaAreas> sysAreaAreasList = sysAreaAreasService.findBy("210200");
+        /*List<SysAreaAreas> afterOrderResult = null;
+        Map<Integer, SysAreaAreas> map = new HashMap<>();
+        for (SysAreaAreas sysAreaAreas : sysAreaAreasList){
+            map.put(sysAreaAreas.getSort(), sysAreaAreas);
+        }
+        if (map != null){
+            afterOrderResult = new ArrayList<>();
+            SortedMap<Integer,SysAreaAreas> sort=new TreeMap<Integer,SysAreaAreas>(map);
+            Set<Entry<Integer,SysAreaAreas>> entry1=sort.entrySet();
+            Iterator<Entry<Integer,SysAreaAreas>> it=entry1.iterator();
+            while(it.hasNext())
+            {
+                Entry<Integer,SysAreaAreas> entry=it.next();
+                afterOrderResult.add(entry.getValue());
+            }
+        }*/
         return sysAreaAreasConvertor.toResultDTO(sysAreaAreasList);
     }
 
