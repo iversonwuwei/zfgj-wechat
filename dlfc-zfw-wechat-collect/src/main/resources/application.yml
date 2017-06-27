@@ -17,3 +17,7 @@ eureka:
 feign:
   hystrix:
     enabled: false
+
+static:
+  resource:
+    mapping: /img/**=file:.//mnt/samba/realImg/
