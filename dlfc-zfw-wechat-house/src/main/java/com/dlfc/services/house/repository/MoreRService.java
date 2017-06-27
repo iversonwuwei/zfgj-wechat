@@ -1,9 +1,16 @@
 package com.dlfc.services.house.repository;
 
+import com.dlfc.services.house.dto.SysHouEquipsDTO;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
+import com.dlfc.zfw.wechat.entities.entity.SysHouEquips;
+import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
+import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @FeignClient("dlfc-datacenter-system")
 public interface MoreRService {
@@ -34,4 +41,7 @@ public interface MoreRService {
 
     @RequestMapping(value = "/wc/datas/sysInfoAtt/removeByLid", method = RequestMethod.DELETE)
     void SysInfoAttRemove(@RequestParam(name = "lid") String lid);
+
+    @RequestMapping(value = "/wc/datas/sysCode/findByType", method = RequestMethod.GET)
+    List<SysCode> findByCode(@RequestParam(name = "type") String type);
 }

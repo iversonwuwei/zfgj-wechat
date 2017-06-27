@@ -51,4 +51,7 @@ public interface ContractRService {
 
     @RequestMapping(value = "/wc/datas/conContract/findInactiveByPid", method = RequestMethod.GET)
     List<ConContract> findInactiveByPid(@RequestParam(name = "pid") String pid);
+
+    @RequestMapping(value = "/wc/datas/conContract/updateById", method = RequestMethod.POST)
+    String updateConContractById(@RequestBody ConContract conContract);
 }

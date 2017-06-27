@@ -2,29 +2,28 @@ package com.dlfc.services.house.convertor;
 
 import com.dlfc.services.house.convertor.base.AbstractConvertor;
 import com.dlfc.services.house.dto.SysHouEquipsDTO;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.dlfc.zfw.wechat.entities.entity.SysHouEquips;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class SysHouEquipsConvertor extends AbstractConvertor<SysHouEquips, SysHouEquipsDTO> {
+public class SysHouEquipsConvertor extends AbstractConvertor<SysCode, SysHouEquipsDTO> {
     @Override
-    public SysHouEquips toModel(SysHouEquipsDTO sysHouEquipsDTO) {
-        SysHouEquips sysHouEquips = new SysHouEquips();
-        sysHouEquips.setEquipmentCode(sysHouEquipsDTO.getCode());
-        sysHouEquips.setEquipmentName(sysHouEquipsDTO.getName());
-        sysHouEquips.setLid(sysHouEquipsDTO.getLid());
+    public SysCode toModel(SysHouEquipsDTO sysHouEquipsDTO) {
+        SysCode sysHouEquips = new SysCode();
+        sysHouEquips.setCode(sysHouEquipsDTO.getCode());
+        sysHouEquips.setCode(sysHouEquipsDTO.getName());
 
         return sysHouEquips;
     }
 
     @Override
-    public SysHouEquipsDTO toDTO(SysHouEquips sysHouEquips, Object... objects) {
+    public SysHouEquipsDTO toDTO(SysCode sysCode, Object... objects) {
         SysHouEquipsDTO sysHouEquipsDTO = new SysHouEquipsDTO();
-        sysHouEquipsDTO.setId(sysHouEquips.getId());
-        sysHouEquipsDTO.setLid(sysHouEquips.getLid());
-        sysHouEquipsDTO.setCode(sysHouEquips.getEquipmentCode());
-        sysHouEquipsDTO.setName(sysHouEquips.getEquipmentName());
+        sysHouEquipsDTO.setId(sysCode.getId());
+        sysHouEquipsDTO.setCode(sysCode.getCode());
+        sysHouEquipsDTO.setName(sysCode.getName());
 
         return sysHouEquipsDTO;
     }

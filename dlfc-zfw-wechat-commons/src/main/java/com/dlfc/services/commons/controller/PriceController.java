@@ -2,11 +2,12 @@ package com.dlfc.services.commons.controller;
 
 import com.dlfc.services.commons.convertor.SysCodeConvertor;
 import com.dlfc.services.commons.dto.CodeNameDTO;
-import com.dlfc.services.commons.entity.SysCode;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ public class PriceController {
     private List<SysCode> sysCodeList;
 
     @Autowired
+    @Qualifier("sysCodeServiceImpl")
     private DataService<SysCode> sysCodeService;
     @Autowired
     private SysCodeConvertor sysCodeConvertor;
