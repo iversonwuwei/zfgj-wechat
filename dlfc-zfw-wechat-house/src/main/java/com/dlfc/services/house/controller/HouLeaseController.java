@@ -176,7 +176,9 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ListResultDTO<HouseDTO> findAllHouses(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @RequestHeader String token) throws CustomRuntimeException {
+                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                 @RequestHeader(required = false) String token)
+            throws CustomRuntimeException {
         getUser(token);
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         if (token != null) {
