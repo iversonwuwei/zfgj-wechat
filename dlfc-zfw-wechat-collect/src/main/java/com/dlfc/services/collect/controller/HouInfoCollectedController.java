@@ -9,12 +9,14 @@ import com.dlfc.services.collect.service.HouCollectionService;
 import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
+import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/ws/houses/collection")
 public class HouInfoCollectedController extends BaseController {
@@ -53,16 +55,24 @@ public class HouInfoCollectedController extends BaseController {
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     public ResultDTO<Void> collect(@RequestParam String hid,
                                    @RequestHeader String token) {
-        String test = validateRepository.validateHouseBy(hid);
-        UserDTO userDTO = null;
-        getUser(token);
-        if (test.contains("success")) {
-            UsrHouCollection usrHouCollection = new UsrHouCollection();
-            usrHouCollection.setUid(userDTO.getId());
-            usrHouCollection.setHid(hid);
-            if (houCollectionService.collect(usrHouCollection, user)) {
-                return ResultDTO.success();
+        try{
+            String test = validateRepository.validateHouseBy(hid);
+            UserDTO userDTO = null;
+            getUser(token);
+            if (test.contains("success")) {
+                UsrHouCollection usrHouCollection = new UsrHouCollection();
+                usrHouCollection.setUid(userDTO.getId());
+                usrHouCollection.setHid(hid);
+                if (houCollectionService.collect(usrHouCollection, user)) {
+                    return ResultDTO.success();
+                }
             }
+        }catch (Exception e){
+            ResultError resultError = new ResultError();
+            resultError.setErrcode("100");
+            resultError.setErrmsg("收藏失败");
+            HouInfoCollectedController.log.error(e.getLocalizedMessage());
+            return ResultDTO.failure(resultError);
         }
         return ResultDTO.failure();
     }
