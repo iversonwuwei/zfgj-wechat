@@ -1,9 +1,9 @@
 package com.dlfc.services.search.service.impl;
 
 
-import com.dlfc.services.search.entity.UserEntity;
 import com.dlfc.services.search.repository.UserInfoRService;
 import com.dlfc.services.search.service.UsrUserService;
+import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ public class UsrUserServiceImpl implements UsrUserService {
     private IConvertor convertor;
 
     @Override
-    public UserEntity findUser(String userid) {
-        String userInfo = userInfoRService.findUserByUser(userid);
-        return (UserEntity) convertor.convert2Object(userInfo, UserEntity.class);
+    public UsrUser findUser(String user) {
+        String userInfo = userInfoRService.findUserByUser(user);
+        return (UsrUser) convertor.convert2Object(userInfo, UsrUser.class);
     }
 }
