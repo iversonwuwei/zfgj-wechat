@@ -4,7 +4,6 @@ package com.dlfc.services.commons.controller;
 import com.dlfc.services.commons.convertor.*;
 import com.dlfc.services.commons.dto.CodeNameDTO;
 import com.dlfc.services.commons.service.DataService;
-import com.dlfc.services.commons.service.impl.SysCodeServiceImpl;
 import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map.Entry;
 
 import java.util.*;
 
@@ -93,6 +90,12 @@ public class DistrictController {
     @RequestMapping(value = "/cityByProvince", method = RequestMethod.GET)
     public ListResultDTO<CodeNameDTO> cityByProvince(@RequestParam String provinceId) throws CustomRuntimeException {
         List<SysAreaCities> sysAreaCitiesList = sysAreaCitiesService.findBy(provinceId);
+        return sysAreaCitiesConvertor.toResultDTO(sysAreaCitiesList);
+    }
+
+    @RequestMapping(value = "/cities", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> cities() throws CustomRuntimeException {
+        List<SysAreaCities> sysAreaCitiesList = sysAreaCitiesService.findAll();
         return sysAreaCitiesConvertor.toResultDTO(sysAreaCitiesList);
     }
 

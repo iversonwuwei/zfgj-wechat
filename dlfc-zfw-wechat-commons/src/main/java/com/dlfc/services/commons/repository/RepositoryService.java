@@ -39,4 +39,7 @@ public interface RepositoryService {
 
     @RequestMapping(value = "/wc/datas/sysAreaCities/findByLid", method = RequestMethod.GET)
     List<SysAreaCities> findCitiesByProvince(@RequestParam(name = "lid") String lid);
+
+    @RequestMapping(value = "/wc/datas/sysAreaCities/findAll", method = RequestMethod.GET)
+    List<SysAreaCities> findCitiesAll();
 }
