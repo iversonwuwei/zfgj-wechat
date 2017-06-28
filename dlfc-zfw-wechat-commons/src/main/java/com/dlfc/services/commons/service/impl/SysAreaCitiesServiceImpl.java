@@ -12,7 +12,7 @@ import java.util.List;
  * Created by K on 6/28/17.
  */
 
-@Service
+@Service("SysAreaCitiesServiceImpl")
 public class SysAreaCitiesServiceImpl implements DataService<SysAreaCities> {
 
     @Autowired

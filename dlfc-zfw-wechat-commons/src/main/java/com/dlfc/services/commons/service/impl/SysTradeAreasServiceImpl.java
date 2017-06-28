@@ -13,7 +13,7 @@ import java.util.List;
  * Created by K on 2017/6/2.
  */
 
-@Service
+@Service("SysTradeAreasServiceImpl")
 public class SysTradeAreasServiceImpl implements DataService<SysTradeAreas> {
 
     private String result;

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by K on 2017/6/7.
  */
 
-@Service
+@Service("SysSurFacisContrastServiceImpl")
 public class SysSurFacisContrastServiceImpl implements DataService<SysCode> {
 
     private List<SysCode> result;

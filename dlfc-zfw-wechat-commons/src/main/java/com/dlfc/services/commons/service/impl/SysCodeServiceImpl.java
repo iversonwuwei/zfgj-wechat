@@ -14,7 +14,7 @@ import java.util.List;
  * Created by K on 2017/6/2.
  */
 
-@Service
+@Service("SysCodeServiceImpl")
 public class SysCodeServiceImpl implements DataService<SysCode> {
 
     private String result;

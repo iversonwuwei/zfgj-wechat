@@ -25,13 +25,13 @@ import java.util.List;
 public class SysHouInfoController {
 
     @Autowired
-    @Qualifier("sysCodeServiceImpl")
+    @Qualifier("SysCodeServiceImpl")
     private DataService<SysCode> sysCodeService;
     @Autowired
-    @Qualifier("sysHouEquipsContrastImpl")
+    @Qualifier("SysHouEquipsContrastImpl")
     private DataService<SysCode> sysHouEquipmentsService;
     @Autowired
-    @Qualifier("sysSurFacisContrastServiceImpl")
+    @Qualifier("SysSurFacisContrastServiceImpl")
     private DataService<SysCode> sysSurFacisContrastService;
     @Autowired
     private SysCodeConvertor sysCodeConvertor;

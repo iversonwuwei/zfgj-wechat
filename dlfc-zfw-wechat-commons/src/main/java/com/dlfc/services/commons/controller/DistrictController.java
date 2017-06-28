@@ -9,10 +9,12 @@ import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Map.Entry;
 
 import java.util.*;
@@ -23,14 +25,19 @@ import java.util.*;
 public class DistrictController {
 
     @Autowired
+    @Qualifier("SysAreaAreasServiceImpl")
     private DataService<SysAreaAreas> sysAreaAreasService;
     @Autowired
+    @Qualifier("SysTradeAreasServiceImpl")
     private DataService<SysTradeAreas> sysTradeAreasService;
     @Autowired
+    @Qualifier("SysAreaProvincesServiceImpl")
     private DataService<SysAreaProvinces> sysAreaProvincesService;
     @Autowired
+    @Qualifier("SysAreaCitiesServiceImpl")
     private DataService<SysAreaCities> sysAreaCitiesService;
     @Autowired
+    @Qualifier("SysCodeServiceImpl")
     private DataService<SysCode> sysCodeService;
     @Autowired
     private SysAreaAreasConvertor sysAreaAreasConvertor;

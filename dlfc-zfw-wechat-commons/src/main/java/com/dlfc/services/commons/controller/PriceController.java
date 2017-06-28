@@ -25,7 +25,7 @@ public class PriceController {
     private List<SysCode> sysCodeList;
 
     @Autowired
-    @Qualifier("sysCodeServiceImpl")
+    @Qualifier("SysCodeServiceImpl")
     private DataService<SysCode> sysCodeService;
     @Autowired
     private SysCodeConvertor sysCodeConvertor;

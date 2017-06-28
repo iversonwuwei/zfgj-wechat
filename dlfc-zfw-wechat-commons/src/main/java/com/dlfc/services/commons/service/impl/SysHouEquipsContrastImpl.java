@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by K on 2017/6/2.
  */
-@Service
+@Service("SysHouEquipsContrastImpl")
 public class SysHouEquipsContrastImpl implements DataService<SysCode> {
 
     private List<SysCode> result;
