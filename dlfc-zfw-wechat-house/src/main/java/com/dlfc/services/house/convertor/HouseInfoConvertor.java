@@ -172,7 +172,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         List<UsrHouCollection> houCollections = null;
         if (model.getUid() != null) {
             houCollections = houCollectionService.collected(model.getUid(), model.getId());
-            if (houCollections != null) {
+            if (houCollections != null && houCollections.size()>0) {
                 dto.setChid(houCollections.get(0).getId());
                 if (strs[0].equals("")) {
                     if (model.getUid() != null) {
