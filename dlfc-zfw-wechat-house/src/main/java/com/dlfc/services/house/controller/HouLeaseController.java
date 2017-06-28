@@ -178,7 +178,7 @@ public class HouLeaseController {
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
-        getUser(token);
+         getUser(token);
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         if (token != null) {
             user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
