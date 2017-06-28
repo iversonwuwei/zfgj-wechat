@@ -38,7 +38,7 @@ public class HouCollectionServiceImpl implements HouCollectionService {
     }
 
     @Override
-    public boolean collect(UsrHouCollection usrHouCollection,
+    public String collect(UsrHouCollection usrHouCollection,
                            UsrUser user) {
         String collect = "";
         if (usrHouCollection != null) {
@@ -46,10 +46,10 @@ public class HouCollectionServiceImpl implements HouCollectionService {
             collect = houCollectionRService.collect(usrHouCollection);
         }
 
-        if (collect.equals("true")) {
-            return true;
+        if (!collect.equals("") && collect!=null) {
+            return collect;
         }
 
-        return false;
+        return null;
     }
 }

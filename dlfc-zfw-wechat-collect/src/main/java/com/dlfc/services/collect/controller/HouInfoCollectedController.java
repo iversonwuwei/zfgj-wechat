@@ -1,7 +1,9 @@
 package com.dlfc.services.collect.controller;
 
 import com.dlfc.services.collect.controller.base.BaseController;
+import com.dlfc.services.collect.convertor.CollectConvertor;
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
+import com.dlfc.services.collect.dto.CollectDTO;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
 import com.dlfc.services.collect.dto.UserDTO;
 import com.dlfc.services.collect.repository.ValidateRepository;
@@ -28,6 +30,8 @@ public class HouInfoCollectedController extends BaseController {
     private HouInfoColletedConvertor houInfoColletedConvertor;
     @Autowired
     private ValidateRepository validateRepository;
+    @Autowired
+    private CollectConvertor collectConvertor;
 
     @RequestMapping(value = "/collected", method = RequestMethod.GET)
     public ListResultDTO<HouInfoCollectedDTO> HouseCollectionList(@RequestHeader String token)
@@ -54,8 +58,8 @@ public class HouInfoCollectedController extends BaseController {
     }
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
-    public ResultDTO<Void> collect(@RequestParam String hid,
-                                   @RequestHeader(required = false) String token) {
+    public ResultDTO collect(@RequestParam String hid,
+                                         @RequestHeader(required = false) String token) {
         ResultError resultError;
         try{
             if (token==null){
@@ -70,8 +74,9 @@ public class HouInfoCollectedController extends BaseController {
                 UsrHouCollection usrHouCollection = new UsrHouCollection();
                 usrHouCollection.setUid(user.getId());
                 usrHouCollection.setHid(hid);
-                if (houCollectionService.collect(usrHouCollection, user)) {
-                    return ResultDTO.success();
+                String chid = houCollectionService.collect(usrHouCollection, user);
+                if (chid != null) {
+                    return ResultDTO.success(collectConvertor.toDTO(usrHouCollection, chid));
                 }
             }
         }catch (Exception e){
