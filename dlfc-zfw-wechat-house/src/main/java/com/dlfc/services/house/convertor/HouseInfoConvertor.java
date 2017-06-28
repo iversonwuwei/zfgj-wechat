@@ -100,7 +100,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
                 sb.append(",");
             }
         }
-        model.setEnvironment(sb.toString());
+        model.setHouSurFacis(sb.toString());
         if (dto.getEquips() != null) {
             sb = new StringBuilder();
             for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
@@ -195,7 +195,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
                 dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
             }
             if (facilities != null) {
-                dto.setAround(sysSurFaciesConvertor.toResultDTO(sysCodeService.findByType("hou_surroundings", facilities)));
+                dto.setAround(sysSurFaciesConvertor.toResultDTO(sysCodeService.findByType("house_sur_facilities", facilities)));
             }
             dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));
         } catch (CustomRuntimeException e) {

@@ -200,7 +200,7 @@ public class HouLeaseController {
             ResultDTO<UserDTO> user = validateRService.validateUserBy(token);
             houLeaseInfoList = houseLeaseInfoService.findByUid(user.getData().getId());
             if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-                houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
+                return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
             }
         } catch (Exception e) {
             ResultError resultError;
@@ -226,12 +226,14 @@ public class HouLeaseController {
      * @throws CustomRuntimeException
      */
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ResultDTO<HouseDTO> details(@RequestParam String lid) throws CustomRuntimeException {
+    public ResultDTO<HouseDTO> details(@RequestParam String lid,
+                                       @RequestHeader String token) throws CustomRuntimeException {
+        getUser(token);
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
         if (houLeaseInfo == null) {
             return null;
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfo);
+        return houseInfoConvertor.toResultDTO(houLeaseInfo,user.getId());
     }
 
     /**
