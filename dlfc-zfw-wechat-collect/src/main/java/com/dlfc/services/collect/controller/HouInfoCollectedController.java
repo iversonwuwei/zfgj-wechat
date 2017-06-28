@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.util.List;
 @Slf4j
 @RestController
@@ -54,10 +55,17 @@ public class HouInfoCollectedController extends BaseController {
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     public ResultDTO<Void> collect(@RequestParam String hid,
-                                   @RequestHeader String token) {
+                                   @RequestHeader(required = false) String token) {
+        ResultError resultError;
         try{
             String test = validateRepository.validateHouseBy(hid);
             UserDTO userDTO = null;
+            if (token==null){
+                resultError = new ResultError();
+                resultError.setErrmsg("尚未登录，请先登陆！");
+                resultError.setErrcode("150");
+                return ResultDTO.failure(resultError);
+            }
             getUser(token);
             if (test.contains("success")) {
                 UsrHouCollection usrHouCollection = new UsrHouCollection();
@@ -68,7 +76,7 @@ public class HouInfoCollectedController extends BaseController {
                 }
             }
         }catch (Exception e){
-            ResultError resultError = new ResultError();
+            resultError = new ResultError();
             resultError.setErrcode("100");
             resultError.setErrmsg("收藏失败");
             HouInfoCollectedController.log.error(e.getLocalizedMessage());
