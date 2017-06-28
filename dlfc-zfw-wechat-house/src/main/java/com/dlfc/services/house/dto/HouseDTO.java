@@ -70,7 +70,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 是否被用户收藏
      */
-    private boolean collected;
+    private boolean collected=false;
 
     /**
      * 上次刷新时间
@@ -166,4 +166,6 @@ public class HouseDTO extends AbstractDTO {
     private String longitude;
 
     private String phone;
+
+    private String chid;
 }

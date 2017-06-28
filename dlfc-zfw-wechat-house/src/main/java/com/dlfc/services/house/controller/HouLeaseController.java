@@ -74,13 +74,15 @@ public class HouLeaseController {
      */
 
     @RequestMapping(method = RequestMethod.POST)
-    public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO) throws CustomRuntimeException {
+    public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO,
+                                          @RequestHeader(required = false)String token) throws CustomRuntimeException {
+        getUser(token);
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
         houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
             return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfoList);
+        return houseInfoConvertor.toResultDTO(houLeaseInfoList, user.getId());
     }
 
     /**
@@ -93,9 +95,6 @@ public class HouLeaseController {
     public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO,
                                   @RequestHeader String token) {
         getUser(token);
-        SysSurFacis surFacis;
-        SysHouEquips sysHouEquips;
-        SysCode sysCode;
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
@@ -179,7 +178,7 @@ public class HouLeaseController {
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
-        getUser(token);
+         getUser(token);
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         if (token != null) {
             user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
@@ -258,8 +257,6 @@ public class HouLeaseController {
     public ResultDTO<String> details(@RequestBody HouseDTO dto,
                                      @RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
-        SysSurFacis surFacis;
-        SysHouEquips sysHouEquips;
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;

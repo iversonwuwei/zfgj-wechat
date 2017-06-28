@@ -3,10 +3,12 @@ package com.dlfc.services.house.service.impl;
 
 import com.dlfc.services.house.repository.UserRService;
 import com.dlfc.services.house.service.HouCollectionService;
+import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -14,8 +16,6 @@ public class HouCollectionServiceImpl implements HouCollectionService {
 
     @Autowired
     private UserRService userRService;
-    @Autowired
-    private IConvertor convertor;
 
     /**
      *
@@ -24,8 +24,8 @@ public class HouCollectionServiceImpl implements HouCollectionService {
      * @return
      */
     @Override
-    public boolean collected(String uid, String hid) {
-        boolean collected = userRService.whetherCollected(uid, hid);
+    public List<UsrHouCollection> collected(String uid, String hid) {
+        List<UsrHouCollection> collected = userRService.whetherCollected(uid, hid);
         return collected;
     }
 }
