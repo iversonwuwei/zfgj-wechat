@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -170,23 +169,25 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
         dto.setHouImg(getImgPaths(sysInfoAtts));
-        List<UsrHouCollection> houCollections = houCollectionService.collected(model.getUid(), model.getId());
-        if (strs[0].equals("")) {
-            if (model.getUid() != null) {
-                if (houCollections != null) {
+        List<UsrHouCollection> houCollections = null;
+        if (model.getUid() != null) {
+            houCollections = houCollectionService.collected(model.getUid(), model.getId());
+            if (houCollections != null) {
+                dto.setChid(houCollections.get(0).getId());
+                if (strs[0].equals("")) {
+                    if (model.getUid() != null) {
+                        dto.setCollected(true);
+                    } else {
+                        dto.setCollected(false);
+                    }
+                } else {
                     dto.setCollected(true);
                 }
-            } else {
-                dto.setCollected(false);
-            }
-        } else {
-            if (houCollections != null) {
-                dto.setCollected(true);
             }
         }
         try {
-            List<String> facilities = toList(split(model.getFacilities(),","));
-            List<String> houEquips = toList(split(model.getEnvironment(),","));
+            List<String> facilities = toList(split(model.getFacilities(), ","));
+            List<String> houEquips = toList(split(model.getEnvironment(), ","));
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
             if (houEquips != null) {
                 dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
@@ -198,7 +199,6 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         } catch (CustomRuntimeException e) {
             e.printStackTrace();
         }
-        dto.setChid(houCollections.get(0).getId());
         dto.setUid(model.getUid());
         dto.setLatitude(model.getLatitude());
         dto.setLongitude(model.getLongitude());
@@ -210,7 +210,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         if (agtEmpInfo == null) {
             dto.setPhone(usrUser.getMobile());
         }
-        if(model.getFreshTime()!=null) {
+        if (model.getFreshTime() != null) {
             dto.setRefreshTime(new Date(model.getFreshTime()));
         }
 
@@ -240,12 +240,12 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         return null;
     }
 
-    private List<String> toList(String[] array){
+    private List<String> toList(String[] array) {
         List<String> toList = new ArrayList<>();
-        if (array == null){
+        if (array == null) {
             return null;
         }
-        for (int i=0; i<array.length;i++){
+        for (int i = 0; i < array.length; i++) {
             toList.add(array[i]);
         }
 
