@@ -15,7 +15,6 @@ import java.util.List;
  */
 
 @Service
-@Qualifier("sysCodeServiceImpl")
 public class SysCodeServiceImpl implements DataService<SysCode> {
 
     private String result;

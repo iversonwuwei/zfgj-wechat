@@ -1,8 +1,8 @@
 package com.dlfc.services.commons.service.impl;
 
-import com.dlfc.services.commons.entity.SysTradeAreas;
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysTradeAreas;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class SysTradeAreasServiceImpl implements DataService<SysTradeAreas> {
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
-    private IConvertor<SysTradeAreas> convertor;
+    private IConvertor convertor;
 
     @Override
     public List<SysTradeAreas> findBy(String parentId) {

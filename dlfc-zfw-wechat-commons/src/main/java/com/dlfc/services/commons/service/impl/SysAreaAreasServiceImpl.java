@@ -1,8 +1,8 @@
 package com.dlfc.services.commons.service.impl;
 
-import com.dlfc.services.commons.entity.SysAreaAreas;
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
+import com.dlfc.zfw.wechat.entities.entity.SysAreaAreas;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

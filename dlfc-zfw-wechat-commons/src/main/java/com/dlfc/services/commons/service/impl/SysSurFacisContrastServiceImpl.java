@@ -1,10 +1,8 @@
 package com.dlfc.services.commons.service.impl;
 
-import com.dlfc.services.commons.entity.SysSurFacisContrast;
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
 import com.dlfc.zfw.wechat.entities.entity.SysCode;
-import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +18,6 @@ public class SysSurFacisContrastServiceImpl implements DataService<SysCode> {
     private List<SysCode> result;
     @Autowired
     private RepositoryService repositoryService;
-    @Autowired
-    private IConvertor convertor;
 
     @Override
     public List<SysCode> findBy(String param) {

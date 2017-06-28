@@ -1,5 +1,7 @@
 package com.dlfc.services.commons.repository;
 
+import com.dlfc.zfw.wechat.entities.entity.SysAreaCities;
+import com.dlfc.zfw.wechat.entities.entity.SysAreaProvinces;
 import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,4 +33,10 @@ public interface RepositoryService {
 
     @RequestMapping(value = "/wc/datas/sysCode/findByType", method = RequestMethod.GET)
     List<SysCode> findByCode(@RequestParam(name = "type") String type);
+
+    @RequestMapping(value = "/wc/datas/sysAreaProvinces/findAll", method = RequestMethod.GET)
+    List<SysAreaProvinces> findSysAreaProvincesAll();
+
+    @RequestMapping(value = "/wc/datas/sysAreaCities/findByLid", method = RequestMethod.GET)
+    List<SysAreaCities> findCitiesByProvince(@RequestParam String lid);
 }

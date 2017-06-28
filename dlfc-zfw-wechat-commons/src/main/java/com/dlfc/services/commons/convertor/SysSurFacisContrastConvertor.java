@@ -1,7 +1,6 @@
 package com.dlfc.services.commons.convertor;
 
 import com.dlfc.services.commons.dto.CodeNameDTO;
-import com.dlfc.services.commons.entity.SysSurFacisContrast;
 import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;

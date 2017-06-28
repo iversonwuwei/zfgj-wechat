@@ -2,30 +2,29 @@ package com.dlfc.services.commons.service.impl;
 
 import com.dlfc.services.commons.repository.RepositoryService;
 import com.dlfc.services.commons.service.DataService;
-import com.dlfc.zfw.wechat.entities.entity.SysCode;
+import com.dlfc.zfw.wechat.entities.entity.SysAreaCities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Created by K on 2017/6/2.
+ * Created by K on 6/28/17.
  */
-@Service
-public class SysHouEquipsContrastImpl implements DataService<SysCode> {
 
-    private List<SysCode> result;
+@Service
+public class SysAreaCitiesServiceImpl implements DataService<SysAreaCities> {
+
     @Autowired
     private RepositoryService repositoryService;
 
     @Override
-    public List<SysCode> findBy(String param) {
-        return null;
+    public List<SysAreaCities> findBy(String param) {
+        return repositoryService.findCitiesByProvince(param);
     }
 
     @Override
-    public List<SysCode> findAll() {
-        result = repositoryService.findByCode("hou_surroundings");
-        return result;
+    public List<SysAreaCities> findAll() {
+        return null;
     }
 }
