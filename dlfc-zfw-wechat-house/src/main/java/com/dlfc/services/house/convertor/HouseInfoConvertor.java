@@ -188,8 +188,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             }
         }
         try {
-            List<String> facilities = toList(split(model.getFacilities(), ","));
-            List<String> houEquips = toList(split(model.getEnvironment(), ","));
+            List<String> facilities = toList(split(model.getHouSurFacis(), ","));
+            List<String> houEquips = toList(split(model.getFacilities(), ","));
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
             if (houEquips != null) {
                 dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
