@@ -5,6 +5,7 @@ import com.dlfc.services.load.repository.ContractWService;
 import com.dlfc.services.load.service.ClassfyUploadService;
 import com.dlfc.services.load.service.ImageService;
 import com.dlfc.services.load.service.UploadService;
+import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.framework.common.util.StringUtils;

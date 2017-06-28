@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ContractWService {
 
     @RequestMapping(value = "/ww/contractSign/lessorSign", method = RequestMethod.GET)
-    ResultDTO<Void> lessorSign(@RequestParam String id, @RequestParam String path);
+    ResultDTO<Void> lessorSign(@RequestParam(name = "id") String id, @RequestParam(name = "path") String path);
 
     @RequestMapping(value = "/ww/contractSign/lesseeSign", method = RequestMethod.GET)
-    ResultDTO<Void> lesseeSign(@RequestParam String id, @RequestParam String path);
+    ResultDTO<Void> lesseeSign(@RequestParam(name = "id") String id, @RequestParam(name = "path") String path);
 }
