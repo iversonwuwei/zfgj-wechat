@@ -58,18 +58,17 @@ public class HouInfoCollectedController extends BaseController {
                                    @RequestHeader(required = false) String token) {
         ResultError resultError;
         try{
-            String test = validateRepository.validateHouseBy(hid);
-            UserDTO userDTO = null;
             if (token==null){
                 resultError = new ResultError();
                 resultError.setErrmsg("尚未登录，请先登陆！");
                 resultError.setErrcode("150");
                 return ResultDTO.failure(resultError);
             }
+            String test = validateRepository.validateHouseBy(hid);
             getUser(token);
             if (test.contains("success")) {
                 UsrHouCollection usrHouCollection = new UsrHouCollection();
-                usrHouCollection.setUid(userDTO.getId());
+                usrHouCollection.setUid(user.getId());
                 usrHouCollection.setHid(hid);
                 if (houCollectionService.collect(usrHouCollection, user)) {
                     return ResultDTO.success();
