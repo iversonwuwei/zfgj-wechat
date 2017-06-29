@@ -10,6 +10,7 @@ import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
 import com.dlfc.zfw.wechat.entities.entity.SysSurFacis;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
+import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,8 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public List<HouLeaseInfo> findAll(Integer pageNo, Integer pageSize) {
         Integer releaseStatus = HouseReleaseStatusEnum.YES_ENUM.getValue();
-        String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo, releaseStatus);
+        String orderBy = "FRESH_TIME DESC, AUDIT_STATUS ASC";
+        String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo, releaseStatus, orderBy);
         return convertor.convert2Objects(houLeaseInfos, HouLeaseInfo.class);
     }
 
