@@ -49,6 +49,10 @@
             </groupId>
             <artifactId>dlfc-framework-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
