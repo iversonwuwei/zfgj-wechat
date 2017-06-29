@@ -2,6 +2,7 @@ package com.dlfc.services.contract.convertor;
 
 import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.services.contract.dto.ContractListDTO;
+import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,11 @@ public class ContractListConvertor extends AbstractConvertor<ConContract,Contrac
             dto.setStatus(String.valueOf(model.getStatus()));
             dto.setDate(new Date(model.getStartTime()));
             dto.setDateStr(DateUtils.dateToStr(new Date(model.getStartTime()),"yyyy-MM-dd hh:mm:ss"));
+            if (ConStatusEnum.CREATING_ENUM.getValue() == model.getStatus()){
+                dto.setIsDelete(true);
+            }else {
+                dto.setIsDelete(false);
+            }
         }
         return dto;
     }

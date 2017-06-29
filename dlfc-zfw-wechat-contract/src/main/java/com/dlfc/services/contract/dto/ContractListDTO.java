@@ -32,6 +32,14 @@ public class ContractListDTO extends AbstractDTO {
      */
     private String status;
 
+    /**
+     * 发起时间
+     */
     private Date date;
     private String dateStr;
+
+    /**
+     * 是否可删除
+     */
+    private Boolean isDelete;
 }
