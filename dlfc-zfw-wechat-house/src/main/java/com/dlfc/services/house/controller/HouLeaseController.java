@@ -78,7 +78,7 @@ public class HouLeaseController {
                                           @RequestHeader(required = false)String token) throws CustomRuntimeException {
         getUser(token);
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
-        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
+;        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
             return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
