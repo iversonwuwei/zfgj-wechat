@@ -201,22 +201,32 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         } catch (CustomRuntimeException e) {
             e.printStackTrace();
         }
-        dto.setUid(model.getUid());
-        dto.setLatitude(model.getLatitude());
-        dto.setLongitude(model.getLongitude());
-        UsrUser usrUser = usrUserService.findById(model.getUid());
-        AgtEmpInfo agtEmpInfo = agtUserService.findById(model.getEid());
-        if (usrUser == null) {
-            dto.setPhone(agtEmpInfo.getPhone());
-        }
-        if (agtEmpInfo == null) {
-            dto.setPhone(usrUser.getMobile());
-        }
-        if (model.getFreshTime() != null) {
-            dto.setRefreshTime(new Date(model.getFreshTime()));
-        }
+        try {
+            dto.setUid(model.getUid());
+            dto.setLatitude(model.getLatitude());
+            dto.setLongitude(model.getLongitude());
+            UsrUser usrUser = null;
+            AgtEmpInfo agtEmpInfo = null;
+            if (model.getUid()!=null) {
+                usrUser = usrUserService.findById(model.getUid());
+            }
+            if (model.getEid()!=null) {
+                agtEmpInfo = agtUserService.findById(model.getEid());
+            }
+            if (usrUser == null) {
+                dto.setPhone(agtEmpInfo.getPhone());
+            }
+            if (agtEmpInfo == null) {
+                dto.setPhone(usrUser.getMobile());
+            }
+            if (model.getFreshTime() != null) {
+                dto.setRefreshTime(new Date(model.getFreshTime()));
+            }
 
-        dto.setHouNumber(model.getLno());
+            dto.setHouNumber(model.getLno());
+        }catch (Exception e){
+            e.getMessage();
+        }
         return dto;
     }
 

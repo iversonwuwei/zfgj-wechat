@@ -6,6 +6,9 @@ import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by K on 2017/6/13.
  */
@@ -26,9 +29,27 @@ public class SysInfoAttConvertor extends AbstractConvertor<SysInfoAtt, ImgDTO> {
     @Override
     public ImgDTO toDTO(SysInfoAtt sysInfoAtt, Object... objects) {
         ImgDTO imgDTO = new ImgDTO();
-        imgDTO.setName(sysInfoAtt.getFileName());
+        if (sysInfoAtt.getFileName()!= null) {
+            if (picNames().contains(sysInfoAtt.getFileName())) {
+                imgDTO.setName(sysInfoAtt.getFileName());
+            }
+        }
         imgDTO.setPosition(sysInfoAtt.getSort());
         imgDTO.setPath(sysInfoAtt.getFilePath());
         return imgDTO;
+    }
+
+    private List<String> picNames(){
+        List<String> names = new ArrayList<>();
+        names.add("厨房");
+        names.add("客厅");
+        names.add("卫生间");
+        names.add("主卧");
+        names.add("次卧");
+        names.add("书房");
+        names.add("其他房间");
+
+        return names;
+
     }
 }
