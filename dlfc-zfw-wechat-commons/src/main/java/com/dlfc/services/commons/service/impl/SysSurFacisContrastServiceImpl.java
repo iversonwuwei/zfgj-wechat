@@ -26,7 +26,7 @@ public class SysSurFacisContrastServiceImpl implements DataService<SysCode> {
 
     @Override
     public List<SysCode> findAll() {
-        result = repositoryService.findByCode("house_facilities");
+        result = repositoryService.findByCode("house_sur_facilities");
         return result;
     }
 }
