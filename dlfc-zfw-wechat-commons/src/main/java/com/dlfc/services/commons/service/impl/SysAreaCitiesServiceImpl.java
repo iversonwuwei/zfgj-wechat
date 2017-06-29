@@ -25,6 +25,6 @@ public class SysAreaCitiesServiceImpl implements DataService<SysAreaCities> {
 
     @Override
     public List<SysAreaCities> findAll() {
-        return null;
+        return repositoryService.findCitiesAll();
     }
 }

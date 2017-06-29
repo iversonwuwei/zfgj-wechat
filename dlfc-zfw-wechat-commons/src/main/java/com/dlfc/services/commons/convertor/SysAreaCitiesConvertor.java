@@ -23,6 +23,7 @@ public class SysAreaCitiesConvertor extends AbstractConvertor<SysAreaCities, Cod
             dto.setId(model.getId());
             dto.setValue(model.getCityId());
             dto.setName(model.getCity());
+            dto.setParent(model.getProvinceId());
         }
         return dto;
     }
