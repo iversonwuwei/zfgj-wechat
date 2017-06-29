@@ -5,9 +5,11 @@ import com.dlfc.services.contract.convertor.ContractListConvertor;
 import com.dlfc.services.contract.dto.ContractListDTO;
 import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.services.contract.repository.ContractRService;
+import com.dlfc.services.contract.service.ContractService;
 import com.dlfc.services.contract.service.SystemPersonService;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
+import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,8 @@ public class ListController extends BaseController {
     private ContractListConvertor contractListConvertor;
     @Autowired
     private SystemPersonService systemPersonService;
+    @Autowired
+    private ContractService contractService;
 
     /**
      * 待处理合同列表
@@ -73,5 +77,20 @@ public class ListController extends BaseController {
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
+    }
+
+
+    /**
+     * 删除合同
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResultDTO<Void> delete(@RequestParam String id,
+                                  @RequestHeader String token) throws CustomRuntimeException {
+        getUser(token);
+        String result =contractService.deleteById(id,user);
+        if (null != result) {
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure();
     }
 }

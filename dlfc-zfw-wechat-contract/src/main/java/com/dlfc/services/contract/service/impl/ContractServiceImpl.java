@@ -55,4 +55,15 @@ public class ContractServiceImpl implements ContractService {
         }
         return null;
     }
+
+    @Override
+    public String deleteById(String id, UsrUser user) {
+        ConContract conContract = contractRService.findConContractById(id);
+        if (null != conContract &&
+                conContract.getStatus() == ConStatusEnum.CREATING_ENUM.getValue()){
+            return contractRService.removeById(id);
+        }
+        return null;
+        }
+
 }

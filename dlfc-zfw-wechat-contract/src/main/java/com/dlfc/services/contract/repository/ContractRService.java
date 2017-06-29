@@ -52,4 +52,7 @@ public interface ContractRService {
 
     @RequestMapping(value = "/wc/datas/conContract/updateById", method = RequestMethod.POST)
     String updateConContractById(@RequestBody ConContract conContract);
+
+    @RequestMapping(value = "/wc/datas/conContract/removeById", method = RequestMethod.DELETE)
+    String removeById(@RequestParam(name = "id") String id);
 }
