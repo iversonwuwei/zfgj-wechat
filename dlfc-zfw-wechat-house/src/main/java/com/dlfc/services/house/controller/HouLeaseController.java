@@ -78,7 +78,7 @@ public class HouLeaseController {
                                           @RequestHeader(required = false)String token) throws CustomRuntimeException {
         getUser(token);
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
-        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
+;        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
             return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
@@ -178,9 +178,9 @@ public class HouLeaseController {
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
-         getUser(token);
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         if (token != null) {
+            getUser(token);
             user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
             return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
         }

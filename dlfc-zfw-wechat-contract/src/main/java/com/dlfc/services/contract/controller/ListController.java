@@ -3,6 +3,7 @@ package com.dlfc.services.contract.controller;
 import com.dlfc.services.contract.controller.base.BaseController;
 import com.dlfc.services.contract.convertor.ContractListConvertor;
 import com.dlfc.services.contract.dto.ContractListDTO;
+import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.services.contract.repository.ContractRService;
 import com.dlfc.services.contract.service.SystemPersonService;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
@@ -34,11 +35,16 @@ public class ListController extends BaseController {
      * @return
      * @throws CustomRuntimeException
      */
-    @RequestMapping(value = "pending",method = RequestMethod.GET)
+    @RequestMapping(value = "/pending",method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> pendingList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
         if (systemPersonService.certification(user.getPerId())){
-            List<ConContract> conContracts = contractRService.findInactiveByPid(user.getPerId());
+            Short[] conStatus = {
+                    (short) ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(),
+                    (short) ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(),
+                    (short) ConStatusEnum.CREATING_ENUM.getValue()
+            };
+            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(),conStatus);
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
@@ -51,11 +57,19 @@ public class ListController extends BaseController {
      * @return
      * @throws CustomRuntimeException
      */
-    @RequestMapping(value = "finish",method = RequestMethod.GET)
+    @RequestMapping(value = "/finish",method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> finishList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
         if (systemPersonService.certification(user.getPerId())){
-            List<ConContract> conContracts = contractRService.findActiveByPid(user.getPerId());
+            Short[] conStatus = {
+                    (short) ConStatusEnum.ACTIVE_ENUM.getValue(),
+                    (short) ConStatusEnum.EXPIRE_ENUM.getValue(),
+                    (short) ConStatusEnum.LESSOR_REJECT_ENUM.getValue(),
+                    (short) ConStatusEnum.LESSEE_REJECT_ENUM.getValue(),
+                    (short) ConStatusEnum.FINISH_ENUM.getValue()
+
+            };
+            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(),conStatus);
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
