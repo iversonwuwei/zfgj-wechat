@@ -12,4 +12,6 @@ public interface ContractService {
     String updateById(ConContract conContract, UsrUser user);
 
     String updateSignStatus(String id, int status, UsrUser user);
+
+    String deleteById(String id, UsrUser user);
 }
