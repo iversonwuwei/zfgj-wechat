@@ -83,39 +83,31 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/lessorSign", method = RequestMethod.POST)
-    public ResultDTO<String> uploadLessorSign(@RequestBody MultipartFile files,
+    public ResultDTO<String> uploadLessorSign(@RequestParam String fileCode,
                                               @RequestParam String contractId) {
         String path;
-        result = uploadService.validate(files);
-        if (StringUtils.isNotEmpty(result)) {
-            return ResultDTO.failure(StringUtils.EMPTY, new ResultError(result, null));
-        }
         try {
-            path = (String) ContractSignUploadServiceImpl.upload(files);
+            path = (String) ContractSignUploadServiceImpl.upload(fileCode);
         } catch (IOException e) {
             log.error(e.getMessage());
             return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
-        ResultDTO<Void> result = contractWService.lessorSign(contractId, path);
-        if (result.isFailure()) {
-            log.error(result.errorsToString());
-            return ResultDTO.failure(StringUtils.EMPTY,
-                    new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
-        }
+//        ResultDTO<Void> result = contractWService.lessorSign(contractId, path);
+//        if (result.isFailure()) {
+//            log.error(result.errorsToString());
+//            return ResultDTO.failure(StringUtils.EMPTY,
+//                    new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
+//        }
         return ResultDTO.success(path);
     }
 
     @RequestMapping(value = "/lesseeSign", method = RequestMethod.POST)
-    public ResultDTO<String> uploadLesseeSign(@RequestBody MultipartFile files,
+    public ResultDTO<String> uploadLesseeSign(@RequestParam String fileCode,
                                               @RequestParam String contractId) {
         String path;
-        result = uploadService.validate(files);
-        if (StringUtils.isNotEmpty(result)) {
-            return ResultDTO.failure(StringUtils.EMPTY, new ResultError(result, null));
-        }
         try {
-            path = (String) ContractSignUploadServiceImpl.upload(files);
+            path = (String) ContractSignUploadServiceImpl.upload(fileCode);
         } catch (IOException e) {
             log.error(e.getMessage());
             return ResultDTO.failure(StringUtils.EMPTY,

@@ -1,6 +1,5 @@
 package com.dlfc.services.load.repository;
 
-import com.dlfc.services.load.dto.ContractDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,4 @@ public interface ContractWService {
 
     @RequestMapping(value = "/ww/contractSign/lesseeSign", method = RequestMethod.GET)
     ResultDTO<Void> lesseeSign(@RequestParam(name = "id") String id, @RequestParam(name = "path") String path);
-
-    @RequestMapping(value = "/ww/ContractDetail", method = RequestMethod.GET)
-    ResultDTO<ContractDTO> detail(@RequestParam(name = "id") String id);
 }
