@@ -45,9 +45,9 @@ public class ContractServiceImpl implements ContractService {
                 && null != user) {
             entity = contractRService.findConContractById(id);
             if (null != entity) {
-                if (ConStatusEnum.WAIT_UPLOAD_ENUM.getValue() == entity.getStatus()) {
+                if (ConStatusEnum.CREATING_ENUM.getValue() == entity.getStatus()) {
                     entity.setStatus((short) status);
-                } else {
+                } else if (status != entity.getStatus()) {
                     entity.setStatus((short) ConStatusEnum.ACTIVE_ENUM.getValue());
                 }
                 return updateById(entity, user);
@@ -60,10 +60,10 @@ public class ContractServiceImpl implements ContractService {
     public String deleteById(String id, UsrUser user) {
         ConContract conContract = contractRService.findConContractById(id);
         if (null != conContract &&
-                conContract.getStatus() == ConStatusEnum.CREATING_ENUM.getValue()){
+                conContract.getStatus() == ConStatusEnum.CREATING_ENUM.getValue()) {
             return contractRService.removeById(id);
         }
         return null;
-        }
+    }
 
 }

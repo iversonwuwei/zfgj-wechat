@@ -3,6 +3,7 @@ package com.dlfc.services.contract.controller;
 import com.dlfc.services.contract.controller.base.BaseController;
 import com.dlfc.services.contract.convertor.*;
 import com.dlfc.services.contract.dto.*;
+import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.services.contract.enums.InfoAttFileTypeEnum;
 import com.dlfc.services.contract.service.*;
 import com.dlfc.zfw.wechat.entities.entity.*;
@@ -108,7 +109,7 @@ public class SignController extends BaseController {
             return ResultDTO.failure(new ResultError("用户名或者路径为空", null));
         }
         sysInfoAttService.saveSign(id, path, InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue(), user);
-        contractService.updateSignStatus(id, InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue(), user);
+        contractService.updateSignStatus(id, ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(), user);
         return ResultDTO.success();
     }
 
@@ -119,7 +120,7 @@ public class SignController extends BaseController {
             return ResultDTO.failure(new ResultError("用户名或者路径为空", null));
         }
         sysInfoAttService.saveSign(id, path, InfoAttFileTypeEnum.LESSEE_SIGN_ENUM.getValue(), user);
-        contractService.updateSignStatus(id, InfoAttFileTypeEnum.LESSEE_SIGN_ENUM.getValue(), user);
+        contractService.updateSignStatus(id, ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(), user);
         return ResultDTO.success();
     }
 }
