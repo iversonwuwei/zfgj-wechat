@@ -61,8 +61,12 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     @Autowired
     private SysCodeService sysCodeService;
 
+    @Autowired
+    private PositionService positionService;
+
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
+        String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
         HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
         model.setId(dto.getId());
@@ -109,6 +113,8 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             }
         }
         model.setFacilities(sb.toString());
+        model.setLatitude(position[0]);
+        model.setLongitude(position[1]);
         return model;
     }
 

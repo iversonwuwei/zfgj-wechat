@@ -2,6 +2,7 @@ package com.dlfc.services.house.controller;
 
 import com.dlfc.services.house.convertor.*;
 import com.dlfc.services.house.dto.*;
+import com.dlfc.services.house.repository.PositionRService;
 import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.repository.ValidateRService;
 import com.dlfc.services.house.service.*;
@@ -64,6 +65,8 @@ public class HouLeaseController {
     private SysInfoAttConvertor sysInfoAttConvertor;
     @Autowired
     private ValidateRService validateRService;
+    @Autowired
+    private PositionService positionService;
 
     /**
      * 查找房源
