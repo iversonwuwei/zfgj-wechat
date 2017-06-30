@@ -75,10 +75,11 @@ public class HouLeaseController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO,
-                                          @RequestHeader(required = false)String token) throws CustomRuntimeException {
+                                          @RequestHeader(required = false) String token) throws CustomRuntimeException {
         getUser(token);
         HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
-;        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
+        ;
+        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
         if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
             return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
         }
@@ -179,12 +180,13 @@ public class HouLeaseController {
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
-        if (token != null) {
+        try {
             getUser(token);
-            user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
-            return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
+        } catch (Exception e) {
+            return houseInfoConvertor.toResultDTO(houLeaseInfos);
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfos);
+        user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
+        return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
     }
 
     /**
@@ -233,7 +235,7 @@ public class HouLeaseController {
         if (houLeaseInfo == null) {
             return null;
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfo,user.getId());
+        return houseInfoConvertor.toResultDTO(houLeaseInfo, user.getId());
     }
 
     /**
