@@ -79,14 +79,18 @@ public class HouLeaseController {
     @RequestMapping(method = RequestMethod.POST)
     public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO,
                                           @RequestHeader(required = false) String token) throws CustomRuntimeException {
-        getUser(token);
-        HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
-        ;
-        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
-        if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-            return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
+        HouLeaseInfoDTO dto = null;
+        try {
+            dto = conditionConvertor.toModel(conditionDTO);
+            houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
+            if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
+                return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
+            }
+            getUser(token);
+            return houseInfoConvertor.toResultDTO(houLeaseInfoList, user.getId());
+        }catch (Exception e){
+            return houseInfoConvertor.toResultDTO(houLeaseInfoList);
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfoList, user.getId());
     }
 
     /**
@@ -232,13 +236,18 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ResultDTO<HouseDTO> details(@RequestParam String lid,
-                                       @RequestHeader String token) throws CustomRuntimeException {
-        getUser(token);
-        HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
-        if (houLeaseInfo == null) {
-            return null;
+                                       @RequestHeader(required = false) String token) throws CustomRuntimeException {
+        HouLeaseInfo houLeaseInfo = null;
+        try {
+            houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
+            getUser(token);
+            if (houLeaseInfo == null) {
+                return null;
+            }
+            return houseInfoConvertor.toResultDTO(houLeaseInfo, user.getId());
+        }catch (Exception e){
+            return houseInfoConvertor.toResultDTO(houLeaseInfo);
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfo, user.getId());
     }
 
     /**
