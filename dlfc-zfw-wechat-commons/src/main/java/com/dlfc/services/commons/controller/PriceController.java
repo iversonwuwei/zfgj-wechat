@@ -65,4 +65,16 @@ public class PriceController {
         sysCodeList = sysCodeService.findBy("rent_payment");
         return sysCodeConvertor.toResultDTO(sysCodeList);
     }
+
+    /**
+     * 房主承担
+     *
+     * @return
+     * @throws CustomRuntimeException
+     */
+    @RequestMapping(value = "/lessorBear", method = RequestMethod.GET)
+    public ListResultDTO<CodeNameDTO> lessorBear() throws CustomRuntimeException {
+        sysCodeList = sysCodeService.findBy("lessor_bear");
+        return sysCodeConvertor.toResultDTO(sysCodeList);
+    }
 }
