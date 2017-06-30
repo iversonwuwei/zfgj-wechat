@@ -1,0 +1,23 @@
+server:
+  port: 28192
+
+spring:
+  application:
+    name: dlfc-zfw-position-services
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 20
+  client:
+    service-url:
+      defaultZone: http://eureka-server-2:11112/eureka,http://eureka-server-3:11113/eureka
+
+feign:
+  hystrix:
+    enabled: false
+
+dlfc:
+  map:
+    address: http://restapi.amap.com/v3/geocode/geo?address=%s&output=JSON&key=7f792de5b31a9f403cc5dc39b595f197
