@@ -50,8 +50,9 @@
             <artifactId>dlfc-framework-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.1</version>
         </dependency>
     </dependencies>
     <build>
