@@ -14,6 +14,10 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class CreditAuthDTO extends AbstractDTO {
 
+    @NotNull
+    @NotEmpty
+    private String uId;
+
     @NotNull(message = "姓名不能为空")
     @NotEmpty(message = "姓名不能为空")
     private String name;

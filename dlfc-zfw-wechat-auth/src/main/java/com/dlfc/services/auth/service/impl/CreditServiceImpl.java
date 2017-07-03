@@ -30,26 +30,25 @@ public class CreditServiceImpl implements CreditService<CreditAuthDTO> {
 
     @Override
     public String auth(CreditAuthDTO creditAuthDTO) {
-        String uri = "http://10.32.156.155:8083/api/userinfo/realNameAuth";
+        String uri = "http://10.32.159.212:8080/dlfc-zhzx/api/userinfo/realNameAuth";
         HttpClient httpClient = HttpClients.createDefault();
         String ajaxResult = null;
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost(uri);
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("uId", creditAuthDTO.getId()));
+        params.add(new BasicNameValuePair("uId", creditAuthDTO.getUId()));
         params.add(new BasicNameValuePair("name", creditAuthDTO.getName()));
         params.add(new BasicNameValuePair("type", creditAuthDTO.getType()));
         params.add(new BasicNameValuePair("idCard", creditAuthDTO.getIdCard()));
         params.add(new BasicNameValuePair("bankMobile", creditAuthDTO.getBankMobile()));
         params.add(new BasicNameValuePair("bankNum", creditAuthDTO.getBankNum()));
-
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             HttpResponse httpResponse = httpClient.execute(httpPost);
-            if(httpResponse.getStatusLine().getStatusCode() == 200)
-            {
+            /*if(httpResponse.getStatusLine().getStatusCode() == 200)
+            {*/
                 HttpEntity httpEntity = httpResponse.getEntity();
                 ajaxResult = EntityUtils.toString(httpEntity);
-            }
+            //}
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
