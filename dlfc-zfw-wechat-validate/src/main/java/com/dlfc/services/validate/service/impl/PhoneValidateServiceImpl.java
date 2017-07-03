@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 @Service
 @Qualifier("phoneValidateServiceImpl")
-public class PhoneValidateServiceImpl implements ValidateService<String>{
+public class PhoneValidateServiceImpl implements ValidateService<String> {
 
     @Autowired
     private UserInfoRService userInfoRService;
@@ -20,7 +20,7 @@ public class PhoneValidateServiceImpl implements ValidateService<String>{
     @Override
     public boolean validate(String s) {
         UsrUser usrUser = userInfoRService.findUserByUser(s);
-        if (usrUser != null){
+        if (usrUser != null) {
             return true;
         }
         return false;

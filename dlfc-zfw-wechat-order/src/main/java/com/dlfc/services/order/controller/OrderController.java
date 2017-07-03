@@ -44,11 +44,11 @@ public class OrderController {
     private SysBroadBandService sysBroadBandService;
 
 
-    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ResultDTO<OrderDTO> createOrder(@RequestParam String lid) throws CustomRuntimeException {
         SysOrder sysOrder = sysOrderService.findOrder(lid);
-        if (sysOrder == null){
-            throw new CustomRuntimeException("","");
+        if (sysOrder == null) {
+            throw new CustomRuntimeException("", "");
         }
         return orderDetailConvertor.toResultDTO(sysOrder);
     }
@@ -57,14 +57,14 @@ public class OrderController {
     public ListResultDTO<OrderListDTO> orderList(@RequestHeader String token) throws CustomRuntimeException {
         AjaxResult user = principalService.principal(token);
         List<SysOrder> newSysOrders = new ArrayList<>();
-        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()),UserDTO.class);
+        UserDTO userDTO = convertor.convert2Object(userInfoRService.findUserByUser(user.getData().toString()), UserDTO.class);
         List<SysOrder> sysOrders = sysOrderService.findOrders(userDTO.getId());
-        if (sysOrders == null){
-            throw new CustomRuntimeException("","");
+        if (sysOrders == null) {
+            throw new CustomRuntimeException("", "");
         }
-        for (SysOrder sysOrder : sysOrders){
+        for (SysOrder sysOrder : sysOrders) {
             SysBroadband sysBroadband = sysBroadBandService.findById(sysOrder.getLid());
-            if(sysBroadband != null){
+            if (sysBroadband != null) {
                 newSysOrders.add(sysOrder);
             }
         }

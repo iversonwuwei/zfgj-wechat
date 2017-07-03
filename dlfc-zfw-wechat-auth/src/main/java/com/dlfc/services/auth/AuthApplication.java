@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.dlfc.services.auth", "com.housecenter.dlfc.framework.ca.api"})
 public class AuthApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }
 }

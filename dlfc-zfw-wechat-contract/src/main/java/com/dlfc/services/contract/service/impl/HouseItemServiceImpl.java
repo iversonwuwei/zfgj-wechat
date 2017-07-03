@@ -32,7 +32,7 @@ public class HouseItemServiceImpl implements HouseItemService {
 
     @Override
     public List<ConHouseItems> findByLid(String lid) {
-        if(StringUtils.isNotEmpty(lid)){
+        if (StringUtils.isNotEmpty(lid)) {
             return contractRService.findConHouseItemsByLid(lid);
         }
         return null;

@@ -2,8 +2,6 @@ package com.dlfc.zfw.wechat.registry.convertor;
 
 import com.dlfc.zfw.wechat.registry.dto.UserVDTO;
 import com.dlfc.zfw.wechat.registry.entity.SysMobileCapcha;
-import com.dlfc.zfw.wechat.registry.enums.MsgEnums;
-import com.dlfc.zfw.wechat.registry.enums.TemplateNoEnum;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 

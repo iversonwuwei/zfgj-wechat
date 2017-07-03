@@ -1,7 +1,6 @@
 package com.dlfc.services.feedback.entity;
 
 
-
 import lombok.Getter;
 import lombok.Setter;
 

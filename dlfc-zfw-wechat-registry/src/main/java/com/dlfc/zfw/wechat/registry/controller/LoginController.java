@@ -91,7 +91,7 @@ public class LoginController {
         }
         //UsrUser usrUser = userRegistryConvertor.toModel(userVDTO);
         String id = (String) passwordChangeService.change(userVDTO);
-        if (id != null){
+        if (id != null) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();

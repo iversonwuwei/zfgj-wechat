@@ -20,7 +20,7 @@ public class CollectConvertor extends AbstractConvertor<UsrHouCollection, Collec
         CollectDTO collectDTO = new CollectDTO();
         collectDTO.setUid(s.getUid());
         collectDTO.setHid(s.getHid());
-        if (objects.length>0){
+        if (objects.length > 0) {
             collectDTO.setId((String) objects[0]);
         }
         return collectDTO;

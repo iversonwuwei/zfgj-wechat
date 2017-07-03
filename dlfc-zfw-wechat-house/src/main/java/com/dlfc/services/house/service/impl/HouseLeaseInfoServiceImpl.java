@@ -10,7 +10,6 @@ import com.dlfc.zfw.wechat.entities.entity.HouLeaseInfo;
 import com.dlfc.zfw.wechat.entities.entity.SysSurFacis;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
-import com.housecenter.dlfc.framework.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

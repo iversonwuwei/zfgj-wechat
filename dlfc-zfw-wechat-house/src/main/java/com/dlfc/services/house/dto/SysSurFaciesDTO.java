@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SysSurFaciesDTO extends AbstractDTO{
+public class SysSurFaciesDTO extends AbstractDTO {
 
     private String code;
 

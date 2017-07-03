@@ -48,7 +48,7 @@ public interface ContractRService {
 
     @RequestMapping(value = "/wc/datas/conContract/findByPidAndStatuses", method = RequestMethod.GET)
     List<ConContract> findByPidAndStatuses(@RequestParam(name = "pid") String pid,
-                                           @RequestParam(name = "statuses")  Short[] statuses);
+                                           @RequestParam(name = "statuses") Short[] statuses);
 
     @RequestMapping(value = "/wc/datas/conContract/updateById", method = RequestMethod.POST)
     String updateConContractById(@RequestBody ConContract conContract);

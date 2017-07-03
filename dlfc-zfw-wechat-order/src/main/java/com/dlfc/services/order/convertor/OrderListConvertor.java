@@ -24,7 +24,7 @@ public class OrderListConvertor extends AbstractConvertor<SysOrder, OrderListDTO
     public OrderListDTO toDTO(SysOrder sysOrder, Object... objects) {
         SysBroadband sysBroadband = sysBroadBandService.findById(sysOrder.getLid());
         OrderListDTO orderListDTO = null;
-        if (sysBroadband != null){
+        if (sysBroadband != null) {
             orderListDTO = new OrderListDTO();
             orderListDTO.setId(sysOrder.getId());
             orderListDTO.setSpeed(sysBroadband.getSpeed());

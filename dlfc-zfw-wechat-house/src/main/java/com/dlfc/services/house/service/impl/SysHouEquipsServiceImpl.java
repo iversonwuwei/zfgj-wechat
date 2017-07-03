@@ -4,7 +4,6 @@ import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysHouEquipsService;
 import com.dlfc.zfw.wechat.entities.entity.SysHouEquips;
-import com.dlfc.zfw.wechat.entities.entity.SysHouEquipsContrast;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;

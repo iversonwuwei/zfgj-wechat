@@ -3,9 +3,7 @@ package com.dlfc.services.collect.controller;
 import com.dlfc.services.collect.controller.base.BaseController;
 import com.dlfc.services.collect.convertor.CollectConvertor;
 import com.dlfc.services.collect.convertor.HouInfoColletedConvertor;
-import com.dlfc.services.collect.dto.CollectDTO;
 import com.dlfc.services.collect.dto.HouInfoCollectedDTO;
-import com.dlfc.services.collect.dto.UserDTO;
 import com.dlfc.services.collect.repository.ValidateRepository;
 import com.dlfc.services.collect.service.HouCollectionService;
 import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
@@ -17,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Result;
 import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/ws/houses/collection")
@@ -59,10 +57,10 @@ public class HouInfoCollectedController extends BaseController {
 
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     public ResultDTO collect(@RequestParam String hid,
-                                         @RequestHeader(required = false) String token) {
+                             @RequestHeader(required = false) String token) {
         ResultError resultError;
-        try{
-            if (token==null){
+        try {
+            if (token == null) {
                 resultError = new ResultError();
                 resultError.setErrmsg("尚未登录，请先登陆！");
                 resultError.setErrcode("150");
@@ -79,7 +77,7 @@ public class HouInfoCollectedController extends BaseController {
                     return ResultDTO.success(collectConvertor.toDTO(usrHouCollection, chid));
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             resultError = new ResultError();
             resultError.setErrcode("100");
             resultError.setErrmsg("收藏失败");

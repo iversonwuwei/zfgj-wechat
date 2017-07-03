@@ -9,45 +9,17 @@ import java.util.Map;
 /**
  * 人员证件类型枚举
  *
+ * @author Sun.Zhi
+ * @version 1.0
  * @name: PersonIdTypeEnum
  * @description:
- *
- * @version 1.0
- * @author Sun.Zhi
- *
  */
-public class PersonIdTypeEnum  extends ValuedEnum{
+public class PersonIdTypeEnum extends ValuedEnum {
 
     /**
      * 身份证
      */
     private static final int ID_CARD = 1;
-    /**
-     * 军官证
-     */
-    private static final int MILITARY_ID = 2;
-    /**
-     * 护照
-     */
-    private static final int PASSPORT = 3;
-    /**
-     * 港澳通行证
-     */
-    private static final int HONG_KONG_MACAU_PASS = 4;
-    /**
-     * 台湾通行证
-     */
-    private static final int TAIWAN_PASS = 5;
-    /**
-     * 其他
-     */
-    private static final int OTHER = 6;
-
-
-    private PersonIdTypeEnum(String name, int value) {
-        super(name, value);
-    }
-
     /**
      * 身份证
      */
@@ -55,7 +27,15 @@ public class PersonIdTypeEnum  extends ValuedEnum{
     /**
      * 军官证
      */
+    private static final int MILITARY_ID = 2;
+    /**
+     * 军官证
+     */
     public static final PersonIdTypeEnum MILITARY_ID_ENUM = new PersonIdTypeEnum("军官证", MILITARY_ID);
+    /**
+     * 护照
+     */
+    private static final int PASSPORT = 3;
     /**
      * 护照
      */
@@ -63,7 +43,15 @@ public class PersonIdTypeEnum  extends ValuedEnum{
     /**
      * 港澳通行证
      */
+    private static final int HONG_KONG_MACAU_PASS = 4;
+    /**
+     * 港澳通行证
+     */
     public static final PersonIdTypeEnum HONG_KONG_MACAU_PASS_ENUM = new PersonIdTypeEnum("港澳通行证", HONG_KONG_MACAU_PASS);
+    /**
+     * 台湾通行证
+     */
+    private static final int TAIWAN_PASS = 5;
     /**
      * 台湾通行证
      */
@@ -71,7 +59,14 @@ public class PersonIdTypeEnum  extends ValuedEnum{
     /**
      * 其他
      */
+    private static final int OTHER = 6;
+    /**
+     * 其他
+     */
     public static final PersonIdTypeEnum OTHER_ENUM = new PersonIdTypeEnum("其他", OTHER);
+    private PersonIdTypeEnum(String name, int value) {
+        super(name, value);
+    }
 
     public static PersonIdTypeEnum getEnum(int temp) {
         return (PersonIdTypeEnum) getEnum(PersonIdTypeEnum.class, temp);

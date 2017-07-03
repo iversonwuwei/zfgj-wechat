@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CollectDTO extends AbstractDTO{
+public class CollectDTO extends AbstractDTO {
 
     private String uid;
 

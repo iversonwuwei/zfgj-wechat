@@ -1,6 +1,5 @@
 package com.dlfc.zfw.wechat.registry.service.impl;
 
-import com.dlfc.zfw.wechat.registry.dto.UserDTO;
 import com.dlfc.zfw.wechat.registry.dto.UserVDTO;
 import com.dlfc.zfw.wechat.registry.entity.UsrUser;
 import com.dlfc.zfw.wechat.registry.repository.RegistryRService;

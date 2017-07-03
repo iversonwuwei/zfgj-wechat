@@ -213,10 +213,10 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             dto.setLongitude(model.getLongitude());
             UsrUser usrUser = null;
             AgtEmpInfo agtEmpInfo = null;
-            if (model.getUid()!=null) {
+            if (model.getUid() != null) {
                 usrUser = usrUserService.findById(model.getUid());
             }
-            if (model.getEid()!=null) {
+            if (model.getEid() != null) {
                 agtEmpInfo = agtUserService.findById(model.getEid());
             }
             if (usrUser == null) {
@@ -230,7 +230,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             }
 
             dto.setHouNumber(model.getLno());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
         return dto;

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ConvertorConfig {
 
     @Bean
-    public IConvertor convertor(){
+    public IConvertor convertor() {
         IConvertor convertor = new JSONConvertor();
 
         return convertor;

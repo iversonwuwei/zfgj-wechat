@@ -1,7 +1,6 @@
 package com.dlfc.services.validatecode.entity;
 
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class SysMobileCapcha {
@@ -90,7 +89,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.ID
      *
      * @return the value of sys_mobile_capcha.ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getId() {
@@ -102,7 +100,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.ID
      *
      * @param id the value for sys_mobile_capcha.ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setId(String id) {
@@ -114,7 +111,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.PINDEX
      *
      * @return the value of sys_mobile_capcha.PINDEX
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public Integer getPindex() {
@@ -126,7 +122,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.PINDEX
      *
      * @param pindex the value for sys_mobile_capcha.PINDEX
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setPindex(Integer pindex) {
@@ -138,7 +133,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.MOBILE
      *
      * @return the value of sys_mobile_capcha.MOBILE
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getMobile() {
@@ -150,7 +144,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.MOBILE
      *
      * @param mobile the value for sys_mobile_capcha.MOBILE
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setMobile(String mobile) {
@@ -162,7 +155,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.SESSION_ID
      *
      * @return the value of sys_mobile_capcha.SESSION_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getSessionId() {
@@ -174,7 +166,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.SESSION_ID
      *
      * @param sessionId the value for sys_mobile_capcha.SESSION_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setSessionId(String sessionId) {
@@ -186,7 +177,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.TEMPLATE_ID
      *
      * @return the value of sys_mobile_capcha.TEMPLATE_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getTemplateId() {
@@ -198,7 +188,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.TEMPLATE_ID
      *
      * @param templateId the value for sys_mobile_capcha.TEMPLATE_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setTemplateId(String templateId) {
@@ -210,7 +199,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.DOMAIN
      *
      * @return the value of sys_mobile_capcha.DOMAIN
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getDomain() {
@@ -222,7 +210,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.DOMAIN
      *
      * @param domain the value for sys_mobile_capcha.DOMAIN
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setDomain(String domain) {
@@ -234,7 +221,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.DEVICE_ID
      *
      * @return the value of sys_mobile_capcha.DEVICE_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getDeviceId() {
@@ -246,7 +232,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.DEVICE_ID
      *
      * @param deviceId the value for sys_mobile_capcha.DEVICE_ID
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setDeviceId(String deviceId) {
@@ -258,7 +243,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.IP
      *
      * @return the value of sys_mobile_capcha.IP
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getIp() {
@@ -270,7 +254,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.IP
      *
      * @param ip the value for sys_mobile_capcha.IP
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setIp(String ip) {
@@ -282,7 +265,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.VER_CODE
      *
      * @return the value of sys_mobile_capcha.VER_CODE
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public String getVerCode() {
@@ -294,7 +276,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.VER_CODE
      *
      * @param verCode the value for sys_mobile_capcha.VER_CODE
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setVerCode(String verCode) {
@@ -306,7 +287,6 @@ public class SysMobileCapcha {
      * This method returns the value of the database column sys_mobile_capcha.CREATE_TIME
      *
      * @return the value of sys_mobile_capcha.CREATE_TIME
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public Date getCreateTime() {
@@ -318,7 +298,6 @@ public class SysMobileCapcha {
      * This method sets the value of the database column sys_mobile_capcha.CREATE_TIME
      *
      * @param createTime the value for sys_mobile_capcha.CREATE_TIME
-     *
      * @mbggenerated Fri Mar 31 10:54:56 CST 2017
      */
     public void setCreateTime(Date createTime) {

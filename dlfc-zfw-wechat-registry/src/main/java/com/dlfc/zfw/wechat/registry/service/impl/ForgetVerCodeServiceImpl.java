@@ -1,10 +1,7 @@
 package com.dlfc.zfw.wechat.registry.service.impl;
 
 import com.dlfc.admin.common.utils.DateUtils;
-import com.dlfc.admin.common.utils.StringUtils;
 import com.dlfc.zfw.wechat.registry.entity.SysMobileCapcha;
-import com.dlfc.zfw.wechat.registry.entity.UsrUser;
-import com.dlfc.zfw.wechat.registry.repository.RegistryRService;
 import com.dlfc.zfw.wechat.registry.repository.ValidateRService;
 import com.dlfc.zfw.wechat.registry.service.VerCodeService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;

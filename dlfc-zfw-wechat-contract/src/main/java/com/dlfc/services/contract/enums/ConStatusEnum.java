@@ -1,4 +1,3 @@
-
 /**
  * 合同状态枚举
  *
@@ -40,74 +39,29 @@ public class ConStatusEnum extends ValuedEnum {
      */
     private static final int CREATING = 1;
     /**
-     * 房客待确认
-     */
-    private static final int LESSEE_WAIT_CONFIRM = 2;
-    /**
-     * 房客拒绝
-     */
-    private static final int LESSEE_REJECT = 3;
-    /**
-     * 房主拒绝
-     */
-    private static final int LESSOR_REJECT = 4;
-    /**
-     * 已生效
-     */
-    private static final int ACTIVE = 5;
-    /**
-     * 已到期
-     */
-    private static final int EXPIRE = 6;
-    /**
-     * 已解除
-     */
-    private static final int DISS_AGR = 7;
-    /**
-     * 已完成
-     */
-    private static final int FINISH = 8;
-    /**
-     * 审核中
-     */
-    private static final int APPROVING = 9;
-    /**
-     * 审核拒绝
-     */
-    private static final int APPROVE_REJECT = 10;
-    /**
-     * 取消
-     */
-    private static final int CANCEL = 11;
-    /**
-     * 押金申领
-     */
-    private static final int DEPOSIT_CLAIM = 12;
-    /**
-     * 等待上传
-     */
-    private static final int WAIT_UPLOAD = 13;
-    /**
-     * 房主待确认
-     */
-    private static final int LESSOR_WAIT_CONFIRM = 14;
-
-    private ConStatusEnum(String name, int value) {
-        super(name, value);
-    }
-
-    /**
      * 创建中
      */
     public static final ConStatusEnum CREATING_ENUM = new ConStatusEnum("创建中", CREATING);
+    /**
+     * 房客待确认
+     */
+    private static final int LESSEE_WAIT_CONFIRM = 2;
     /**
      * 待确认
      */
     public static final ConStatusEnum LESSEE_WAIT_CONFIRM_ENUM = new ConStatusEnum("房客待确认", LESSEE_WAIT_CONFIRM);
     /**
+     * 房客拒绝
+     */
+    private static final int LESSEE_REJECT = 3;
+    /**
      * 已拒绝
      */
     public static final ConStatusEnum LESSEE_REJECT_ENUM = new ConStatusEnum("房客拒绝", LESSEE_REJECT);
+    /**
+     * 房主拒绝
+     */
+    private static final int LESSOR_REJECT = 4;
     /**
      * 待付押金
      */
@@ -115,7 +69,15 @@ public class ConStatusEnum extends ValuedEnum {
     /**
      * 已生效
      */
+    private static final int ACTIVE = 5;
+    /**
+     * 已生效
+     */
     public static final ConStatusEnum ACTIVE_ENUM = new ConStatusEnum("已生效", ACTIVE);
+    /**
+     * 已到期
+     */
+    private static final int EXPIRE = 6;
     /**
      * 已到期
      */
@@ -123,7 +85,15 @@ public class ConStatusEnum extends ValuedEnum {
     /**
      * 已解除
      */
+    private static final int DISS_AGR = 7;
+    /**
+     * 已解除
+     */
     public static final ConStatusEnum DISS_AGR_ENUM = new ConStatusEnum("已解除", DISS_AGR);
+    /**
+     * 已完成
+     */
+    private static final int FINISH = 8;
     /**
      * 已完成
      */
@@ -131,7 +101,15 @@ public class ConStatusEnum extends ValuedEnum {
     /**
      * 审核中
      */
+    private static final int APPROVING = 9;
+    /**
+     * 审核中
+     */
     public static final ConStatusEnum APPROVING_ENUM = new ConStatusEnum("审核中", APPROVING);
+    /**
+     * 审核拒绝
+     */
+    private static final int APPROVE_REJECT = 10;
     /**
      * 审核拒绝
      */
@@ -139,7 +117,15 @@ public class ConStatusEnum extends ValuedEnum {
     /**
      * 取消
      */
+    private static final int CANCEL = 11;
+    /**
+     * 取消
+     */
     public static final ConStatusEnum CANCEL_ENUM = new ConStatusEnum("取消", CANCEL);
+    /**
+     * 押金申领
+     */
+    private static final int DEPOSIT_CLAIM = 12;
     /**
      * 押金申领
      */
@@ -147,11 +133,22 @@ public class ConStatusEnum extends ValuedEnum {
     /**
      * 等待上传
      */
+    private static final int WAIT_UPLOAD = 13;
+    /**
+     * 等待上传
+     */
     public static final ConStatusEnum WAIT_UPLOAD_ENUM = new ConStatusEnum("等待上传", WAIT_UPLOAD);
+    /**
+     * 房主待确认
+     */
+    private static final int LESSOR_WAIT_CONFIRM = 14;
     /**
      * 等待上传
      */
     public static final ConStatusEnum LESSOR_WAIT_CONFIRM_ENUM = new ConStatusEnum("房主待确认", LESSOR_WAIT_CONFIRM);
+    private ConStatusEnum(String name, int value) {
+        super(name, value);
+    }
 
     public static ConStatusEnum getEnum(int temp) {
         return (ConStatusEnum) getEnum(ConStatusEnum.class, temp);

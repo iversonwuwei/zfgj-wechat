@@ -29,7 +29,7 @@ public class SysInfoAttConvertor extends AbstractConvertor<SysInfoAtt, ImgDTO> {
     @Override
     public ImgDTO toDTO(SysInfoAtt sysInfoAtt, Object... objects) {
         ImgDTO imgDTO = new ImgDTO();
-        if (sysInfoAtt.getFileName()!= null) {
+        if (sysInfoAtt.getFileName() != null) {
             if (picNames().contains(sysInfoAtt.getFileName())) {
                 imgDTO.setName(sysInfoAtt.getFileName());
             }
@@ -39,7 +39,7 @@ public class SysInfoAttConvertor extends AbstractConvertor<SysInfoAtt, ImgDTO> {
         return imgDTO;
     }
 
-    private List<String> picNames(){
+    private List<String> picNames() {
         List<String> names = new ArrayList<>();
         names.add("厨房");
         names.add("客厅");

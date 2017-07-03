@@ -10,13 +10,10 @@ import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
-import com.housecenter.dlfc.framework.ca.api.PrincipalService;
-import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Result;
 import java.util.Date;
 
 /**

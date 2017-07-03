@@ -19,7 +19,7 @@ public class SysBroadBandServiceImpl implements SysBroadBandService {
     @Override
     public SysBroadband findById(String id) {
         String sysBroadband = orderRepository.broadBand(id);
-        if (sysBroadband!=null) {
+        if (sysBroadband != null) {
             return convertor.convert2Object(sysBroadband, SysBroadband.class);
         }
         return null;

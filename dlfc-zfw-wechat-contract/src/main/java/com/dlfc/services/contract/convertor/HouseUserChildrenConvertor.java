@@ -1,11 +1,11 @@
 package com.dlfc.services.contract.convertor;
 
 import com.dlfc.services.contract.dto.HouseUserChildrenDTO;
+import com.dlfc.services.contract.service.SystemPersonService;
 import com.dlfc.zfw.wechat.entities.entity.ConHouseUserChildren;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.dlfc.services.contract.service.SystemPersonService;
 
 import java.util.Date;
 

@@ -24,7 +24,7 @@ public class UsrUserServiceImpl implements UsrUserService {
             user = userInfoRService.findUserById(uid);
         }
         UsrUser usrUser = null;
-        if (user!= null){
+        if (user != null) {
             usrUser = convertor.convert2Object(user, UsrUser.class);
         }
         return usrUser;

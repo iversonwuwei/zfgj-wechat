@@ -1,7 +1,7 @@
 package com.dlfc.services.contract.dto;
 
-import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import com.dlfc.services.contract.enums.RentalPurposeEnum;
+import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.Setter;
 

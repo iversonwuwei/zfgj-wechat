@@ -2,7 +2,6 @@ package com.dlfc.services.validate.config;
 
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.convertor.base.impl.JSONConvertor;
-import com.sun.org.apache.bcel.internal.generic.ICONST;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class ConvertorConfig {
 
     @Bean
-    public IConvertor convertor(){
+    public IConvertor convertor() {
         IConvertor convertor = new JSONConvertor();
 
         return convertor;

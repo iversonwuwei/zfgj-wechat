@@ -1,10 +1,7 @@
 package com.dlfc.zfw.wechat.registry.controller;
 
 import com.dlfc.admin.common.utils.StringUtils;
-import com.dlfc.zfw.wechat.registry.entity.UserEntity;
-import com.dlfc.zfw.wechat.registry.entity.UsrUser;
 import com.dlfc.zfw.wechat.registry.service.SysInfoAttService;
-import com.dlfc.zfw.wechat.registry.service.UsrUserService;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;

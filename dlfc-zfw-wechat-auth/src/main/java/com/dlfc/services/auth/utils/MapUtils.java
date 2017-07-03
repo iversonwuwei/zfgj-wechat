@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class MapUtils {
 
-    public static Map<String, String> getAuthParam(List<SysParam> sysParamList){
+    public static Map<String, String> getAuthParam(List<SysParam> sysParamList) {
         Map<String, String> paramMap = new HashMap<>();
-        if (sysParamList != null){
-            for (SysParam sysParam: sysParamList){
+        if (sysParamList != null) {
+            for (SysParam sysParam : sysParamList) {
                 paramMap.put(sysParam.getSkey(), sysParam.getSvalue());
             }
         }

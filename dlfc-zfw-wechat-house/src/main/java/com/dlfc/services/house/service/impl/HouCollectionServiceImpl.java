@@ -4,7 +4,6 @@ package com.dlfc.services.house.service.impl;
 import com.dlfc.services.house.repository.UserRService;
 import com.dlfc.services.house.service.HouCollectionService;
 import com.dlfc.zfw.wechat.entities.entity.UsrHouCollection;
-import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ public class HouCollectionServiceImpl implements HouCollectionService {
     private UserRService userRService;
 
     /**
-     *
      * @param uid 当前登录用户ID
      * @param hid 出租信息ID
      * @return

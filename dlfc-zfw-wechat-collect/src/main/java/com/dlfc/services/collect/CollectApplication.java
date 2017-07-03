@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.dlfc.services.collect", "com.housecenter.dlfc.framework.ca.api"})
 public class CollectApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(CollectApplication.class, args);
     }
 }

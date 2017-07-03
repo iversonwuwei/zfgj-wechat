@@ -1,7 +1,6 @@
 package com.dlfc.services.order.entity;
 
 
-
 import lombok.Getter;
 import lombok.Setter;
 

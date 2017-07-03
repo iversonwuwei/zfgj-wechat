@@ -4,7 +4,6 @@ import com.dlfc.services.validate.convertor.UserValidateConvertor;
 import com.dlfc.services.validate.dto.ValidateResultDTO;
 import com.dlfc.services.validate.repository.UserInfoRService;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
-import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
@@ -29,7 +28,7 @@ public class UserValidateController {
     private UserValidateConvertor userValidateConvertor;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResultDTO<ValidateResultDTO> userValidation(@RequestParam String token){
+    public ResultDTO<ValidateResultDTO> userValidation(@RequestParam String token) {
         AjaxResult user = null;
         UsrUser userEntity = null;
         if (!token.equals("") && token != null) {

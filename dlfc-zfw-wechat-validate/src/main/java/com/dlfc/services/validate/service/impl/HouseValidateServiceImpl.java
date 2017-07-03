@@ -17,7 +17,7 @@ public class HouseValidateServiceImpl implements ValidateService {
     public boolean validate(Object o) {
         String id = (String) o;
         HouLeaseInfo houInfo = lesseeRService.getLesseeById(id);
-        if (houInfo == null || houInfo.equals("")){
+        if (houInfo == null || houInfo.equals("")) {
             return false;
         }
         return true;

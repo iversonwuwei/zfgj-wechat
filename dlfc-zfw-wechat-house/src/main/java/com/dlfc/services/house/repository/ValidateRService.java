@@ -17,5 +17,5 @@ public interface ValidateRService {
     String validateHouseBy(@RequestParam(name = "hid") String hid);
 
     @RequestMapping(value = "/ww/validate/user", method = RequestMethod.GET)
-    ResultDTO<UserDTO> validateUserBy(@RequestParam(name="token")String token);
+    ResultDTO<UserDTO> validateUserBy(@RequestParam(name = "token") String token);
 }

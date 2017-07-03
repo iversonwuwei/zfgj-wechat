@@ -4,7 +4,6 @@ import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +69,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 是否被用户收藏
      */
-    private boolean collected=false;
+    private boolean collected = false;
 
     /**
      * 上次刷新时间
@@ -100,7 +99,7 @@ public class HouseDTO extends AbstractDTO {
     /**
      * 配套设施
      */
-        private List<SysHouEquipsDTO> equips;
+    private List<SysHouEquipsDTO> equips;
 
     /**
      * 公交地铁

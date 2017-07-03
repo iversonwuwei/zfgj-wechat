@@ -21,13 +21,13 @@ public class TokenValidateController {
     private PrincipalService principalService;
 
     @RequestMapping(value = "/token", method = RequestMethod.GET)
-    public ResultDTO tokenValidate(@RequestParam String token){
+    public ResultDTO tokenValidate(@RequestParam String token) {
         ResultError resultError;
         AjaxResult user = null;
         try {
             user = principalService.principal(token);
-        }catch (Exception e){
-            if (e.getMessage().contains("认证失效")){
+        } catch (Exception e) {
+            if (e.getMessage().contains("认证失效")) {
                 resultError = new ResultError();
                 resultError.setErrmsg("认证失效，请重新登录！");
                 resultError.setErrcode("100");

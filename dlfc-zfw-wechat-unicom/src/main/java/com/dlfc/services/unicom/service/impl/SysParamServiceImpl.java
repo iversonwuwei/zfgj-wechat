@@ -1,6 +1,5 @@
 package com.dlfc.services.unicom.service.impl;
 
-import com.dlfc.services.unicom.entity.SysCode;
 import com.dlfc.services.unicom.entity.SysParam;
 import com.dlfc.services.unicom.repository.UnicomRepository;
 import com.dlfc.services.unicom.service.SysParamService;

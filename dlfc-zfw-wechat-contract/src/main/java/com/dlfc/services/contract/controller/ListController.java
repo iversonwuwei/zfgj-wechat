@@ -35,20 +35,21 @@ public class ListController extends BaseController {
 
     /**
      * 待处理合同列表
+     *
      * @param token
      * @return
      * @throws CustomRuntimeException
      */
-    @RequestMapping(value = "/pending",method = RequestMethod.GET)
+    @RequestMapping(value = "/pending", method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> pendingList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
-        if (systemPersonService.certification(user.getPerId())){
+        if (systemPersonService.certification(user.getPerId())) {
             Short[] conStatus = {
                     (short) ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(),
                     (short) ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(),
                     (short) ConStatusEnum.CREATING_ENUM.getValue()
             };
-            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(),conStatus);
+            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(), conStatus);
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
@@ -57,14 +58,15 @@ public class ListController extends BaseController {
 
     /**
      * 已完成合同列表
+     *
      * @param token
      * @return
      * @throws CustomRuntimeException
      */
-    @RequestMapping(value = "/finish",method = RequestMethod.GET)
+    @RequestMapping(value = "/finish", method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> finishList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
-        if (systemPersonService.certification(user.getPerId())){
+        if (systemPersonService.certification(user.getPerId())) {
             Short[] conStatus = {
                     (short) ConStatusEnum.ACTIVE_ENUM.getValue(),
                     (short) ConStatusEnum.EXPIRE_ENUM.getValue(),
@@ -73,7 +75,7 @@ public class ListController extends BaseController {
                     (short) ConStatusEnum.FINISH_ENUM.getValue()
 
             };
-            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(),conStatus);
+            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(), conStatus);
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
@@ -87,7 +89,7 @@ public class ListController extends BaseController {
     public ResultDTO<Void> delete(@RequestParam String id,
                                   @RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
-        String result =contractService.deleteById(id,user);
+        String result = contractService.deleteById(id, user);
         if (null != result) {
             return ResultDTO.success();
         }

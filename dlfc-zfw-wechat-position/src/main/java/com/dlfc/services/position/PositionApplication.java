@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.dlfc.services.position", "com.housecenter.dlfc.framework.ca.api"})
 public class PositionApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(PositionApplication.class, args);
     }
 }

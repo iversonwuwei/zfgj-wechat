@@ -18,8 +18,8 @@ public class HouseValidateController {
     private ValidateService validateService;
 
     @RequestMapping(value = "/house", method = RequestMethod.GET)
-    public ResultDTO<Void> validateHouseLessee(@RequestParam(name = "hid") String hid){
-        if (validateService.validate(hid)){
+    public ResultDTO<Void> validateHouseLessee(@RequestParam(name = "hid") String hid) {
+        if (validateService.validate(hid)) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();
