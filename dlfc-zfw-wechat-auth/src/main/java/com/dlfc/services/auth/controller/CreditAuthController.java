@@ -19,7 +19,7 @@ public class CreditAuthController {
     private CreditService creditService;
 
     @RequestMapping(value = "/card", method = RequestMethod.POST)
-    public String creditAuth(@RequestBody CreditAuthDTO creditAuthDTO){
+    public String creditAuth(@RequestBody CreditAuthDTO creditAuthDTO) {
         return null;
     }
 }

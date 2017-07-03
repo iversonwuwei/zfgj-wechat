@@ -1,6 +1,5 @@
 package com.dlfc.services.house.convertor.base;
 
-import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public abstract class AbstractConvertor<Entity, DTO> {
         List<DTO> dtoList = new ArrayList();
         Iterator i$ = modelList.iterator();
 
-        while(i$.hasNext()) {
+        while (i$.hasNext()) {
             Entity entity = (Entity) i$.next();
             dtoList.add(this.toDTO(entity, ""));
         }

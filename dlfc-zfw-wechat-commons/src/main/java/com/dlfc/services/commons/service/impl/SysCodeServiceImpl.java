@@ -5,7 +5,6 @@ import com.dlfc.services.commons.service.DataService;
 import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

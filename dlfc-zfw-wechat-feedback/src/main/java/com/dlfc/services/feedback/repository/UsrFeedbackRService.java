@@ -1,6 +1,5 @@
 package com.dlfc.services.feedback.repository;
 
-import com.dlfc.services.feedback.entity.CmsGuestbook;
 import com.dlfc.services.feedback.entity.UsrFeedback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;

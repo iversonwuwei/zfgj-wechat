@@ -1,6 +1,5 @@
 package com.dlfc.services.house.service;
 
-import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.dlfc.zfw.wechat.entities.entity.SysDescriptions;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 

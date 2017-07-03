@@ -20,14 +20,14 @@ public class LatLongController {
 
     @RequestMapping(value = "/latLong", method = RequestMethod.POST)
     public String[] position(@RequestParam String city,
-                                               @RequestParam String district,
-                                               @RequestParam String village){
+                             @RequestParam String district,
+                             @RequestParam String village) {
         String location = positionService.getPosition(city, district, village);
-        String[] latAndLong = splite(location,",");
+        String[] latAndLong = splite(location, ",");
         return latAndLong;
     }
 
-    private String[] splite(String str, String fix){
+    private String[] splite(String str, String fix) {
         String[] strs = StringUtils.delimitedListToStringArray(str, fix);
         return strs;
     }

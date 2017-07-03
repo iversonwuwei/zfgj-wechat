@@ -6,7 +6,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 @SpringCloudApplication
 public class PhotoApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(PhotoApplication.class, args);
     }
 }

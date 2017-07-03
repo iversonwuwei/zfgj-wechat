@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.dlfc.services.feedback", "com.housecenter.dlfc.framework.ca.api"})
 public class FeedbackApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(FeedbackApplication.class, args);
     }
 }

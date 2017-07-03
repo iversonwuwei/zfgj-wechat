@@ -13,7 +13,7 @@ public class SysTranfficLinesConvertor extends AbstractConvertor<SysTrafficLines
         SysTrafficLines sysTrafficLines = new SysTrafficLines();
         sysTrafficLines.setLid(sysTranfficLinesDTO.getLid());
         sysTrafficLines.setTrafficLine(sysTranfficLinesDTO.getName());
-        if (sysTranfficLinesDTO.getOthers() != null){
+        if (sysTranfficLinesDTO.getOthers() != null) {
             sysTrafficLines.setOthers(sysTranfficLinesDTO.getOthers());
         }
         return sysTrafficLines;
@@ -27,7 +27,7 @@ public class SysTranfficLinesConvertor extends AbstractConvertor<SysTrafficLines
         if (sysTrafficLines.getTrafficLine() != null) {
             sysTranfficLinesDTO.setName(sysTrafficLines.getTrafficLine());
         }
-        if (sysTrafficLines.getOthers() != null){
+        if (sysTrafficLines.getOthers() != null) {
             sysTranfficLinesDTO.setOthers(sysTrafficLines.getOthers());
         }
 

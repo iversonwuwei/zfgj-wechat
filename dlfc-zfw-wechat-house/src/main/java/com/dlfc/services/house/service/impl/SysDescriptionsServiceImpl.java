@@ -3,14 +3,12 @@ package com.dlfc.services.house.service.impl;
 import com.dlfc.services.house.repository.MoreRService;
 import com.dlfc.services.house.repository.SystemRService;
 import com.dlfc.services.house.service.SysDescriptionsService;
-import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.dlfc.zfw.wechat.entities.entity.SysDescriptions;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +27,7 @@ public class SysDescriptionsServiceImpl implements SysDescriptionsService {
 
     @Override
     public String save(SysDescriptions sysDescriptions,
-                     UsrUser user) {
+                       UsrUser user) {
         if (null != sysDescriptions
                 && null != user) {
             sysDescriptions.preInsert(user);
@@ -41,7 +39,7 @@ public class SysDescriptionsServiceImpl implements SysDescriptionsService {
     @Override
     public List<SysDescriptions> findByLid(String lid) {
         String descriptions = moreRService.findByDescriptionLid(lid);
-        if (descriptions == null){
+        if (descriptions == null) {
             return null;
         }
         return convertor.convert2Objects(descriptions, SysDescriptions.class);

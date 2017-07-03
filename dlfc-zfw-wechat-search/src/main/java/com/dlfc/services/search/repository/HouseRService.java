@@ -10,6 +10,7 @@ public interface HouseRService {
 
     /**
      * 出租信息
+     *
      * @param pageSize
      * @param pageNo
      * @return
@@ -20,6 +21,7 @@ public interface HouseRService {
 
     /**
      * 出租信息查询 根据 出租信息ID
+     *
      * @param id
      * @return
      */
@@ -28,6 +30,7 @@ public interface HouseRService {
 
     /**
      * 出租信息查询 根据 用户Id
+     *
      * @param uid
      * @return
      */

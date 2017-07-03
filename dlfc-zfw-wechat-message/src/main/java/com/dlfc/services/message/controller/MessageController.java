@@ -27,8 +27,8 @@ public class MessageController {
     @RequestMapping(method = RequestMethod.GET)
     public ListResultDTO<MessageDTO> messages() throws CustomRuntimeException {
         List<SysMessage> messages = messageService.findMessages("72113e9245a44836944a6410168e6bb6");
-        if (messages == null){
-            throw new CustomRuntimeException("","");
+        if (messages == null) {
+            throw new CustomRuntimeException("", "");
         }
         return messageConvertor.toResultDTO(messages);
     }

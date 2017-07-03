@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TempUtils {
 
-    public List<UnicomDTO> getTemps(){
+    public List<UnicomDTO> getTemps() {
 
     }
 }

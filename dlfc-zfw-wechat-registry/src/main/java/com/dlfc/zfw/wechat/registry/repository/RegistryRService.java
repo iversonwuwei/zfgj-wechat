@@ -2,7 +2,6 @@ package com.dlfc.zfw.wechat.registry.repository;
 
 
 import com.dlfc.zfw.wechat.registry.entity.UsrUser;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

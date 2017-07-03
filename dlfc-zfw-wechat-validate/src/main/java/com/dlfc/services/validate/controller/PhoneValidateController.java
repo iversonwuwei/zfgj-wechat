@@ -1,7 +1,6 @@
 package com.dlfc.services.validate.controller;
 
 import com.dlfc.services.validate.service.ValidateService;
-import com.dlfc.services.validate.service.impl.PhoneValidateServiceImpl;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,9 @@ public class PhoneValidateController {
     private ValidateService phoneValidateService;
 
     @RequestMapping(value = "phone", method = RequestMethod.GET)
-    public ResultDTO phoneValdaition(@RequestParam String phoneNumber){
+    public ResultDTO phoneValdaition(@RequestParam String phoneNumber) {
         ResultError resultError = null;
-        if (phoneValidateService.validate(phoneNumber)){
+        if (phoneValidateService.validate(phoneNumber)) {
             resultError = new ResultError();
             resultError.setErrcode("110");
             resultError.setErrmsg("电话号码已被注册,请更换重试!");

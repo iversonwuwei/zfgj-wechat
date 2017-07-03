@@ -12,7 +12,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public String getPosition(String city, String district, String village) {
-        String location = GetAddressLatAndLonUtils.getAddressLatAndLon(city+district+village);
+        String location = GetAddressLatAndLonUtils.getAddressLatAndLon(city + district + village);
         return location;
     }
 }

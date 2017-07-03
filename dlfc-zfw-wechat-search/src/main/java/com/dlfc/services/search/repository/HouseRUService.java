@@ -10,6 +10,7 @@ public interface HouseRUService {
 
     /**
      * 收藏房源
+     *
      * @param uid
      * @return
      */

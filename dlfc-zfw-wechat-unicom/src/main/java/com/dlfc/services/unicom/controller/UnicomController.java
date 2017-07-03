@@ -26,12 +26,12 @@ public class UnicomController {
     private SysParamService sysParamService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ListResultDTO<UnicomDTO> products(){
+    public ListResultDTO<UnicomDTO> products() {
 
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ResultDTO<UnicomDTO> detail(@RequestParam String broadSpeed){
+    public ResultDTO<UnicomDTO> detail(@RequestParam String broadSpeed) {
         List<SysParam> sysParams = sysParamService.findByScope("broadband");
 
         return

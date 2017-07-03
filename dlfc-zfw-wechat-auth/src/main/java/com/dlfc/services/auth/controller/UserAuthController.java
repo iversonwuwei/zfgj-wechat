@@ -19,16 +19,15 @@ import java.util.Map;
 public class UserAuthController {
 
 
+    public static final String AUTH = "auth";
     @Autowired
     private AuthParamService authParamService;
 
-    public static final String AUTH = "auth";
-
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public ResultDTO<Void> userAuth(@RequestParam String username, @RequestParam String idNo){
+    public ResultDTO<Void> userAuth(@RequestParam String username, @RequestParam String idNo) {
         List<SysParam> sysParamList = authParamService.findSysParam(AUTH);
         Map<String, String> paramMaps = MapUtils.getAuthParam(sysParamList);
-        if(ContractAuthFacet.authID(username, idNo, paramMaps)){
+        if (ContractAuthFacet.authID(username, idNo, paramMaps)) {
             return ResultDTO.success();
         }
         return ResultDTO.failure();

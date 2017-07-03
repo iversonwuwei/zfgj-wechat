@@ -23,8 +23,8 @@ public class SysCodeServiceImpl implements SysCodeService {
     public List<SysCode> findByType(String type, List<String> codes) {
         List<SysCode> sysCodes = moreRService.findByCode(type);
         List<SysCode> sCode = new ArrayList<>();
-        for (SysCode sysCode : sysCodes){
-            if (codes.contains(sysCode.getCode())){
+        for (SysCode sysCode : sysCodes) {
+            if (codes.contains(sysCode.getCode())) {
                 sCode.add(sysCode);
             }
         }

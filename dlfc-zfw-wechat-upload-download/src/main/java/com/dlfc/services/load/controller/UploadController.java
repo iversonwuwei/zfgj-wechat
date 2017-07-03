@@ -5,11 +5,9 @@ import com.dlfc.services.load.repository.ContractWService;
 import com.dlfc.services.load.service.ClassfyUploadService;
 import com.dlfc.services.load.service.ImageService;
 import com.dlfc.services.load.service.UploadService;
-import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
-import com.housecenter.dlfc.framework.starter.web.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -93,12 +91,12 @@ public class UploadController {
             return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
-//        ResultDTO<Void> result = contractWService.lessorSign(contractId, path);
-//        if (result.isFailure()) {
-//            log.error(result.errorsToString());
-//            return ResultDTO.failure(StringUtils.EMPTY,
-//                    new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
-//        }
+        ResultDTO<Void> result = contractWService.lessorSign(contractId, path);
+        if (result.isFailure()) {
+            log.error(result.errorsToString());
+            return ResultDTO.failure(StringUtils.EMPTY,
+                    new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
+        }
         return ResultDTO.success(path);
     }
 

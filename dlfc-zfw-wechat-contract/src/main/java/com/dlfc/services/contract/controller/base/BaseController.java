@@ -2,7 +2,6 @@ package com.dlfc.services.contract.controller.base;
 
 import com.dlfc.services.contract.repository.UserRService;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
-import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
@@ -11,8 +10,6 @@ import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.ArrayList;
 
 /**
  * Created by K on 6/26/17.

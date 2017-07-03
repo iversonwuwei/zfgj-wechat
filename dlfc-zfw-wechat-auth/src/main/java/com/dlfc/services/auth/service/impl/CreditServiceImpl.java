@@ -3,7 +3,6 @@ package com.dlfc.services.auth.service.impl;
 import com.dlfc.services.auth.dto.CreditAuthDTO;
 import com.dlfc.services.auth.service.CreditService;
 import com.housecenter.dlfc.framework.boot.stereotype.Service;
-import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -11,7 +10,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -45,8 +43,7 @@ public class CreditServiceImpl implements CreditService<CreditAuthDTO> {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             HttpResponse httpResponse = httpClient.execute(httpPost);
-            if(httpResponse.getStatusLine().getStatusCode() == 200)
-            {
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 ajaxResult = EntityUtils.toString(httpEntity);
             }

@@ -21,11 +21,11 @@ public class AgtUserServiceImpl implements AgtUserService {
     @Override
     public AgtEmpInfo findById(String eid) {
         AgtEmpInfo agtEmpInfo = null;
-        String agtUser =null;
-        if (eid!=null) {
+        String agtUser = null;
+        if (eid != null) {
             agtUser = agtInfoRService.findEmpUser(eid);
         }
-        if (agtUser != null){
+        if (agtUser != null) {
             agtEmpInfo = convertor.convert2Object(agtUser, AgtEmpInfo.class);
         }
         return agtEmpInfo;

@@ -6,7 +6,6 @@ import com.dlfc.services.order.entity.SysOrder;
 import com.dlfc.services.order.service.SysBroadBandService;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
-import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,9 +29,9 @@ public class OrderDetailConvertor extends AbstractConvertor<SysOrder, OrderDTO> 
     public OrderDTO toDTO(SysOrder sysOrder, Object... objects) {
         SysBroadband sysBroadband = sysBroadBandService.findById(sysOrder.getLid());
         OrderDTO orderDTO = null;
-        if (sysBroadband != null){
+        if (sysBroadband != null) {
             orderDTO = new OrderDTO();
-            orderDTO.setAddress(sysBroadband.getAdd1()+sysBroadband.getAdd2());
+            orderDTO.setAddress(sysBroadband.getAdd1() + sysBroadband.getAdd2());
             orderDTO.setAmount(sysBroadband.getEprice());
             orderDTO.setContactName(sysBroadband.getContactName());
             orderDTO.setInstallFee("100");

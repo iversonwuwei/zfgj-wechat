@@ -39,14 +39,14 @@ public class HouCollectionServiceImpl implements HouCollectionService {
 
     @Override
     public String collect(UsrHouCollection usrHouCollection,
-                           UsrUser user) {
+                          UsrUser user) {
         String collect = "";
         if (usrHouCollection != null) {
             usrHouCollection.preInsert(user);
             collect = houCollectionRService.collect(usrHouCollection);
         }
 
-        if (!collect.equals("") && collect!=null) {
+        if (!collect.equals("") && collect != null) {
             return collect;
         }
 
