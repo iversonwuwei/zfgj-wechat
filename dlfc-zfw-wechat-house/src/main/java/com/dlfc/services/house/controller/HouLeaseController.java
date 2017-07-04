@@ -293,7 +293,7 @@ public class HouLeaseController {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);
         }
-        if (this.isNull(dto.getHouImg())) {
+        if (this.isNull(dto.getHouImg()) && dto.getHouImg().size()>0) {
             for (ImgDTO imgDTO : dto.getHouImg()) {
                 sysInfoAtt = sysInfoAttConvertor.toModel(imgDTO);
                 sysInfoAtt.setLid(id);
@@ -328,10 +328,22 @@ public class HouLeaseController {
 
     private void getUser(String token) {
         if (StringUtils.isNotEmpty(token)) {
-            AjaxResult ajaxResult = principalService.principal(token);
-            result = userInfoRService.findUserByUser(ajaxResult.getData().toString());
-            if (StringUtils.isNotEmpty(result)) {
-                user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
+            try {
+                AjaxResult ajaxResult = principalService.principal(token);
+                user = userInfoRService.findUserByUser(ajaxResult.getData().toString());
+            } catch (Exception e) {
+                log.error("token失效");
+                //throw new CustomRuntimeException("", "");
+                ResultError resultError;
+                if (e.getMessage().contains("500") || e.getMessage().contains("404")) {
+                    resultError = new ResultError();
+                    resultError.setErrcode("250");
+                    resultError.setErrmsg("token expired please re-login!");
+                } else {
+                    resultError = new ResultError();
+                    resultError.setErrmsg(e.getMessage());
+
+                }
             }
         }
     }
