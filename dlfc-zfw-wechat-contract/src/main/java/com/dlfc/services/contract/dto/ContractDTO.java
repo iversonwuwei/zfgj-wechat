@@ -140,12 +140,12 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 产权证件类型
      */
-    private Integer propertyType;
+    private String propertyType;
 
     /**
      * 房屋结构
      */
-    private Integer houseStructure;
+    private String houseStructure;
 
     /**
      * 合同起始时间
@@ -170,7 +170,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 出租方式
      */
-    private Integer rentalMode;
+    private String rentalMode;
 
     /**
      * 租赁用途
@@ -195,7 +195,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 租金周期
      */
-    private Integer paymentCycle;
+    private String paymentCycle;
 
     /**
      * 押金
