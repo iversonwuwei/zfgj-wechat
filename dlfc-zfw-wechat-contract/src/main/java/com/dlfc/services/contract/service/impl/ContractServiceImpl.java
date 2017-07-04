@@ -86,7 +86,7 @@ public class ContractServiceImpl implements ContractService {
                 ConSourceEnum.WEBSITE_ENUM.getValue(),
                 ConSourceEnum.WECHAT_ENUM.getValue()
         };
-        entityList = contractRService.findConContractByPid(pid);
+        entityList = contractRService.findConContractByPid(pid," MODIFY_TIME DESC ");
         List<ConContract> conContracts = new ArrayList<>();
         if (null != entityList && entityList.size() > 0) {
             for (ConContract conContract : entityList) {
@@ -113,7 +113,7 @@ public class ContractServiceImpl implements ContractService {
                 ConSourceEnum.WEBSITE_ENUM.getValue(),
                 ConSourceEnum.WECHAT_ENUM.getValue()
         };
-        entityList = contractRService.findConContractByPid(pid);
+        entityList = contractRService.findConContractByPid(pid," MODIFY_TIME DESC ");
         List<ConContract> conContracts = new ArrayList<>();
         if (null != entityList && entityList.size() > 0) {
             for (ConContract conContract : entityList) {

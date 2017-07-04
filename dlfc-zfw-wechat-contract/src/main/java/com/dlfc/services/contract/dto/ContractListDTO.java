@@ -18,12 +18,12 @@ public class ContractListDTO extends AbstractDTO {
     private String contractNo;
 
     /**
-     * 发起人
+     * 承租方
      */
     private String initiator;
 
     /**
-     * 受邀人
+     * 出租方
      */
     private String invitedPerson;
 

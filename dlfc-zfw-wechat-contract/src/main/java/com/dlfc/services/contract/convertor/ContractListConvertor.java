@@ -25,9 +25,9 @@ public class ContractListConvertor extends AbstractConvertor<ConContract, Contra
         if (null != model) {
             dto.setId(model.getId());
             dto.setContractNo(model.getNo());
-            //发起人
+            //发起人 承租方
             dto.setInitiator(model.getLesseeName());
-            //受邀人
+            //受邀人 出租方
             dto.setInvitedPerson(model.getLessorName());
             dto.setStatus(String.valueOf(model.getStatus()));
             if (null != model.getModifyTime()) {

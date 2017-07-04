@@ -53,5 +53,6 @@ public interface ContractRService {
     String removeById(@RequestParam(name = "id") String id);
 
     @RequestMapping(value = "/wc/datas/conContract/findByPid", method = RequestMethod.POST)
-    List<ConContract> findConContractByPid(@RequestParam(name = "pid") String pid);
+    List<ConContract> findConContractByPid(@RequestParam(name = "pid") String pid,
+                                           @RequestParam(name = "orderBy") String orderBy);
 }
