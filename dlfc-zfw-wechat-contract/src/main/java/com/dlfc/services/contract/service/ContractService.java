@@ -1,6 +1,5 @@
 package com.dlfc.services.contract.service;
 
-import com.dlfc.services.contract.dto.ConditionDTO;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 

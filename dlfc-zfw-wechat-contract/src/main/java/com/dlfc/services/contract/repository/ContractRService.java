@@ -1,6 +1,5 @@
 package com.dlfc.services.contract.repository;
 
-import com.dlfc.services.contract.dto.ConditionDTO;
 import com.dlfc.zfw.wechat.entities.entity.*;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,6 +52,6 @@ public interface ContractRService {
     @RequestMapping(value = "/wc/datas/conContract/removeById", method = RequestMethod.DELETE)
     String removeById(@RequestParam(name = "id") String id);
 
-    @RequestMapping(value = "/wc/datas/conContract//findByParams", method = RequestMethod.POST)
-    public List<ConContract> findByParams(@RequestBody ConditionDTO dto);
+    @RequestMapping(value = "/wc/datas/conContract/findByPid", method = RequestMethod.POST)
+    List<ConContract> findConContractByPid(@RequestParam(name = "pid") String pid);
 }

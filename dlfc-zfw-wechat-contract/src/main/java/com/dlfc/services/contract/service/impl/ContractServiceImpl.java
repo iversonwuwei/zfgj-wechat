@@ -1,6 +1,5 @@
 package com.dlfc.services.contract.service.impl;
 
-import com.dlfc.services.contract.dto.ConditionDTO;
 import com.dlfc.services.contract.enums.ConSourceEnum;
 import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.services.contract.repository.ContractRService;
@@ -11,6 +10,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ import java.util.List;
 public class ContractServiceImpl implements ContractService {
 
     private ConContract entity;
+    private List<ConContract> entityList;
 
     @Autowired
     private ContractRService contractRService;
@@ -71,9 +73,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<ConContract> findFinishByParams(String pid ) {
-        Short[] conStatus = {
-                (short) ConStatusEnum.ACTIVE_ENUM.getValue(),
+    public List<ConContract> findFinishByParams(String pid) {
+        Short[] statuses = {
                 (short) ConStatusEnum.EXPIRE_ENUM.getValue(),
                 (short) ConStatusEnum.LESSOR_REJECT_ENUM.getValue(),
                 (short) ConStatusEnum.LESSEE_REJECT_ENUM.getValue(),
@@ -83,21 +84,26 @@ public class ContractServiceImpl implements ContractService {
         Integer[] sources = {
                 ConSourceEnum.APP_ENUM.getValue(),
                 ConSourceEnum.WEBSITE_ENUM.getValue(),
-                ConSourceEnum.ZFGJ_APP_ENUM.getValue(),
-                ConSourceEnum.ZFGJ_ENUM.getValue(),
                 ConSourceEnum.WECHAT_ENUM.getValue()
         };
-        ConditionDTO dto = new ConditionDTO();
-        dto.setPid(pid);
-        dto.setSourceIn(sources);
-        dto.setStatusIn(conStatus);
-        List<ConContract> conContracts = contractRService.findByParams(dto);
+        entityList = contractRService.findConContractByPid(pid);
+        List<ConContract> conContracts = new ArrayList<>();
+        if (null != entityList && entityList.size() > 0) {
+            for (ConContract conContract : entityList) {
+                if (ConStatusEnum.ACTIVE_ENUM.getValue() == conContract.getStatus()) {
+                    conContracts.add(conContract);
+                } else if (Arrays.asList(statuses).contains(conContract.getStatus())
+                        && Arrays.asList(sources).contains(conContract.getSource())) {
+                    conContracts.add(conContract);
+                }
+            }
+        }
         return conContracts;
     }
 
     @Override
-    public List<ConContract> findPendingByParams( String pid) {
-        Short[] conStatus = {
+    public List<ConContract> findPendingByParams(String pid) {
+        Short[] statuses = {
                 (short) ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(),
                 (short) ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(),
                 (short) ConStatusEnum.CREATING_ENUM.getValue()
@@ -107,11 +113,16 @@ public class ContractServiceImpl implements ContractService {
                 ConSourceEnum.WEBSITE_ENUM.getValue(),
                 ConSourceEnum.WECHAT_ENUM.getValue()
         };
-        ConditionDTO dto = new ConditionDTO();
-        dto.setPid(pid);
-        dto.setSourceIn(sources);
-        dto.setStatusIn(conStatus);
-        List<ConContract> conContracts = contractRService.findByParams(dto);
+        entityList = contractRService.findConContractByPid(pid);
+        List<ConContract> conContracts = new ArrayList<>();
+        if (null != entityList && entityList.size() > 0) {
+            for (ConContract conContract : entityList) {
+                if (Arrays.asList(statuses).contains(conContract.getStatus())
+                        && Arrays.asList(sources).contains(conContract.getSource())) {
+                    conContracts.add(conContract);
+                }
+            }
+        }
         return conContracts;
     }
 
