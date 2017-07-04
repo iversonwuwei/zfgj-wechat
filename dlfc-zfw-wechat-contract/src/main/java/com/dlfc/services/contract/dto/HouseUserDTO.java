@@ -24,7 +24,7 @@ public class HouseUserDTO {
     /**
      * 证件类型
      */
-    private Integer idType;
+    private String idType;
 
     /**
      * 证件号码

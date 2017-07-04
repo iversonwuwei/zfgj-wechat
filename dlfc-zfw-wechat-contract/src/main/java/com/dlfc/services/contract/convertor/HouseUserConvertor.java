@@ -17,7 +17,7 @@ public class HouseUserConvertor extends AbstractConvertor<ConHouseUser, HouseUse
         if (null != model) {
             model.setName(dto.getName());
             model.setIdNo(dto.getIdNo());
-            model.setIdType(dto.getIdType());
+            model.setIdType(Integer.getInteger(dto.getIdType()));
             model.setMobile(dto.getPhone());
         }
         return model;
@@ -28,7 +28,7 @@ public class HouseUserConvertor extends AbstractConvertor<ConHouseUser, HouseUse
         HouseUserDTO dto = new HouseUserDTO();
         if (null != model) {
             dto.setName(model.getName());
-            dto.setIdType(model.getIdType());
+            dto.setIdType(String.valueOf(model.getIdType()));
             dto.setIdNo(model.getIdNo());
             dto.setPhone(model.getMobile());
         }
