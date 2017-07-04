@@ -59,11 +59,11 @@ public class CreditServiceImpl implements CreditService<CreditAuthDTO> {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             HttpResponse httpResponse = httpClient.execute(httpPost);
-            /*if(httpResponse.getStatusLine().getStatusCode() == 200)
-            {*/
+            if(httpResponse.getStatusLine().getStatusCode() == 200)
+            {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 ajaxResult = EntityUtils.toString(httpEntity);
-            //}
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
