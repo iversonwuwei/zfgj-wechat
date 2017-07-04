@@ -84,8 +84,8 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             model.setHouseAddr(dto.getHouseAddress());
             model.setBuildingArea(dto.getHouseArea());
             model.setPropertyIdNo(dto.getPropertyIdNo());
-            model.setPropertyType(dto.getPropertyType());
-            model.setHouseStructure(dto.getHouseStructure());
+            model.setPropertyType(Integer.getInteger(dto.getPropertyType()));
+            model.setHouseStructure(Integer.getInteger(dto.getHouseStructure()));
             if (null != dto.getStartDate()) {
                 model.setStartTime(dto.getStartDate().getTime());
             }
@@ -93,7 +93,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                 model.setEndTime(dto.getEndDate().getTime());
             }
             if (null != dto.getRentalMode()) {
-                model.setRentalMode(dto.getRentalMode().shortValue());
+                model.setRentalMode(Short.parseShort(dto.getRentalMode()));
             }
             if (null != dto.getRentalPurpose()) {
                 model.setLeasePurpose(dto.getRentalPurpose().shortValue());
@@ -105,7 +105,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             }
             model.setLeaseArea(dto.getRentalArea());
             model.setMonthlyRent(dto.getRent());
-            model.setSettlementCycle(dto.getPaymentCycle());
+            model.setSettlementCycle(Integer.getInteger(dto.getPaymentCycle()));
             model.setDepositAmt(dto.getDeposit());
             if (null != dto.getOwnerBears() && dto.getOwnerBears().size() > 0) {
                 StringBuffer buffer = new StringBuffer();
@@ -176,8 +176,8 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setChildrenList(findHouseUserChildren(model.getId()));
             // 房源
             dto.setHouseAddress(model.getHouseAddr());
-            dto.setHouseStructure(model.getHouseStructure());
-            dto.setPropertyType(model.getPropertyType());
+            dto.setHouseStructure(model.getHouseStructure().toString());
+            dto.setPropertyType(model.getPropertyType().toString());
             dto.setPropertyIdNo(model.getPropertyIdNo());
             dto.setHouseArea(model.getBuildingArea());
             dto.setRentalArea(model.getLeaseArea());
@@ -192,7 +192,9 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             if (model.getMonthlyRent()!= null) {
                 dto.setRentCN(NumberToCN.number2CNMontrayUnit(new BigDecimal(model.getMonthlyRent())));
             }
-            dto.setPaymentCycle(model.getSettlementCycle());
+            if (model.getSettlementCycle() != null) {
+                dto.setPaymentCycle(model.getSettlementCycle().toString());
+            }
             dto.setPaymentExplanation(getExplanation(model));
             ownerRenterBears(model, dto);
             if (null != model.getDepositAmt()) {
@@ -202,6 +204,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setOthers(model.getAdditionalTerms());
             dto.setHouseItemsList(findHouseItems(model.getId()));
             dto.setOtherCostList(findOtherCosts(model.getId()));
+            dto.setRentalMode(String.valueOf(model.getRentalMode()));
         }
         return dto;
     }
