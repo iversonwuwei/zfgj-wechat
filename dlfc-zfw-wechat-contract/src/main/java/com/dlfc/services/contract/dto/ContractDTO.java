@@ -100,7 +100,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 承租人民族
      */
-    private Integer renterNation;
+    private String renterNation;
 
     /**
      * 承租人户籍（省）
