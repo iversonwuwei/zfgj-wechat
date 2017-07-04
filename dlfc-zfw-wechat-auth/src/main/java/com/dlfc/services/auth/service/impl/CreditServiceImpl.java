@@ -4,6 +4,8 @@ import com.dlfc.services.auth.dto.CreditAuthDTO;
 import com.dlfc.services.auth.service.CreditService;
 import com.housecenter.dlfc.framework.boot.stereotype.Service;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -16,6 +18,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,12 +29,23 @@ import java.util.List;
 /**
  * Created by walden on 17-6-30.
  */
+@Getter
+@Setter
 @Service
 public class CreditServiceImpl implements CreditService<CreditAuthDTO> {
 
+    @Value(value = "${dlfc.user.ip}")
+    private String ip;
+
+    @Value(value = "${dlfc.user.path}")
+    private String path;
+
+    @Value(value = "${dlfc.user.port}")
+    private String port;
+
     @Override
     public String auth(CreditAuthDTO creditAuthDTO) {
-        String uri = "http://10.32.159.212:8080/dlfc-zhzx/api/userinfo/realNameAuth";
+        String uri = ip+":"+port+path;
         HttpClient httpClient = HttpClients.createDefault();
         String ajaxResult = null;
         HttpPost httpPost = new HttpPost(uri);
@@ -44,11 +59,11 @@ public class CreditServiceImpl implements CreditService<CreditAuthDTO> {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             HttpResponse httpResponse = httpClient.execute(httpPost);
-            /*if(httpResponse.getStatusLine().getStatusCode() == 200)
-            {*/
+            if(httpResponse.getStatusLine().getStatusCode() == 200)
+            {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 ajaxResult = EntityUtils.toString(httpEntity);
-            //}
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
