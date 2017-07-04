@@ -82,9 +82,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             model.setLesseeHouRegCity(dto.getRenterRegCity());
             // 房源
             model.setHouseAddr(dto.getHouseAddress());
-            if (null != dto.getHouseArea()) {
-                model.setBuildingArea(BigDecimal.valueOf(dto.getHouseArea()));
-            }
+            model.setBuildingArea(dto.getHouseArea());
             model.setPropertyIdNo(dto.getPropertyIdNo());
             model.setPropertyType(dto.getPropertyType());
             model.setHouseStructure(dto.getHouseStructure());
@@ -105,14 +103,10 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             } else {
                 model.setLeaseDomain("整套");
             }
-            if (null != dto.getRentalArea()) {
-                model.setLeaseArea(BigDecimal.valueOf(dto.getRentalArea()));
-            }
+            model.setLeaseArea(dto.getRentalArea());
             model.setMonthlyRent(dto.getRent());
             model.setSettlementCycle(dto.getPaymentCycle());
-            if (null != dto.getDeposit()) {
-                model.setDepositAmt(BigDecimal.valueOf(dto.getDeposit()));
-            }
+            model.setDepositAmt(dto.getDeposit());
             if (null != dto.getOwnerBears() && dto.getOwnerBears().size() > 0) {
                 StringBuffer buffer = new StringBuffer();
                 for (String bear : dto.getOwnerBears()) {
@@ -185,12 +179,8 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setHouseStructure(model.getHouseStructure());
             dto.setPropertyType(model.getPropertyType());
             dto.setPropertyIdNo(model.getPropertyIdNo());
-            if (null != model.getBuildingArea()) {
-                dto.setHouseArea(model.getBuildingArea().doubleValue());
-            }
-            if (null != model.getLeaseArea()) {
-                dto.setRentalArea(model.getLeaseArea().doubleValue());
-            }
+            dto.setHouseArea(model.getBuildingArea());
+            dto.setRentalArea(model.getLeaseArea());
             if (null != model.getLeasePurpose()) {
                 dto.setRentalPurpose(model.getLeasePurpose().intValue());
             }
@@ -204,7 +194,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setPaymentExplanation(getExplanation(model));
             ownerRenterBears(model, dto);
             if (null != model.getDepositAmt()) {
-                dto.setDeposit(model.getDepositAmt().doubleValue());
+                dto.setDeposit(model.getDepositAmt());
                 dto.setDepositCN(NumberToCN.number2CNMontrayUnit(model.getDepositAmt()));
             }
             dto.setOthers(model.getAdditionalTerms());

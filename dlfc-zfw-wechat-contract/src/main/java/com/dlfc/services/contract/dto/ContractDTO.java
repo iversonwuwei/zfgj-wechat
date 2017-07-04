@@ -5,6 +5,7 @@ import com.housecenter.dlfc.commons.bases.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 房源面积
      */
-    private Double houseArea;
+    private BigDecimal houseArea;
 
     /**
      * 产权证件编号
@@ -184,7 +185,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 出租面积
      */
-    private Double rentalArea;
+    private BigDecimal rentalArea;
 
     /**
      * 租金
@@ -199,7 +200,7 @@ public class ContractDTO extends AbstractDTO {
     /**
      * 押金
      */
-    private Double deposit;
+    private BigDecimal deposit;
 
     /**
      * 房主承担费用
