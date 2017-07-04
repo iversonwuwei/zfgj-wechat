@@ -1,6 +1,7 @@
 package com.dlfc.services.load.controller;
 
 import com.dlfc.admin.common.utils.PropertyUtils;
+import com.dlfc.services.load.dto.SignDTO;
 import com.dlfc.services.load.repository.ContractWService;
 import com.dlfc.services.load.service.ClassfyUploadService;
 import com.dlfc.services.load.service.ImageService;
@@ -81,17 +82,16 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/lessorSign", method = RequestMethod.POST)
-    public ResultDTO<String> uploadLessorSign(@RequestParam String fileCode,
-                                              @RequestParam String contractId) {
+    public ResultDTO<String> uploadLessorSign(@RequestBody SignDTO signDTO) {
         String path;
         try {
-            path = (String) ContractSignUploadServiceImpl.upload(fileCode);
+            path = (String) ContractSignUploadServiceImpl.upload(signDTO.getFileCode());
         } catch (IOException e) {
             log.error(e.getMessage());
             return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
-        ResultDTO<Void> result = contractWService.lessorSign(contractId, path);
+        ResultDTO<Void> result = contractWService.lessorSign(signDTO.getContractId(), path);
         if (result.isFailure()) {
             log.error(result.errorsToString());
             return ResultDTO.failure(StringUtils.EMPTY,
