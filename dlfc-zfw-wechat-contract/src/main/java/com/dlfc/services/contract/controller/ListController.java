@@ -44,12 +44,8 @@ public class ListController extends BaseController {
     public ListResultDTO<ContractListDTO> pendingList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
         if (systemPersonService.certification(user.getPerId())) {
-            Short[] conStatus = {
-                    (short) ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(),
-                    (short) ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(),
-                    (short) ConStatusEnum.CREATING_ENUM.getValue()
-            };
-            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(), conStatus);
+
+            List<ConContract> conContracts = contractService.findPendingByParams(user.getPerId());
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
@@ -67,15 +63,7 @@ public class ListController extends BaseController {
     public ListResultDTO<ContractListDTO> finishList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
         if (systemPersonService.certification(user.getPerId())) {
-            Short[] conStatus = {
-                    (short) ConStatusEnum.ACTIVE_ENUM.getValue(),
-                    (short) ConStatusEnum.EXPIRE_ENUM.getValue(),
-                    (short) ConStatusEnum.LESSOR_REJECT_ENUM.getValue(),
-                    (short) ConStatusEnum.LESSEE_REJECT_ENUM.getValue(),
-                    (short) ConStatusEnum.FINISH_ENUM.getValue()
-
-            };
-            List<ConContract> conContracts = contractRService.findByPidAndStatuses(user.getPerId(), conStatus);
+            List<ConContract> conContracts = contractService.findFinishByParams(user.getPerId());
             return contractListConvertor.toResultDTO(conContracts);
         }
         return contractListConvertor.toResultDTO(new ArrayList<ConContract>());
