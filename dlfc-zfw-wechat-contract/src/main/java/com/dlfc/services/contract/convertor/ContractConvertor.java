@@ -189,7 +189,9 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setStartDate(new Date(model.getStartTime()));
             dto.setEndDate(new Date(model.getStartTime()));
             dto.setRent(model.getMonthlyRent());
-            dto.setRentCN(NumberToCN.number2CNMontrayUnit(new BigDecimal(model.getMonthlyRent())));
+            if (model.getMonthlyRent()!= null) {
+                dto.setRentCN(NumberToCN.number2CNMontrayUnit(new BigDecimal(model.getMonthlyRent())));
+            }
             dto.setPaymentCycle(model.getSettlementCycle());
             dto.setPaymentExplanation(getExplanation(model));
             ownerRenterBears(model, dto);
