@@ -15,6 +15,7 @@ import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.zookeeper.proto.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -253,12 +254,22 @@ public class HouLeaseController {
      * 删除房源
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResultDTO<Void> delete(@RequestParam String lid) {
-        boolean success = houseLeaseInfoService.delete(lid);
-        if (success) {
-            return ResultDTO.success();
+    public ResultDTO delete(@RequestParam String lid, @RequestHeader String token) {
+        ResultError resultError = null;
+        try {
+            if (StringUtils.isNotEmpty(token)) {
+                getUser(token);
+                boolean success = houseLeaseInfoService.delete(lid);
+                if (success) {
+                    return ResultDTO.success();
+                }
+            }
+        }catch (Exception e){
+            resultError = new ResultError();
+            resultError.setErrmsg("请重新登录!");
+            resultError.setErrcode("100");
         }
-        return ResultDTO.failure();
+        return ResultDTO.failure(resultError);
     }
 
     /**
