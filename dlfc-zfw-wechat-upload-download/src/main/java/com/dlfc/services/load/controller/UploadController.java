@@ -101,17 +101,16 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/lesseeSign", method = RequestMethod.POST)
-    public ResultDTO<String> uploadLesseeSign(@RequestParam String fileCode,
-                                              @RequestParam String contractId) {
+    public ResultDTO<String> uploadLesseeSign(@RequestBody SignDTO signDTO) {
         String path;
         try {
-            path = (String) ContractSignUploadServiceImpl.upload(fileCode);
+            path = (String) ContractSignUploadServiceImpl.upload(signDTO.getFileCode());
         } catch (IOException e) {
             log.error(e.getMessage());
             return ResultDTO.failure(StringUtils.EMPTY,
                     new ResultError(PropertyUtils.getErrorMsg("SYS-0112"), null));
         }
-        ResultDTO<Void> result = contractWService.lesseeSign(contractId, path);
+        ResultDTO<Void> result = contractWService.lesseeSign(signDTO.getContractId(), path);
         if (result.isFailure()) {
             log.error(result.errorsToString());
             return ResultDTO.failure(StringUtils.EMPTY,
