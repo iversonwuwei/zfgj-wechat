@@ -5,9 +5,7 @@ import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.NumberToCN;
 import com.dlfc.admin.common.utils.OrderUtils;
 import com.dlfc.services.contract.dto.*;
-import com.dlfc.services.contract.enums.ConSourceEnum;
-import com.dlfc.services.contract.enums.ConStatusEnum;
-import com.dlfc.services.contract.enums.SettlementCycleEnum;
+import com.dlfc.services.contract.enums.*;
 import com.dlfc.services.contract.repository.SystemRService;
 import com.dlfc.services.contract.service.*;
 import com.dlfc.zfw.wechat.entities.entity.*;
@@ -30,6 +28,7 @@ import java.util.List;
 public class ContractConvertor extends AbstractConvertor<ConContract, ContractDTO> {
 
     private SysPerson sysPersonEntity;
+    private List<SysCode> sysCodeList;
 
     @Autowired
     private SystemPersonService systemPersonService;
@@ -189,7 +188,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setStartDate(new Date(model.getStartTime()));
             dto.setEndDate(new Date(model.getStartTime()));
             dto.setRent(model.getMonthlyRent());
-            if (model.getMonthlyRent()!= null) {
+            if (model.getMonthlyRent() != null) {
                 dto.setRentCN(NumberToCN.number2CNMontrayUnit(new BigDecimal(model.getMonthlyRent())));
             }
             if (model.getSettlementCycle() != null) {
@@ -205,6 +204,54 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setHouseItemsList(findHouseItems(model.getId()));
             dto.setOtherCostList(findOtherCosts(model.getId()));
             dto.setRentalMode(String.valueOf(model.getRentalMode()));
+            if (null != model.getLessorIdType()) {
+                sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLessorIdType()));
+                if (null != sysCodeList && sysCodeList.size() > 0) {
+                    dto.setOwnerIdTypeName(sysCodeList.get(0).getName());
+                }
+            }
+            if (null != model.getLesseeIdType()) {
+                sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLesseeIdType()));
+                if (null != sysCodeList && sysCodeList.size() > 0) {
+                    dto.setRenterIdTypeName(sysCodeList.get(0).getName());
+                }
+            }
+            if (null != model.getLesseeNation()) {
+                sysCodeList = systemRService.findSysCodeByTypeAndCode("nation", String.valueOf(model.getLesseeNation()));
+                if (null != sysCodeList && sysCodeList.size() > 0) {
+                    dto.setRenterNationName(sysCodeList.get(0).getName());
+                }
+            }
+            if (null != model.getLesseeHouRegCity()) {
+                List<SysAreaCities> cityList = systemRService.findSysAreaCitiesByCode(model.getLesseeHouRegCity());
+                if (null != cityList && cityList.size() > 0) {
+                    dto.setRenterRegCity(cityList.get(0).getCity());
+                }
+            }
+            if (null != model.getLesseeHouRegProvince()) {
+                List<SysAreaProvinces> provinceList = systemRService.findSysAreaProvincesByCode(model.getLesseeHouRegProvince());
+                if (null != provinceList && provinceList.size() > 0) {
+                    dto.setRenterRegProvinceName(provinceList.get(0).getProvince());
+                }
+            }
+            if (null != model.getPropertyType()) {
+                sysCodeList = systemRService.findSysCodeByTypeAndCode("property_id_type", String.valueOf(model.getPropertyType()));
+                if (null != sysCodeList && sysCodeList.size() > 0) {
+                    dto.setPropertyTypeName(sysCodeList.get(0).getName());
+                }
+            }
+            if (null != model.getRentalMode()) {
+                dto.setRentalModeName(RentalModeEnum.getName(model.getRentalMode()));
+            }
+            List<SysInfoAtt> sysInfoAttList;
+            sysInfoAttList = systemRService.findSysInfoAttByLidAndFileType(model.getId(), InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue());
+            if (null != sysInfoAttList && sysInfoAttList.size() > 0) {
+                dto.setOwnerSignPath(sysInfoAttList.get(0).getFilePath());
+            }
+            sysInfoAttList = systemRService.findSysInfoAttByLidAndFileType(model.getId(), InfoAttFileTypeEnum.LESSEE_SIGN_ENUM.getValue());
+            if (null != sysInfoAttList && sysInfoAttList.size() > 0) {
+                dto.setRenterSignPath(sysInfoAttList.get(0).getFilePath());
+            }
         }
         return dto;
     }
@@ -283,8 +330,8 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                                   ContractDTO dto) {
         List<String> ownerBears = new ArrayList<>();
         List<String> renterBears = new ArrayList<>();
-        List<SysCode> bears = systemRService.findSysCodeByType("lessor_bear");
-        if (null != bears && bears.size() > 0) {
+        sysCodeList = systemRService.findSysCodeByType("lessor_bear");
+        if (null != sysCodeList && sysCodeList.size() > 0) {
             String[] array;
             if (StringUtils.isNotEmpty(model.getOwnerBear())) {
                 array = model.getOwnerBear().split(",");
@@ -292,7 +339,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                     ownerBears = Arrays.asList(array);
                 }
             }
-            for (SysCode sysCode : bears) {
+            for (SysCode sysCode : sysCodeList) {
                 if (!ownerBears.contains(sysCode.getCode())) {
                     renterBears.add(sysCode.getCode());
                 }

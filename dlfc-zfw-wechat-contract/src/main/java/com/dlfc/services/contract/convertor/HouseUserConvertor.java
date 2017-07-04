@@ -1,9 +1,14 @@
 package com.dlfc.services.contract.convertor;
 
 import com.dlfc.services.contract.dto.HouseUserDTO;
+import com.dlfc.services.contract.repository.SystemRService;
 import com.dlfc.zfw.wechat.entities.entity.ConHouseUser;
+import com.dlfc.zfw.wechat.entities.entity.SysCode;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by K on 6/19/17.
@@ -11,6 +16,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HouseUserConvertor extends AbstractConvertor<ConHouseUser, HouseUserDTO> {
+
+    @Autowired
+    private SystemRService systemRService;
+
     @Override
     public ConHouseUser toModel(HouseUserDTO dto) {
         ConHouseUser model = new ConHouseUser();
@@ -31,6 +40,12 @@ public class HouseUserConvertor extends AbstractConvertor<ConHouseUser, HouseUse
             dto.setIdType(model.getIdType());
             dto.setIdNo(model.getIdNo());
             dto.setPhone(model.getMobile());
+            if (null != model.getIdType()) {
+                List<SysCode> sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getIdType()));
+                if (null != sysCodeList && sysCodeList.size() > 0) {
+                    dto.setIdTypeName(sysCodeList.get(0).getName());
+                }
+            }
         }
         return dto;
     }

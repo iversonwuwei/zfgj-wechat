@@ -252,4 +252,49 @@ public class ContractDTO extends AbstractDTO {
      * 押金汉字
      */
     private String depositCN;
+
+    /**
+     * 房主证件类型名
+     */
+    private String ownerIdTypeName;
+
+    /**
+     * 承租人证件类型名
+     */
+    private String renterIdTypeName;
+
+    /**
+     * 承租人民族名
+     */
+    private String renterNationName;
+
+    /**
+     * 承租人户籍（省）名
+     */
+    private String renterRegProvinceName;
+
+    /**
+     * 承租人户籍（市）名
+     */
+    private String renterRegCityName;
+
+    /**
+     * 产权证件类型名
+     */
+    private String propertyTypeName;
+
+    /**
+     * 出租方式名
+     */
+    private String rentalModeName;
+
+    /**
+     * 房主签名地址
+     */
+    private String ownerSignPath;
+
+    /**
+     * 房客签名地址
+     */
+    private String renterSignPath;
 }

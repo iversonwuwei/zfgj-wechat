@@ -27,6 +27,11 @@ public class HouseUserDTO {
     private Integer idType;
 
     /**
+     * 证件类型名
+     */
+    private String idTypeName;
+
+    /**
      * 证件号码
      */
     private String idNo;

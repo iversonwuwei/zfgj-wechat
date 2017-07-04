@@ -29,6 +29,11 @@ public class HouseUserChildrenDTO {
     private Integer gender;
 
     /**
+     * 性别名
+     */
+    private String genderName;
+
+    /**
      * 生日日期
      */
     private Date birthday;

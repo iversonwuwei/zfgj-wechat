@@ -41,6 +41,9 @@ public class HouseUserChildrenConvertor extends AbstractConvertor<ConHouseUserCh
             dto.setName(model.getName());
             dto.setIdNo(model.getIdNo());
             dto.setGender(model.getGender());
+            if (null != model.getGender()) {
+                dto.setGenderName(1 == model.getGender() ? "男" : "女");
+            }
             dto.setBirthday(new Date(model.getBirthday()));
         }
         return dto;
