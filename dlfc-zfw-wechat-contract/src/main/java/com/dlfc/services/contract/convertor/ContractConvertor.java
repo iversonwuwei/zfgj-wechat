@@ -76,7 +76,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             model.setLesseeAddress(dto.getRenterDeliverAddress());
             model.setLesseeBackupName(dto.getRenterBackupName());
             model.setLesseeBackupTel(dto.getRenterBackupPhone());
-            model.setLesseeNation(dto.getRenterNation());
+            model.setLesseeNation(Integer.getInteger(dto.getRenterNation()));
             model.setLesseeHouRegProvince(dto.getRenterRegProvince());
             model.setLesseeHouRegCity(dto.getRenterRegCity());
             // 房源
@@ -166,7 +166,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setRenterEmail(model.getLesseeEmail());
             dto.setRenterBackupName(model.getLesseeBackupName());
             dto.setRenterBackupPhone(model.getLesseeBackupTel());
-            dto.setRenterNation(model.getLesseeNation());
+            dto.setRenterNation(model.getLesseeNation().toString());
             dto.setRenterRegProvince(model.getLesseeHouRegProvince());
             dto.setRenterRegCity(model.getLesseeHouRegCity());
             // 实际使用人
