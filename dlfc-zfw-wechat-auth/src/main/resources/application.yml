@@ -17,3 +17,9 @@ eureka:
 feign:
   hystrix:
     enabled: false
+
+dlfc:
+  user:
+    ip: http://10.32.159.212
+    port: 8083
+    path: /dlfc-zhzx/api/userinfo/realNameAuth
