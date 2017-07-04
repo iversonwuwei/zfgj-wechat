@@ -42,4 +42,8 @@ public class ContractListDTO extends AbstractDTO {
      * 是否可删除
      */
     private Boolean isDelete;
+    /**
+     * 是否可编辑
+     */
+    private Boolean isEdit;
 }

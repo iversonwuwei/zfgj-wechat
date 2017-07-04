@@ -1,5 +1,7 @@
 package com.dlfc.services.contract.service.impl;
 
+import com.dlfc.services.contract.dto.ConditionDTO;
+import com.dlfc.services.contract.enums.ConSourceEnum;
 import com.dlfc.services.contract.enums.ConStatusEnum;
 import com.dlfc.services.contract.repository.ContractRService;
 import com.dlfc.services.contract.service.ContractService;
@@ -8,6 +10,8 @@ import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by K on 6/19/17.
@@ -64,6 +68,51 @@ public class ContractServiceImpl implements ContractService {
             return contractRService.removeById(id);
         }
         return null;
+    }
+
+    @Override
+    public List<ConContract> findFinishByParams(String pid ) {
+        Short[] conStatus = {
+                (short) ConStatusEnum.ACTIVE_ENUM.getValue(),
+                (short) ConStatusEnum.EXPIRE_ENUM.getValue(),
+                (short) ConStatusEnum.LESSOR_REJECT_ENUM.getValue(),
+                (short) ConStatusEnum.LESSEE_REJECT_ENUM.getValue(),
+                (short) ConStatusEnum.FINISH_ENUM.getValue()
+
+        };
+        Integer[] sources = {
+                ConSourceEnum.APP_ENUM.getValue(),
+                ConSourceEnum.WEBSITE_ENUM.getValue(),
+                ConSourceEnum.ZFGJ_APP_ENUM.getValue(),
+                ConSourceEnum.ZFGJ_ENUM.getValue(),
+                ConSourceEnum.WECHAT_ENUM.getValue()
+        };
+        ConditionDTO dto = new ConditionDTO();
+        dto.setPid(pid);
+        dto.setSourceIn(sources);
+        dto.setStatusIn(conStatus);
+        List<ConContract> conContracts = contractRService.findByParams(dto);
+        return conContracts;
+    }
+
+    @Override
+    public List<ConContract> findPendingByParams( String pid) {
+        Short[] conStatus = {
+                (short) ConStatusEnum.LESSEE_WAIT_CONFIRM_ENUM.getValue(),
+                (short) ConStatusEnum.LESSOR_WAIT_CONFIRM_ENUM.getValue(),
+                (short) ConStatusEnum.CREATING_ENUM.getValue()
+        };
+        Integer[] sources = {
+                ConSourceEnum.APP_ENUM.getValue(),
+                ConSourceEnum.WEBSITE_ENUM.getValue(),
+                ConSourceEnum.WECHAT_ENUM.getValue()
+        };
+        ConditionDTO dto = new ConditionDTO();
+        dto.setPid(pid);
+        dto.setSourceIn(sources);
+        dto.setStatusIn(conStatus);
+        List<ConContract> conContracts = contractRService.findByParams(dto);
+        return conContracts;
     }
 
 }

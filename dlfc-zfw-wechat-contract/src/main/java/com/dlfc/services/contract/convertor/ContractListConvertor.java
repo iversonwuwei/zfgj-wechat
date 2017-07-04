@@ -30,12 +30,21 @@ public class ContractListConvertor extends AbstractConvertor<ConContract, Contra
             //受邀人
             dto.setInvitedPerson(model.getLessorName());
             dto.setStatus(String.valueOf(model.getStatus()));
-            dto.setDate(new Date(model.getStartTime()));
-            dto.setDateStr(DateUtils.dateToStr(new Date(model.getStartTime()), "yyyy-MM-dd hh:mm:ss"));
+            if (null != model.getStartTime()) {
+                dto.setDate(new Date(model.getStartTime()));
+                dto.setDateStr(DateUtils.dateToStr(new Date(model.getStartTime()), "yyyy-MM-dd hh:mm:ss"));
+            }
             if (ConStatusEnum.CREATING_ENUM.getValue() == model.getStatus()) {
                 dto.setIsDelete(true);
             } else {
                 dto.setIsDelete(false);
+            }
+            if (ConStatusEnum.CREATING_ENUM.getValue() == model.getStatus() ||
+                    ConStatusEnum.LESSEE_REJECT_ENUM.getValue() == model.getStatus() ||
+                    ConStatusEnum.LESSEE_REJECT_ENUM.getValue() == model.getStatus()){
+                dto.setIsEdit(true);
+            }else {
+                dto.setIsEdit(false);
             }
         }
         return dto;
