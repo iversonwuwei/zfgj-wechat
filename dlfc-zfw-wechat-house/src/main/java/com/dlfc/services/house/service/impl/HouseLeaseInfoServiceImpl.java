@@ -36,7 +36,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public List<HouLeaseInfo> findAll(Integer pageNo, Integer pageSize) {
         Integer releaseStatus = HouseReleaseStatusEnum.YES_ENUM.getValue();
-        String orderBy = "FRESH_TIME DESC, AUDIT_STATUS ASC";
+        String orderBy = "FRESH_TIME DESC, AUDIT_STATUS DESC";
         String houLeaseInfos = lesseeRService.findAll(pageSize, pageNo, releaseStatus, orderBy);
         return convertor.convert2Objects(houLeaseInfos, HouLeaseInfo.class);
     }
@@ -52,7 +52,8 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
     @Override
     public List<HouLeaseInfo> findByUid(String uid) {
-        result = lesseeRService.findByUid(uid);
+        String orderBy = "FRESH_TIME DESC";
+        result = lesseeRService.findByUid(uid, orderBy);
         return convertor.convert2Objects(result, HouLeaseInfo.class);
     }
 

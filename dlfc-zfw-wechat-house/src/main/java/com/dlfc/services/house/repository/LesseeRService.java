@@ -15,7 +15,7 @@ public interface LesseeRService {
     HouLeaseInfo getLesseeById(@RequestParam(name = "id") String id);
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findByUid", method = RequestMethod.GET)
-    String findByUid(@RequestParam(name = "uid") String uid);
+    String findByUid(@RequestParam(name = "uid") String uid, @RequestParam(name = "orderBy") String orderBy);
 
     @RequestMapping(value = "/wc/datas/houLeaseInfo/findByParams", method = RequestMethod.POST)
     String findByParams(@RequestBody HouLeaseInfoDTO dto);
