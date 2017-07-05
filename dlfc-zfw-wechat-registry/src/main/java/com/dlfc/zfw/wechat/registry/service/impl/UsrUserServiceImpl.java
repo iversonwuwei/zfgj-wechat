@@ -17,9 +17,9 @@ public class UsrUserServiceImpl implements UsrUserService<UserVDTO> {
 
     @Override
     public UsrUser findUser(UserVDTO userVDTO) {
-        String user = registryRService.findByMobile(userVDTO.getMobile());
+        UsrUser user = registryRService.findByMobile(userVDTO.getMobile());
         if (user != null) {
-            return convertor.convert2Object(user, UsrUser.class);
+            return user;
         }
         return null;
     }

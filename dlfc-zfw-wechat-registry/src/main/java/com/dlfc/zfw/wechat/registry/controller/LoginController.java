@@ -2,12 +2,12 @@ package com.dlfc.zfw.wechat.registry.controller;
 
 
 import com.dlfc.admin.common.utils.StringUtils;
+import com.dlfc.zfw.wechat.entities.entity.SysMobileCapcha;
 import com.dlfc.zfw.wechat.registry.convertor.SysMobileCapchaConvertor;
 import com.dlfc.zfw.wechat.registry.convertor.UserConvertor;
 import com.dlfc.zfw.wechat.registry.convertor.UserRegistryConvertor;
 import com.dlfc.zfw.wechat.registry.dto.UserDTO;
 import com.dlfc.zfw.wechat.registry.dto.UserVDTO;
-import com.dlfc.zfw.wechat.registry.entity.SysMobileCapcha;
 import com.dlfc.zfw.wechat.registry.entity.UsrUser;
 import com.dlfc.zfw.wechat.registry.enums.MsgEnums;
 import com.dlfc.zfw.wechat.registry.enums.TemplateNoEnum;
