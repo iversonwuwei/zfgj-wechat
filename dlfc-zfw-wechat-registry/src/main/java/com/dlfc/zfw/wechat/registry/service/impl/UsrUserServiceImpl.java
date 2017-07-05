@@ -7,8 +7,10 @@ import com.dlfc.zfw.wechat.registry.service.UsrUserService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UsrUserServiceImpl implements UsrUserService<UserVDTO> {
     @Autowired
     private RegistryRService registryRService;

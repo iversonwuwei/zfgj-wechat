@@ -6,12 +6,14 @@ import com.dlfc.zfw.wechat.registry.service.RegistryService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by K on 2017/6/8.
  */
 
 @Service
+@Transactional
 public class RegistryServiceImpl implements RegistryService<UsrUser> {
 
     private String result;
@@ -22,7 +24,7 @@ public class RegistryServiceImpl implements RegistryService<UsrUser> {
     private IConvertor convertor;
 
     @Override
-    public void registry(UsrUser usrUser) {
+    public synchronized void registry(UsrUser usrUser) {
         registryRService.registry(usrUser);
     }
 }

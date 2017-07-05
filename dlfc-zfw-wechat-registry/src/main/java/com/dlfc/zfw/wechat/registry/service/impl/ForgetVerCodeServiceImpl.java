@@ -7,12 +7,14 @@ import com.dlfc.zfw.wechat.registry.service.VerCodeService;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 
 @Service("forgetVerCodeServiceImpl")
+@Transactional
 public class ForgetVerCodeServiceImpl implements VerCodeService<SysMobileCapcha> {
 
 

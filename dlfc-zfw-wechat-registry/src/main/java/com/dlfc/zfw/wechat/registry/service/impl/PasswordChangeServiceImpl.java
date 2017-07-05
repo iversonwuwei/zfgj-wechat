@@ -8,8 +8,10 @@ import com.dlfc.zfw.wechat.registry.service.PasswordChangeService;
 import com.dlfc.zfw.wechat.registry.service.UsrUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PasswordChangeServiceImpl implements PasswordChangeService<UserVDTO> {
     @Autowired
     private UsrUserService<UserVDTO> usrUserService;
