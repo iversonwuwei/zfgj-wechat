@@ -24,7 +24,7 @@ public class RegistryServiceImpl implements RegistryService<UsrUser> {
     private IConvertor convertor;
 
     @Override
-    public synchronized void registry(UsrUser usrUser) {
+    public void registry(UsrUser usrUser) {
         registryRService.registry(usrUser);
     }
 }
