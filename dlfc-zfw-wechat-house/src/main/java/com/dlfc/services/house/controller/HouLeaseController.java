@@ -16,7 +16,6 @@ import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
 import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.proto.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +29,7 @@ public class HouLeaseController {
 
     private String result;
     private UsrUser user;
+    private ResultError resultError;
     private List<HouLeaseInfo> houLeaseInfoList;
 
     @Autowired
@@ -80,14 +80,17 @@ public class HouLeaseController {
     @RequestMapping(method = RequestMethod.POST)
     public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO,
                                           @RequestHeader(required = false) String token) throws CustomRuntimeException {
-        HouLeaseInfoDTO dto = null;
+        getUser(token);
+        if (null == user) {
+            ListResultDTO.failure(new ArrayList<>(), resultError);
+        }
+        HouLeaseInfoDTO dto;
         try {
             dto = conditionConvertor.toModel(conditionDTO);
             houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
             if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
                 return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
             }
-            getUser(token);
             return houseInfoConvertor.toResultDTO(houLeaseInfoList, user.getId());
         } catch (Exception e) {
             return houseInfoConvertor.toResultDTO(houLeaseInfoList);
@@ -104,6 +107,9 @@ public class HouLeaseController {
     public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO,
                                   @RequestHeader String token) {
         getUser(token);
+        if (null == user) {
+            return ResultDTO.failure(resultError);
+        }
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
@@ -190,6 +196,9 @@ public class HouLeaseController {
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
         try {
             getUser(token);
+            if (null == user) {
+                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
+            }
         } catch (Exception e) {
             return houseInfoConvertor.toResultDTO(houLeaseInfos);
         }
@@ -242,6 +251,9 @@ public class HouLeaseController {
         try {
             houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
             getUser(token);
+            if (null == user) {
+                return ResultDTO.failure(new HouseDTO(), resultError);
+            }
             if (houLeaseInfo == null) {
                 return null;
             }
@@ -255,17 +267,20 @@ public class HouLeaseController {
      * 删除房源
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResultDTO delete(@RequestParam String lid, @RequestHeader String token) {
+    public ResultDTO<Void> delete(@RequestParam String lid, @RequestHeader String token) {
         ResultError resultError = null;
         try {
             if (StringUtils.isNotEmpty(token)) {
                 getUser(token);
+                if (null == user) {
+                    return ResultDTO.failure(resultError);
+                }
                 boolean success = houseLeaseInfoService.delete(lid);
                 if (success) {
                     return ResultDTO.success();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             resultError = new ResultError();
             resultError.setErrmsg("请重新登录!");
             resultError.setErrcode("100");
@@ -284,6 +299,9 @@ public class HouLeaseController {
     public ResultDTO<String> details(@RequestBody HouseDTO dto,
                                      @RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
+        if (null == user) {
+            return ResultDTO.failure(StringUtils.EMPTY, resultError);
+        }
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
@@ -294,7 +312,7 @@ public class HouLeaseController {
             ResultError resultError = new ResultError("", "");
             return ResultDTO.failure(id, resultError);
         }
-        if (this.isNull(dto.getHouImg()) && dto.getHouImg().size()>0) {
+        if (this.isNull(dto.getHouImg()) && dto.getHouImg().size() > 0) {
             for (ImgDTO imgDTO : dto.getHouImg()) {
                 sysInfoAtt = sysInfoAttConvertor.toModel(imgDTO);
                 sysInfoAtt.setLid(id);
@@ -330,6 +348,7 @@ public class HouLeaseController {
     private void getUser(String token) {
         if (StringUtils.isNotEmpty(token)) {
             try {
+                user = null;
                 AjaxResult ajaxResult = principalService.principal(token);
                 user = userInfoRService.findUserByUser(ajaxResult.getData().toString());
                 if (null == user) {
@@ -338,7 +357,6 @@ public class HouLeaseController {
             } catch (Exception e) {
                 log.error("token失效");
                 //throw new CustomRuntimeException("", "");
-                ResultError resultError;
                 if (e.getMessage().contains("500") || e.getMessage().contains("404")) {
                     resultError = new ResultError();
                     resultError.setErrcode("250");
@@ -346,7 +364,6 @@ public class HouLeaseController {
                 } else {
                     resultError = new ResultError();
                     resultError.setErrmsg(e.getMessage());
-
                 }
             }
         }

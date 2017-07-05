@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 public class BaseController {
 
     protected UsrUser user;
+    protected ResultError resultError;
 
     @Autowired
     private UserRService userRService;
@@ -39,7 +40,6 @@ public class BaseController {
             } catch (Exception e) {
                 log.error("token失效");
                 //throw new CustomRuntimeException("", "");
-                ResultError resultError;
                 if (e.getMessage().contains("500") || e.getMessage().contains("404")) {
                     resultError = new ResultError();
                     resultError.setErrcode("250");

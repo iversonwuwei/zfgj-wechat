@@ -176,6 +176,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             // 房源
             dto.setHouseAddress(model.getHouseAddr());
             dto.setHouseStructure(model.getHouseStructure().toString());
+            dto.setHouseStructureName(StructureEnum.getName(model.getHouseStructure()));
             dto.setPropertyType(model.getPropertyType().toString());
             dto.setPropertyIdNo(model.getPropertyIdNo());
             dto.setHouseArea(model.getBuildingArea());
@@ -193,6 +194,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             }
             if (model.getSettlementCycle() != null) {
                 dto.setPaymentCycle(model.getSettlementCycle().toString());
+                dto.setPaymentCycleName(SettlementCycleEnum.getName(model.getSettlementCycle()));
             }
             dto.setPaymentExplanation(getExplanation(model));
             ownerRenterBears(model, dto);
@@ -299,9 +301,15 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             List<String> result = new ArrayList<>();
             int cycle = getPaymentCycle(model.getSettlementCycle());
             for (; start.before(endDate); start = DateUtils.addDays(end, 1)) {
-                startString = DateUtils.dateToStr(DateUtils.addMonths(start, -1), DateUtils.CHINA_DATE_YMD);
-                end = dateService.getEndDate(start, 0, cycle);
-                endString = DateUtils.dateToStr(DateUtils.addMonths(end, -1), DateUtils.CHINA_DATE_YMD);
+                if (1 == cycle || start.equals(startDate)) {
+                    startString = DateUtils.dateToStr(start, DateUtils.CHINA_DATE_YMD);
+                    end = dateService.getEndDate(start, 0, cycle);
+                    endString = DateUtils.dateToStr(end.after(endDate) ? endDate : end, DateUtils.CHINA_DATE_YMD);
+                } else {
+                    startString = DateUtils.dateToStr(DateUtils.addMonths(start, -1), DateUtils.CHINA_DATE_YMD);
+                    end = dateService.getEndDate(start, 0, cycle);
+                    endString = DateUtils.dateToStr(end.after(endDate) ? endDate : DateUtils.addMonths(end, -1), DateUtils.CHINA_DATE_YMD);
+                }
                 explanation = startString;
                 explanation += "支付";
                 explanation += startString;
