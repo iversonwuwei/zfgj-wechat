@@ -66,7 +66,6 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
-        String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
         HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
         model.setId(dto.getId());
@@ -96,25 +95,29 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setFreshTime(DateUtils.getSynchTime().getTime());
         // 上架时间
         model.setReleaseTime(DateUtils.getSynchTime().getTime());
-        StringBuilder sb = null;
+        StringBuilder sb;
         if (dto.getAround() != null) {
             sb = new StringBuilder();
             for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
                 sb.append(sysSurFaciesDTO.getCode());
                 sb.append(",");
             }
+            model.setHouSurFacis(sb.toString());
         }
-        model.setHouSurFacis(sb.toString());
         if (dto.getEquips() != null) {
             sb = new StringBuilder();
             for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
                 sb.append(sysHouEquipsDTO.getCode());
                 sb.append(",");
             }
+            model.setFacilities(sb.toString());
         }
-        model.setFacilities(sb.toString());
-        model.setLatitude(position[0]);
-        model.setLongitude(position[1]);
+        if (StringUtils.isNotEmpty(dto.getDistrictTradeName())
+                && StringUtils.isNotEmpty(dto.getVillageName())) {
+            String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
+            model.setLatitude(position[0]);
+            model.setLongitude(position[1]);
+        }
         return model;
     }
 
