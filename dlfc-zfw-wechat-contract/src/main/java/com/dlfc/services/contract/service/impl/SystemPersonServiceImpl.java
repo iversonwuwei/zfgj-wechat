@@ -1,5 +1,6 @@
 package com.dlfc.services.contract.service.impl;
 
+import com.dlfc.admin.common.utils.StringUtils;
 import com.dlfc.services.contract.enums.PersonIdTypeEnum;
 import com.dlfc.services.contract.repository.SystemRService;
 import com.dlfc.services.contract.service.SystemPersonService;
@@ -7,6 +8,7 @@ import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import com.housecenter.dlfc.framework.common.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -18,6 +20,7 @@ import java.util.Date;
 
 @Service
 @Slf4j
+@Qualifier(value = "systemPersonServiceImpl")
 public class SystemPersonServiceImpl implements SystemPersonService {
 
     private static final String DATE_FORMAT = "yyyyMMdd";
@@ -55,9 +58,11 @@ public class SystemPersonServiceImpl implements SystemPersonService {
 
     @Override
     public boolean certification(String pid) {
-        SysPerson sysPerson = systemRService.findById(pid);
-        if (null != sysPerson && sysPerson.getIdType() == PersonIdTypeEnum.ID_CARD_ENUM.getValue()) {
-            return true;
+        if(StringUtils.isNotEmpty(pid)){
+            SysPerson sysPerson = systemRService.findById(pid);
+            if (null != sysPerson && sysPerson.getIdType() == PersonIdTypeEnum.ID_CARD_ENUM.getValue()) {
+                return true;
+            }
         }
         return false;
     }
