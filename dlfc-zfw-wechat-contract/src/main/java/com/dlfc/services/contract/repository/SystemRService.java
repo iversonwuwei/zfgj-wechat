@@ -32,7 +32,7 @@ public interface SystemRService {
     SysPerson findById(@RequestParam(name = "id") String id);
 
     @RequestMapping(value = "/wc/datas/sysCode/findByTypeAndCode", method = RequestMethod.GET)
-    List<SysCode> findSysCodeByTypeAndCode(@RequestParam(name = "type") String type,
+    SysCode findSysCodeByTypeAndCode(@RequestParam(name = "type") String type,
                                            @RequestParam(name = "code") String code);
 
     @RequestMapping(value = "/wc/datas/sysAreaCities/findByCode", method = RequestMethod.GET)

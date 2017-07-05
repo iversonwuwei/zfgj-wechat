@@ -28,7 +28,7 @@ import java.util.List;
 public class ContractConvertor extends AbstractConvertor<ConContract, ContractDTO> {
 
     private SysPerson sysPersonEntity;
-    private List<SysCode> sysCodeList;
+    private SysCode sysCode;
 
     @Autowired
     private SystemPersonService systemPersonService;
@@ -206,21 +206,21 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setRentalMode(String.valueOf(model.getRentalMode()));
             // code => name
             if (null != model.getLessorIdType()) {
-                sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLessorIdType()));
-                if (null != sysCodeList && sysCodeList.size() > 0) {
-                    dto.setOwnerIdTypeName(sysCodeList.get(0).getName());
+                sysCode = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLessorIdType()));
+                if (null != sysCode) {
+                    dto.setOwnerIdTypeName(sysCode.getName());
                 }
             }
             if (null != model.getLesseeIdType()) {
-                sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLesseeIdType()));
-                if (null != sysCodeList && sysCodeList.size() > 0) {
-                    dto.setRenterIdTypeName(sysCodeList.get(0).getName());
+                sysCode = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLesseeIdType()));
+                if (null != sysCode) {
+                    dto.setRenterIdTypeName(sysCode.getName());
                 }
             }
             if (null != model.getLesseeNation()) {
-                sysCodeList = systemRService.findSysCodeByTypeAndCode("nation", String.valueOf(model.getLesseeNation()));
-                if (null != sysCodeList && sysCodeList.size() > 0) {
-                    dto.setRenterNationName(sysCodeList.get(0).getName());
+                sysCode = systemRService.findSysCodeByTypeAndCode("nation", String.valueOf(model.getLesseeNation()));
+                if (null != sysCode) {
+                    dto.setRenterNationName(sysCode.getName());
                 }
             }
             if (null != model.getLesseeHouRegCity()) {
@@ -236,9 +236,9 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                 }
             }
             if (null != model.getPropertyType()) {
-                sysCodeList = systemRService.findSysCodeByTypeAndCode("property_id_type", String.valueOf(model.getPropertyType()));
-                if (null != sysCodeList && sysCodeList.size() > 0) {
-                    dto.setPropertyTypeName(sysCodeList.get(0).getName());
+                sysCode = systemRService.findSysCodeByTypeAndCode("property_id_type", String.valueOf(model.getPropertyType()));
+                if (null != sysCode) {
+                    dto.setPropertyTypeName(sysCode.getName());
                 }
             }
             if (null != model.getRentalMode()) {
@@ -332,7 +332,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                                   ContractDTO dto) {
         List<String> ownerBears = new ArrayList<>();
         List<String> renterBears = new ArrayList<>();
-        sysCodeList = systemRService.findSysCodeByType("lessor_bear");
+        List<SysCode> sysCodeList = systemRService.findSysCodeByType("lessor_bear");
         if (null != sysCodeList && sysCodeList.size() > 0) {
             String[] array;
             if (StringUtils.isNotEmpty(model.getOwnerBear())) {

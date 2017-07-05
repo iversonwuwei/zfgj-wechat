@@ -8,8 +8,6 @@ import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * Created by K on 6/19/17.
  */
@@ -41,9 +39,9 @@ public class HouseUserConvertor extends AbstractConvertor<ConHouseUser, HouseUse
             dto.setIdNo(model.getIdNo());
             dto.setPhone(model.getMobile());
             if (null != model.getIdType()) {
-                List<SysCode> sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getIdType()));
-                if (null != sysCodeList && sysCodeList.size() > 0) {
-                    dto.setIdTypeName(sysCodeList.get(0).getName());
+                SysCode sysCode = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getIdType()));
+                if (null != sysCode) {
+                    dto.setIdTypeName(sysCode.getName());
                 }
             }
         }
