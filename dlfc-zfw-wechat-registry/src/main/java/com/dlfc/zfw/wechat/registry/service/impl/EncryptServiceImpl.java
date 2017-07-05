@@ -4,11 +4,13 @@ import com.dlfc.admin.common.security.Digests;
 import com.dlfc.admin.common.utils.Encodes;
 import com.dlfc.zfw.wechat.registry.service.EncryptService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by K on 2017/6/8.
  */
 @Service
+@Transactional
 public class EncryptServiceImpl implements EncryptService<String> {
 
     public static final int HASH_INTERATIONS = 1024;

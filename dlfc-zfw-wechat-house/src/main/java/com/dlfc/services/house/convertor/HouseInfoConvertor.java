@@ -3,10 +3,7 @@ package com.dlfc.services.house.convertor;
 import com.dlfc.admin.common.utils.Const;
 import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.OrderUtils;
-import com.dlfc.services.house.dto.HouseDTO;
-import com.dlfc.services.house.dto.ImgDTO;
-import com.dlfc.services.house.dto.SysHouEquipsDTO;
-import com.dlfc.services.house.dto.SysSurFaciesDTO;
+import com.dlfc.services.house.dto.*;
 import com.dlfc.services.house.enums.AuditStatusEnum;
 import com.dlfc.services.house.enums.LeaseInfoSysSourceEnum;
 import com.dlfc.services.house.service.*;
@@ -66,6 +63,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
+        String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
         HouLeaseInfo model = new HouLeaseInfo();
         model.setTitle(dto.getDesc());
         model.setId(dto.getId());
@@ -95,30 +93,37 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setFreshTime(DateUtils.getSynchTime().getTime());
         // 上架时间
         model.setReleaseTime(DateUtils.getSynchTime().getTime());
-        StringBuilder sb;
+        StringBuilder sb = null;
         if (dto.getAround() != null) {
             sb = new StringBuilder();
             for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
                 sb.append(sysSurFaciesDTO.getCode());
                 sb.append(",");
             }
-            model.setHouSurFacis(sb.toString());
         }
+        model.setHouSurFacis(sb.toString());
         if (dto.getEquips() != null) {
             sb = new StringBuilder();
             for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
                 sb.append(sysHouEquipsDTO.getCode());
                 sb.append(",");
             }
-            model.setFacilities(sb.toString());
         }
-        if (StringUtils.isNotEmpty(dto.getDistrictTradeName())
-                && StringUtils.isNotEmpty(dto.getVillageName())) {
-            String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
-            model.setLatitude(position[0]);
-            model.setLongitude(position[1]);
-        }
+        model.setFacilities(sb.toString());
+        model.setLatitude(position[0]);
+        model.setLongitude(position[1]);
+        model.setDescription(this.description(dto.getDescriptionDTOS()));
         return model;
+    }
+
+    private String description(List<SysDescriptionDTO> dtos){
+        StringBuilder sb = new StringBuilder();
+        for (SysDescriptionDTO descriptionDTO : dtos){
+            sb.append(descriptionDTO.getLiveRequire());
+            sb.append(descriptionDTO.getOwnerBears());
+            sb.append(descriptionDTO.getOthers());
+        }
+        return sb.toString();
     }
 
     @Override
@@ -178,21 +183,13 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
         dto.setHouImg(getImgPaths(sysInfoAtts));
-        List<UsrHouCollection> houCollections = null;
+        List<UsrHouCollection> houCollections;
         if (null != strs && null != strs[0]) {
             houCollections = houCollectionService.collected(strs[0].toString(), model.getId());
             if (houCollections != null && houCollections.size() > 0) {
                 dto.setChid(houCollections.get(0).getId());
-//                if (strs[0].equals("")) {
-//                    if (model.getUid() != null) {
                 dto.setCollected(true);
-//                    } else {
-//                        dto.setCollected(false);
-//                    }
-//                } else {
-//                    dto.setCollected(true);
-//                }
-            } else {
+          } else {
                 dto.setCollected(false);
             }
         }
@@ -200,6 +197,9 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             List<String> facilities = toList(split(model.getHouSurFacis(), ","));
             List<String> houEquips = toList(split(model.getFacilities(), ","));
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
+            if (model.getDescription()!=null) {
+                dto.setHouDesc(model.getDescription());
+            }
             if (houEquips != null) {
                 dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
             }
