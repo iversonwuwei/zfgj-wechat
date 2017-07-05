@@ -8,6 +8,7 @@ import com.dlfc.zfw.wechat.entities.entity.SysPerson;
 import com.housecenter.dlfc.framework.common.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 @Service
 @Slf4j
+@Qualifier(value = "systemPersonServiceImpl")
 public class SystemPersonServiceImpl implements SystemPersonService {
 
     private static final String DATE_FORMAT = "yyyyMMdd";
