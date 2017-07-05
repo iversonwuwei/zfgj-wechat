@@ -316,7 +316,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
                 explanation += "至";
                 explanation += endString;
                 explanation += "的租金，共计";
-                explanation += model.getMonthlyRent();
+                explanation += model.getMonthlyRent() * cycle;
                 explanation += "元；";
                 result.add(explanation);
             }
