@@ -167,4 +167,6 @@ public class HouseDTO extends AbstractDTO {
     private String phone;
 
     private String chid;
+
+    private String houDesc;
 }

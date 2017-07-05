@@ -136,14 +136,14 @@ public class HouLeaseController {
                         sysTrafficLinesService.save(sysTrafficLines, user);
                     }
                 }
-                if (isNull(houseDTO.getDescriptionDTOS())) {
+                /*if (isNull(houseDTO.getDescriptionDTOS())) {
                     sysDescriptionsService.remove(houseDTO.getId());
                     for (SysDescriptionDTO sysDescriptionDTO : houseDTO.getDescriptionDTOS()) {
                         sysDescriptionDTO.setLid(houseDTO.getId());
                         sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
                         sysDescriptionsService.save(sysDescriptions, user);
                     }
-                }
+                }*/
                 return ResultDTO.success();
             }
         }
@@ -326,13 +326,13 @@ public class HouLeaseController {
                 sysTrafficLinesService.save(sysTrafficLines, user);
             }
         }
-        if (isNull(dto.getDescriptionDTOS())) {
+        /*if (isNull(dto.getDescriptionDTOS())) {
             for (SysDescriptionDTO sysDescriptionDTO : dto.getDescriptionDTOS()) {
                 sysDescriptionDTO.setLid(id);
                 sysDescriptions = sysDescriptionConvertor.toModel(sysDescriptionDTO);
                 sysDescriptionsService.save(sysDescriptions, user);
             }
-        }
+        }*/
 
         return ResultDTO.success(id);
     }
