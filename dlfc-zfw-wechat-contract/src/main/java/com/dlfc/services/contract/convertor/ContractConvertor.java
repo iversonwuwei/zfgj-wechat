@@ -204,6 +204,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             dto.setHouseItemsList(findHouseItems(model.getId()));
             dto.setOtherCostList(findOtherCosts(model.getId()));
             dto.setRentalMode(String.valueOf(model.getRentalMode()));
+            // code => name
             if (null != model.getLessorIdType()) {
                 sysCodeList = systemRService.findSysCodeByTypeAndCode("per_id_type", String.valueOf(model.getLessorIdType()));
                 if (null != sysCodeList && sysCodeList.size() > 0) {
@@ -243,6 +244,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             if (null != model.getRentalMode()) {
                 dto.setRentalModeName(RentalModeEnum.getName(model.getRentalMode()));
             }
+            // 签名图片地址
             List<SysInfoAtt> sysInfoAttList;
             sysInfoAttList = systemRService.findSysInfoAttByLidAndFileType(model.getId(), InfoAttFileTypeEnum.LESSOR_SIGN_ENUM.getValue());
             if (null != sysInfoAttList && sysInfoAttList.size() > 0) {
@@ -297,9 +299,9 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             List<String> result = new ArrayList<>();
             int cycle = getPaymentCycle(model.getSettlementCycle());
             for (; start.before(endDate); start = DateUtils.addDays(end, 1)) {
-                startString = DateUtils.dateToStr(start, DateUtils.CHINA_DATE_YMD);
+                startString = DateUtils.dateToStr(DateUtils.addMonths(start, -1), DateUtils.CHINA_DATE_YMD);
                 end = dateService.getEndDate(start, 0, cycle);
-                endString = DateUtils.dateToStr(end, DateUtils.CHINA_DATE_YMD);
+                endString = DateUtils.dateToStr(DateUtils.addMonths(end, -1), DateUtils.CHINA_DATE_YMD);
                 explanation = startString;
                 explanation += "支付";
                 explanation += startString;

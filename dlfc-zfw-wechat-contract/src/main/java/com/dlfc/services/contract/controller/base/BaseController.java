@@ -1,5 +1,6 @@
 package com.dlfc.services.contract.controller.base;
 
+import com.dlfc.admin.common.exception.ApplicationException;
 import com.dlfc.services.contract.repository.UserRService;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import com.housecenter.dlfc.commons.bases.error.ResultError;
@@ -31,6 +32,9 @@ public class BaseController {
             try {
                 AjaxResult ajaxResult = principalService.principal(token);
                 user = userRService.findUsrUserByUser(ajaxResult.getData().toString());
+                if (null == user) {
+                    throw new ApplicationException("500");
+                }
             } catch (Exception e) {
                 log.error("token失效");
                 //throw new CustomRuntimeException("", "");
@@ -42,7 +46,6 @@ public class BaseController {
                 } else {
                     resultError = new ResultError();
                     resultError.setErrmsg(e.getMessage());
-
                 }
             }
         }

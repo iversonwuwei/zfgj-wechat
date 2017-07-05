@@ -1,5 +1,6 @@
 package com.dlfc.services.house.controller;
 
+import com.dlfc.admin.common.exception.ApplicationException;
 import com.dlfc.services.house.convertor.*;
 import com.dlfc.services.house.dto.*;
 import com.dlfc.services.house.repository.UserInfoRService;
@@ -331,6 +332,9 @@ public class HouLeaseController {
             try {
                 AjaxResult ajaxResult = principalService.principal(token);
                 user = userInfoRService.findUserByUser(ajaxResult.getData().toString());
+                if (null == user) {
+                    throw new ApplicationException("500");
+                }
             } catch (Exception e) {
                 log.error("token失效");
                 //throw new CustomRuntimeException("", "");
