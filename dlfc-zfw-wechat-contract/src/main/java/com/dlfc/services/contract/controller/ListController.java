@@ -10,6 +10,7 @@ import com.dlfc.services.contract.service.SystemPersonService;
 import com.dlfc.zfw.wechat.entities.entity.ConContract;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
+import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,10 @@ public class ListController extends BaseController {
     @RequestMapping(value = "/pending", method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> pendingList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
+        if (null == user){
+            return ListResultDTO.failure(new ArrayList<ContractListDTO>());
+        }
         if (systemPersonService.certification(user.getPerId())) {
-
             List<ConContract> conContracts = contractService.findPendingByParams(user.getPerId());
             return contractListConvertor.toResultDTO(conContracts);
         }
@@ -62,6 +65,9 @@ public class ListController extends BaseController {
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
     public ListResultDTO<ContractListDTO> finishList(@RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
+        if (null == user){
+            return ListResultDTO.failure(new ArrayList<ContractListDTO>());
+        }
         if (systemPersonService.certification(user.getPerId())) {
             List<ConContract> conContracts = contractService.findFinishByParams(user.getPerId());
             return contractListConvertor.toResultDTO(conContracts);
@@ -77,10 +83,14 @@ public class ListController extends BaseController {
     public ResultDTO<Void> delete(@RequestParam String id,
                                   @RequestHeader String token) throws CustomRuntimeException {
         getUser(token);
-        String result = contractService.deleteById(id, user);
-        if (null != result) {
-            return ResultDTO.success();
+        if (null == user){
+            return ResultDTO.failure();
         }
+            String result = contractService.deleteById(id, user);
+            if (null != result) {
+                return ResultDTO.success();
+            }
+
         return ResultDTO.failure();
     }
 }
