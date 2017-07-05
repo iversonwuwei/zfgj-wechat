@@ -63,7 +63,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             result = lesseeRService.findByParams(dto);
             entityList = convertor.convert2Objects(result, HouLeaseInfo.class);
         }
-        List<String> facilityIdList = dto.getFacilityIdList();
+        /*List<String> facilityIdList = dto.getFacilityIdList();
         if (null == facilityIdList || facilityIdList.size() == 0) {
             return entityList;
         }
@@ -88,8 +88,9 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
             if (flag) {
                 houLeaseInfoList.add(item);
             }
-        }
-        return houLeaseInfoList;
+        }*/
+        return entityList;
+        //return houLeaseInfoList;
     }
 
     @Override
