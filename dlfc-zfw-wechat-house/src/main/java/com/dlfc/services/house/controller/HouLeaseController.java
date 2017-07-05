@@ -202,7 +202,6 @@ public class HouLeaseController {
         } catch (Exception e) {
             return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
         }
-        user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
         return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
     }
 
