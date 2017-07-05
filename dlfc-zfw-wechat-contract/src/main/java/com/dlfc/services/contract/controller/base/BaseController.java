@@ -30,6 +30,7 @@ public class BaseController {
     public void getUser(String token) throws CustomRuntimeException {
         if (StringUtils.isNotEmpty(token)) {
             try {
+                user = null;
                 AjaxResult ajaxResult = principalService.principal(token);
                 user = userRService.findUsrUserByUser(ajaxResult.getData().toString());
                 if (null == user) {
