@@ -183,21 +183,13 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         dto.setAuditStatus(model.getAuditStatus());
         List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
         dto.setHouImg(getImgPaths(sysInfoAtts));
-        List<UsrHouCollection> houCollections = null;
+        List<UsrHouCollection> houCollections;
         if (null != strs && null != strs[0]) {
             houCollections = houCollectionService.collected(strs[0].toString(), model.getId());
             if (houCollections != null && houCollections.size() > 0) {
                 dto.setChid(houCollections.get(0).getId());
-//                if (strs[0].equals("")) {
-//                    if (model.getUid() != null) {
                 dto.setCollected(true);
-//                    } else {
-//                        dto.setCollected(false);
-//                    }
-//                } else {
-//                    dto.setCollected(true);
-//                }
-            } else {
+          } else {
                 dto.setCollected(false);
             }
         }
