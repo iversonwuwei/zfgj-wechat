@@ -148,6 +148,11 @@ public class ContractDTO extends AbstractDTO {
     private String houseStructure;
 
     /**
+     * 房屋结构名
+     */
+    private String houseStructureName;
+
+    /**
      * 合同起始时间
      */
     private Date startDate;
@@ -196,6 +201,11 @@ public class ContractDTO extends AbstractDTO {
      * 租金周期
      */
     private String paymentCycle;
+
+    /**
+     * 租金周期名
+     */
+    private String paymentCycleName;
 
     /**
      * 押金

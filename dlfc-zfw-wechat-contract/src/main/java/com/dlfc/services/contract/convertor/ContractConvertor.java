@@ -176,6 +176,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             // 房源
             dto.setHouseAddress(model.getHouseAddr());
             dto.setHouseStructure(model.getHouseStructure().toString());
+            dto.setHouseStructureName(StructureEnum.getName(model.getHouseStructure()));
             dto.setPropertyType(model.getPropertyType().toString());
             dto.setPropertyIdNo(model.getPropertyIdNo());
             dto.setHouseArea(model.getBuildingArea());
@@ -193,6 +194,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             }
             if (model.getSettlementCycle() != null) {
                 dto.setPaymentCycle(model.getSettlementCycle().toString());
+                dto.setPaymentCycleName(SettlementCycleEnum.getName(model.getSettlementCycle()));
             }
             dto.setPaymentExplanation(getExplanation(model));
             ownerRenterBears(model, dto);
