@@ -197,10 +197,10 @@ public class HouLeaseController {
         try {
             getUser(token);
             if (null == user) {
-                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
+                return houseInfoConvertor.toResultDTO(houLeaseInfos);
             }
         } catch (Exception e) {
-            return houseInfoConvertor.toResultDTO(houLeaseInfos);
+            return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
         }
         user = (UsrUser) convertor.convert2Object(result, UsrUser.class);
         return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
@@ -346,7 +346,7 @@ public class HouLeaseController {
     }
 
     private void getUser(String token) {
-        if (StringUtils.isNotEmpty(token)) {
+        if (StringUtils.isNotEmpty(token) && token != null) {
             try {
                 user = null;
                 AjaxResult ajaxResult = principalService.principal(token);
