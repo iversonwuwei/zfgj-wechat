@@ -301,7 +301,7 @@ public class ContractConvertor extends AbstractConvertor<ConContract, ContractDT
             List<String> result = new ArrayList<>();
             int cycle = getPaymentCycle(model.getSettlementCycle());
             for (; start.before(endDate); start = DateUtils.addDays(end, 1)) {
-                if (start.equals(startDate)) {
+                if (1 != cycle && start.equals(startDate)) {
                     startString = DateUtils.dateToStr(start, DateUtils.CHINA_DATE_YMD);
                     end = dateService.getEndDate(start, 0, cycle);
                     endString = DateUtils.dateToStr(end, DateUtils.CHINA_DATE_YMD);
