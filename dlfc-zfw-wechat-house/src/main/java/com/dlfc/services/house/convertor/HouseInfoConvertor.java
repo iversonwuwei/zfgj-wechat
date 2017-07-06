@@ -112,7 +112,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
         model.setFacilities(sb.toString());
         model.setLatitude(position[0]);
         model.setLongitude(position[1]);
-        model.setDescription(this.description(dto.getDescriptionDTOS()));
+        //model.setDescription(this.description(dto.getDescriptionDTOS()));
         model.setDcrpTxt(this.description(dto.getDescriptionDTOS()));
         return model;
     }
@@ -198,7 +198,7 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
             List<String> facilities = toList(split(model.getHouSurFacis(), ","));
             List<String> houEquips = toList(split(model.getFacilities(), ","));
             dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
-            if (model.getDescription()!=null) {
+            if (model.getDcrpTxt()!=null) {
                 dto.setHouDesc(model.getDcrpTxt());
             }
             if (houEquips != null) {
