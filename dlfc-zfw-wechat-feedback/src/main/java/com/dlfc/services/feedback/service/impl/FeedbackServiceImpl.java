@@ -1,8 +1,8 @@
 package com.dlfc.services.feedback.service.impl;
 
-import com.dlfc.services.feedback.entity.UsrFeedback;
 import com.dlfc.services.feedback.repository.UsrFeedbackRService;
 import com.dlfc.services.feedback.service.FeedbackService;
+import com.dlfc.zfw.wechat.entities.entity.UsrFeedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

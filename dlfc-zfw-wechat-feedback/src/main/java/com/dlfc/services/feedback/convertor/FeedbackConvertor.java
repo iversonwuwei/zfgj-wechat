@@ -1,8 +1,8 @@
 package com.dlfc.services.feedback.convertor;
 
 import com.dlfc.services.feedback.dto.FeedbackDTO;
-import com.dlfc.services.feedback.entity.UsrFeedback;
 import com.dlfc.services.feedback.enums.FeedBackEnum;
+import com.dlfc.zfw.wechat.entities.entity.UsrFeedback;
 import com.housecenter.dlfc.commons.bases.convertor.AbstractConvertor;
 import org.springframework.stereotype.Component;
 

@@ -12,4 +12,10 @@ public class FeedbackDTO extends AbstractDTO {
     private String feedback;
 
     private String uid;
+
+    private String name;
+
+    private String phoneNumber;
+
+    private String ip;
 }

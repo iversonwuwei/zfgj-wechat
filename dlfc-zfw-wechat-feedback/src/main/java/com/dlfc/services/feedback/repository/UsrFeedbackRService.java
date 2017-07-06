@@ -1,6 +1,6 @@
 package com.dlfc.services.feedback.repository;
 
-import com.dlfc.services.feedback.entity.UsrFeedback;
+import com.dlfc.zfw.wechat.entities.entity.UsrFeedback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
