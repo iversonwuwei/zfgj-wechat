@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -97,7 +98,8 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
 
         HouLeaseInfo lesseeInfo = lesseeRService.getLesseeById(id);
         if (lesseeInfo != null) {
-            lesseeInfo.setReleaseStatus(1);
+            lesseeInfo.setReleaseStatus(HouseReleaseStatusEnum.YES_ENUM.getValue());
+            lesseeInfo.setFreshTime(new Date().getTime());
             String lid = lesseeRService.update(lesseeInfo);
             if (lid != null) {
                 return true;
@@ -111,7 +113,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     public boolean shutdown(String id) {
         HouLeaseInfo lesseeInfo = lesseeRService.getLesseeById(id);
         if (lesseeInfo != null) {
-            lesseeInfo.setReleaseStatus(0);
+            lesseeInfo.setReleaseStatus(HouseReleaseStatusEnum.NO_ENUM.getValue());
             String lid = lesseeRService.update(lesseeInfo);
             if (lid != null) {
                 return true;
