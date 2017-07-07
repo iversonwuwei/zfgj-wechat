@@ -1,6 +1,6 @@
 package com.dlfc.services.house.repository;
 
-import com.dlfc.services.house.dto.UserDTO;
+import com.dlfc.zfw.wechat.entities.dto.UserDTO;
 import com.housecenter.dlfc.commons.bases.dto.ResultDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

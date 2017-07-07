@@ -10,11 +10,7 @@ import org.springframework.stereotype.Component;
 public class SysHouEquipsConvertor extends AbstractConvertor<SysCode, SysHouEquipsDTO> {
     @Override
     public SysCode toModel(SysHouEquipsDTO sysHouEquipsDTO) {
-        SysCode sysHouEquips = new SysCode();
-        sysHouEquips.setCode(sysHouEquipsDTO.getCode());
-        sysHouEquips.setCode(sysHouEquipsDTO.getName());
-
-        return sysHouEquips;
+        return null;
     }
 
     @Override
@@ -23,7 +19,6 @@ public class SysHouEquipsConvertor extends AbstractConvertor<SysCode, SysHouEqui
         sysHouEquipsDTO.setId(sysCode.getId());
         sysHouEquipsDTO.setCode(sysCode.getCode());
         sysHouEquipsDTO.setName(sysCode.getName());
-
         return sysHouEquipsDTO;
     }
 }

@@ -63,63 +63,68 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
 
     @Override
     public HouLeaseInfo toModel(HouseDTO dto) {
-        String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
         HouLeaseInfo model = new HouLeaseInfo();
-        model.setTitle(dto.getDesc());
-        model.setId(dto.getId());
-        model.setDistrict(generate(dto.getDistrictArea(), dto.getDistrictTrade()));
-        model.setDistrictName(dto.getDistrictAreaName() + StringUtils.SPACE + dto.getDistrictTradeName());
-        model.setVillageName(dto.getVillageName());
-        model.setRentalArea(dto.getHouseArea());
-        model.setApartmentLayout(generate(dto.getLayoutRoom(), dto.getLayoutHall(), dto.getLayoutToilet()));
-        model.setOrientation(dto.getOrientation());
-        model.setFloor(generate(dto.getLiveFloor(), dto.getSumFloor()));
-        if (StringUtils.isNotEmpty(dto.getLeaseMode())) {
-            model.setLeaseMode(Integer.valueOf(dto.getLeaseMode()));
-        }
-        if (!"0".equals(dto.getTermRequirement())) {
-            model.setRequirement(dto.getTermRequirement());
-        }
-        model.setRent(dto.getPrice());
-        model.setRentType(generate(dto.getDepositType(), dto.getPaymentType()));
-        model.setUid(dto.getUid());
-        model.setReleaseStatus(dto.getHouStatus());
-        model.setAuditStatus(AuditStatusEnum.UNAUDITED_ENUM.getValue());
-        // 房源编号
-        model.setLno(OrderUtils.getBusinessNO(Const.BUSINESS_TYPE_LEASE));
-        // 房源来源
-        model.setSysSource(LeaseInfoSysSourceEnum.WECHAT.getValue());
-        // 刷新时间
-        model.setFreshTime(DateUtils.getSynchTime().getTime());
-        // 上架时间
-        model.setReleaseTime(DateUtils.getSynchTime().getTime());
-        StringBuilder sb = null;
-        if (dto.getAround() != null) {
-            sb = new StringBuilder();
-            for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
-                sb.append(sysSurFaciesDTO.getCode());
-                sb.append(",");
+        if (null != dto) {
+            model.setTitle(dto.getDesc());
+            model.setId(dto.getId());
+            model.setDistrict(generate(dto.getDistrictArea(), dto.getDistrictTrade()));
+            model.setDistrictName(dto.getDistrictAreaName() + StringUtils.SPACE + dto.getDistrictTradeName());
+            model.setVillageName(dto.getVillageName());
+            model.setRentalArea(dto.getHouseArea());
+            model.setApartmentLayout(generate(dto.getLayoutRoom(), dto.getLayoutHall(), dto.getLayoutToilet()));
+            model.setOrientation(dto.getOrientation());
+            model.setFloor(generate(dto.getLiveFloor(), dto.getSumFloor()));
+            if (StringUtils.isNotEmpty(dto.getLeaseMode())) {
+                model.setLeaseMode(Integer.valueOf(dto.getLeaseMode()));
             }
-        }
-        model.setHouSurFacis(sb.toString());
-        if (dto.getEquips() != null) {
-            sb = new StringBuilder();
-            for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
-                sb.append(sysHouEquipsDTO.getCode());
-                sb.append(",");
+            if (!"0".equals(dto.getTermRequirement())) {
+                model.setRequirement(dto.getTermRequirement());
             }
+            model.setRent(dto.getPrice());
+            model.setRentType(generate(dto.getDepositType(), dto.getPaymentType()));
+            model.setUid(dto.getUid());
+            model.setReleaseStatus(dto.getHouStatus());
+            model.setAuditStatus(AuditStatusEnum.UNAUDITED_ENUM.getValue());
+            // 房源编号
+            model.setLno(OrderUtils.getBusinessNO(Const.BUSINESS_TYPE_LEASE));
+            // 房源来源
+            model.setSysSource(LeaseInfoSysSourceEnum.WECHAT.getValue());
+            // 刷新时间
+            model.setFreshTime(DateUtils.getSynchTime().getTime());
+            // 上架时间
+            model.setReleaseTime(DateUtils.getSynchTime().getTime());
+            StringBuilder sb = null;
+            if (dto.getAround() != null) {
+                sb = new StringBuilder();
+                for (SysSurFaciesDTO sysSurFaciesDTO : dto.getAround()) {
+                    sb.append(sysSurFaciesDTO.getCode());
+                    sb.append(",");
+                }
+            }
+            model.setHouSurFacis(sb.toString());
+            if (dto.getEquips() != null) {
+                sb = new StringBuilder();
+                for (SysHouEquipsDTO sysHouEquipsDTO : dto.getEquips()) {
+                    sb.append(sysHouEquipsDTO.getCode());
+                    sb.append(",");
+                }
+            }
+            model.setFacilities(sb.toString());
+            if (StringUtils.isNotEmpty(dto.getDistrictTradeName())
+                    && StringUtils.isNotEmpty(dto.getVillageName())) {
+                String[] position = positionService.getPosition("大连", dto.getDistrictTradeName(), dto.getVillageName());
+                model.setLatitude(position[0]);
+                model.setLongitude(position[1]);
+            }
+            //model.setDescription(this.description(dto.getDescriptionDTOS()));
+            model.setDcrpTxt(this.description(dto.getDescriptionDTOS()));
         }
-        model.setFacilities(sb.toString());
-        model.setLatitude(position[0]);
-        model.setLongitude(position[1]);
-        //model.setDescription(this.description(dto.getDescriptionDTOS()));
-        model.setDcrpTxt(this.description(dto.getDescriptionDTOS()));
         return model;
     }
 
-    private String description(List<SysDescriptionDTO> dtos){
+    private String description(List<SysDescriptionDTO> dtos) {
         StringBuilder sb = new StringBuilder();
-        for (SysDescriptionDTO descriptionDTO : dtos){
+        for (SysDescriptionDTO descriptionDTO : dtos) {
             sb.append(descriptionDTO.getLiveRequire());
             sb.append(descriptionDTO.getOwnerBears());
             sb.append(descriptionDTO.getOthers());
@@ -130,112 +135,114 @@ public class HouseInfoConvertor extends AbstractConvertor<HouLeaseInfo, HouseDTO
     @Override
     public HouseDTO toDTO(HouLeaseInfo model, Object... strs) {
         HouseDTO dto = new HouseDTO();
-        dto.setId(model.getId());
-        dto.setDesc(model.getTitle());
-        String[] dictrict = split(model.getDistrict(), ",");
-        if (dictrict != null) {
-            dto.setDistrictArea(dictrict[0]);
-            dto.setDistrictTrade(dictrict[1]);
-        }
-        String[] dictrictName = split(model.getDistrictName(), StringUtils.SPACE);
-        if (dictrictName != null) {
-            dto.setDistrictAreaName(dictrictName[0]);
-            dto.setDistrictTradeName(dictrictName[1]);
-        }
-        dto.setVillageName(model.getVillageName());
-        dto.setHouseArea(model.getRentalArea());
-        String[] layout = split(model.getApartmentLayout(), ",");
-        if (layout != null) {
-            dto.setLayoutRoom(layout[0]);
-            dto.setLayoutHall(layout[1]);
-            dto.setLayoutToilet(layout[2]);
-        }
-        dto.setOrientation(model.getOrientation());
-        String[] floor = split(model.getFloor(), ",");
-        if (floor != null) {
-            dto.setLiveFloor(floor[0]);
-            dto.setSumFloor(floor[1]);
-        }
-        if (null != model.getLeaseMode()) {
-            dto.setLeaseMode(model.getLeaseMode().toString());
-        }
-        if (StringUtils.isNotEmpty(model.getRequirement())) {
-            array = model.getRequirement().split(",");
-            for (String str : array) {
-                if ("1".equals(str)) {
-                    dto.setTermRequirement("1");
-                    break;
-                } else if ("2".equals(str)) {
-                    dto.setTermRequirement("2");
-                    break;
+        if (null != model) {
+            dto.setId(model.getId());
+            dto.setDesc(model.getTitle());
+            String[] dictrict = split(model.getDistrict(), ",");
+            if (dictrict != null) {
+                dto.setDistrictArea(dictrict[0]);
+                dto.setDistrictTrade(dictrict[1]);
+            }
+            String[] dictrictName = split(model.getDistrictName(), StringUtils.SPACE);
+            if (dictrictName != null) {
+                dto.setDistrictAreaName(dictrictName[0]);
+                dto.setDistrictTradeName(dictrictName[1]);
+            }
+            dto.setVillageName(model.getVillageName());
+            dto.setHouseArea(model.getRentalArea());
+            String[] layout = split(model.getApartmentLayout(), ",");
+            if (layout != null) {
+                dto.setLayoutRoom(layout[0]);
+                dto.setLayoutHall(layout[1]);
+                dto.setLayoutToilet(layout[2]);
+            }
+            dto.setOrientation(model.getOrientation());
+            String[] floor = split(model.getFloor(), ",");
+            if (floor != null) {
+                dto.setLiveFloor(floor[0]);
+                dto.setSumFloor(floor[1]);
+            }
+            if (null != model.getLeaseMode()) {
+                dto.setLeaseMode(model.getLeaseMode().toString());
+            }
+            if (StringUtils.isNotEmpty(model.getRequirement())) {
+                array = model.getRequirement().split(",");
+                for (String str : array) {
+                    if ("1".equals(str)) {
+                        dto.setTermRequirement("1");
+                        break;
+                    } else if ("2".equals(str)) {
+                        dto.setTermRequirement("2");
+                        break;
+                    }
+                }
+            } else {
+                dto.setTermRequirement("0");
+            }
+            dto.setPrice(model.getRent());
+            String[] type = split(model.getRentType(), ",");
+            if (type != null) {
+                dto.setDepositType(type[0]);
+                dto.setPaymentType(type[1]);
+            }
+            dto.setDistrictTradeName(model.getDistrictName());
+            dto.setHouStatus(model.getReleaseStatus());
+            dto.setAuditStatus(model.getAuditStatus());
+            List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
+            dto.setHouImg(getImgPaths(sysInfoAtts));
+            List<UsrHouCollection> houCollections;
+            if (null != strs && null != strs[0]) {
+                houCollections = houCollectionService.collected(strs[0].toString(), model.getId());
+                if (houCollections != null && houCollections.size() > 0) {
+                    dto.setChid(houCollections.get(0).getId());
+                    dto.setCollected(true);
+                } else {
+                    dto.setCollected(false);
                 }
             }
-        } else {
-            dto.setTermRequirement("0");
-        }
-        dto.setPrice(model.getRent());
-        String[] type = split(model.getRentType(), ",");
-        if (type != null) {
-            dto.setDepositType(type[0]);
-            dto.setPaymentType(type[1]);
-        }
-        dto.setDistrictTradeName(model.getDistrictName());
-        dto.setHouStatus(model.getReleaseStatus());
-        dto.setAuditStatus(model.getAuditStatus());
-        List<SysInfoAtt> sysInfoAtts = sysInfoAttService.findByLidAndFileType(model.getId());
-        dto.setHouImg(getImgPaths(sysInfoAtts));
-        List<UsrHouCollection> houCollections;
-        if (null != strs && null != strs[0]) {
-            houCollections = houCollectionService.collected(strs[0].toString(), model.getId());
-            if (houCollections != null && houCollections.size() > 0) {
-                dto.setChid(houCollections.get(0).getId());
-                dto.setCollected(true);
-          } else {
-                dto.setCollected(false);
+            try {
+                List<String> facilities = toList(split(model.getHouSurFacis(), ","));
+                List<String> houEquips = toList(split(model.getFacilities(), ","));
+                dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
+                if (model.getDcrpTxt() != null) {
+                    dto.setHouDesc(model.getDcrpTxt());
+                }
+                if (houEquips != null) {
+                    dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
+                }
+                if (facilities != null) {
+                    dto.setAround(sysSurFaciesConvertor.toResultDTO(sysCodeService.findByType("house_sur_facilities", facilities)));
+                }
+                dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));
+            } catch (CustomRuntimeException e) {
+                e.printStackTrace();
             }
-        }
-        try {
-            List<String> facilities = toList(split(model.getHouSurFacis(), ","));
-            List<String> houEquips = toList(split(model.getFacilities(), ","));
-            dto.setDescriptionDTOS(sysDescriptionConvertor.toResultDTO(sysDescriptionsService.findByLid(model.getId())));
-            if (model.getDcrpTxt()!=null) {
-                dto.setHouDesc(model.getDcrpTxt());
-            }
-            if (houEquips != null) {
-                dto.setEquips(sysHouEquipsConvertor.toResultDTO(sysCodeService.findByType("house_facilities", houEquips)));
-            }
-            if (facilities != null) {
-                dto.setAround(sysSurFaciesConvertor.toResultDTO(sysCodeService.findByType("house_sur_facilities", facilities)));
-            }
-            dto.setVehicles(tranfficLinesConvertor.toResultDTO(sysTrafficLinesService.findByLid(model.getId())));
-        } catch (CustomRuntimeException e) {
-            e.printStackTrace();
-        }
-        try {
-            dto.setUid(model.getUid());
-            dto.setLatitude(model.getLatitude());
-            dto.setLongitude(model.getLongitude());
-            UsrUser usrUser = null;
-            AgtEmpInfo agtEmpInfo = null;
-            if (model.getUid() != null) {
-                usrUser = usrUserService.findById(model.getUid());
-            }
-            if (model.getEid() != null) {
-                agtEmpInfo = agtUserService.findById(model.getEid());
-            }
-            if (usrUser == null) {
-                dto.setPhone(agtEmpInfo.getPhone());
-            }
-            if (agtEmpInfo == null) {
-                dto.setPhone(usrUser.getMobile());
-            }
-            if (model.getFreshTime() != null) {
-                dto.setRefreshTime(new Date(model.getFreshTime()));
-            }
+            try {
+                dto.setUid(model.getUid());
+                dto.setLatitude(model.getLatitude());
+                dto.setLongitude(model.getLongitude());
+                UsrUser usrUser = null;
+                AgtEmpInfo agtEmpInfo = null;
+                if (model.getUid() != null) {
+                    usrUser = usrUserService.findById(model.getUid());
+                }
+                if (model.getEid() != null) {
+                    agtEmpInfo = agtUserService.findById(model.getEid());
+                }
+                if (usrUser == null) {
+                    dto.setPhone(agtEmpInfo.getPhone());
+                }
+                if (agtEmpInfo == null) {
+                    dto.setPhone(usrUser.getMobile());
+                }
+                if (model.getFreshTime() != null) {
+                    dto.setRefreshTime(new Date(model.getFreshTime()));
+                }
 
-            dto.setHouNumber(model.getLno());
-        } catch (Exception e) {
-            e.getMessage();
+                dto.setHouNumber(model.getLno());
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return dto;
     }

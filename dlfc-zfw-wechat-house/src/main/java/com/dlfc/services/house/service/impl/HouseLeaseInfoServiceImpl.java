@@ -13,7 +13,6 @@ import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         HouLeaseInfo result = lesseeRService.getLesseeById(id);
-        if (result == null) {
+        if (null != result || 1 == result.getDeleteFlg()) {
             return null;
         }
         return result;

@@ -1,11 +1,11 @@
 package com.dlfc.services.house.controller;
 
-import com.dlfc.admin.common.exception.ApplicationException;
 import com.dlfc.services.house.convertor.*;
 import com.dlfc.services.house.dto.*;
 import com.dlfc.services.house.repository.UserInfoRService;
 import com.dlfc.services.house.repository.ValidateRService;
 import com.dlfc.services.house.service.*;
+import com.dlfc.zfw.wechat.entities.dto.UserDTO;
 import com.dlfc.zfw.wechat.entities.entity.*;
 import com.housecenter.dlfc.commons.bases.convertor.base.IConvertor;
 import com.housecenter.dlfc.commons.bases.dto.ListResultDTO;
@@ -14,7 +14,6 @@ import com.housecenter.dlfc.commons.bases.error.ResultError;
 import com.housecenter.dlfc.commons.exception.CustomRuntimeException;
 import com.housecenter.dlfc.framework.ca.api.PrincipalService;
 import com.housecenter.dlfc.framework.common.util.StringUtils;
-import com.housecenter.dlfc.framework.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +26,6 @@ import java.util.List;
 @RequestMapping(value = "/ww/houseinfos")
 public class HouLeaseController {
 
-    private String result;
-    private UsrUser user;
-    private ResultError resultError;
     private List<HouLeaseInfo> houLeaseInfoList;
 
     @Autowired
@@ -80,21 +76,16 @@ public class HouLeaseController {
     @RequestMapping(method = RequestMethod.POST)
     public ListResultDTO<HouseDTO> houses(@RequestBody HouseConditionDTO conditionDTO,
                                           @RequestHeader(required = false) String token) throws CustomRuntimeException {
-        getUser(token);
-        if (null == user) {
-            ListResultDTO.failure(new ArrayList<>(), resultError);
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        HouLeaseInfoDTO dto = conditionConvertor.toModel(conditionDTO);
+        houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
+        if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
+            houLeaseInfoList = new ArrayList<>();
         }
-        HouLeaseInfoDTO dto;
-        try {
-            dto = conditionConvertor.toModel(conditionDTO);
-            houLeaseInfoList = houseLeaseInfoService.findByParams(dto);
-            if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-                return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
-            }
-            return houseInfoConvertor.toResultDTO(houLeaseInfoList, user.getId());
-        } catch (Exception e) {
+        if (null != result && result.isFailure()) {
             return houseInfoConvertor.toResultDTO(houLeaseInfoList);
         }
+        return houseInfoConvertor.toResultDTO(houLeaseInfoList, result.getData().getId());
     }
 
     /**
@@ -106,10 +97,11 @@ public class HouLeaseController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResultDTO<Void> update(@RequestBody HouseDTO houseDTO,
                                   @RequestHeader String token) {
-        getUser(token);
-        if (null == user) {
-            return ResultDTO.failure(resultError);
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null != result || result.isFailure()) {
+            return ResultDTO.failure(result.getErrors());
         }
+        UsrUser user = userInfoRService.findUserById(result.getData().getId());
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
@@ -194,15 +186,11 @@ public class HouLeaseController {
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
-        try {
-            getUser(token);
-            if (null == user) {
-                return houseInfoConvertor.toResultDTO(houLeaseInfos);
-            }
-        } catch (Exception e) {
-            return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null == result || result.isFailure()) {
+            return houseInfoConvertor.toResultDTO(houLeaseInfos);
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfos, user.getId());
+        return houseInfoConvertor.toResultDTO(houLeaseInfos, result.getData().getId());
     }
 
     /**
@@ -214,24 +202,13 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public ListResultDTO<HouseDTO> myHouses(@RequestHeader String token) throws CustomRuntimeException {
-        try {
-            ResultDTO<UserDTO> user = validateRService.validateUserBy(token);
-            houLeaseInfoList = houseLeaseInfoService.findByUid(user.getData().getId());
-            if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
-                return houseInfoConvertor.toResultDTO(new ArrayList<HouLeaseInfo>());
-            }
-        } catch (Exception e) {
-            ResultError resultError;
-            if (e.getMessage().contains("500") || e.getMessage().contains("404")) {
-                resultError = new ResultError();
-                resultError.setErrcode("250");
-                resultError.setErrmsg("token expired please re-login!");
-                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
-            } else {
-                resultError = new ResultError();
-                resultError.setErrmsg(e.getMessage());
-                return ListResultDTO.failure(new ArrayList<HouseDTO>(), resultError);
-            }
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null != result && result.isFailure()) {
+            return ListResultDTO.failure(new ArrayList<HouseDTO>(), result.getErrors());
+        }
+        houLeaseInfoList = houseLeaseInfoService.findByUid(result.getData().getId());
+        if (null == houLeaseInfoList || houLeaseInfoList.size() == 0) {
+            houLeaseInfoList = new ArrayList<>();
         }
         return houseInfoConvertor.toResultDTO(houLeaseInfoList);
     }
@@ -246,20 +223,12 @@ public class HouLeaseController {
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ResultDTO<HouseDTO> details(@RequestParam String lid,
                                        @RequestHeader(required = false) String token) throws CustomRuntimeException {
-        HouLeaseInfo houLeaseInfo = null;
-        try {
-            houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
-            getUser(token);
-            if (null == user) {
-                return ResultDTO.failure(new HouseDTO(), resultError);
-            }
-            if (houLeaseInfo == null) {
-                return null;
-            }
-            return houseInfoConvertor.toResultDTO(houLeaseInfo, user.getId());
-        } catch (Exception e) {
+        HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null != result && result.isFailure()) {
             return houseInfoConvertor.toResultDTO(houLeaseInfo);
         }
+        return houseInfoConvertor.toResultDTO(houLeaseInfo, result.getData().getId());
     }
 
     /**
@@ -267,24 +236,15 @@ public class HouLeaseController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResultDTO<Void> delete(@RequestParam String lid, @RequestHeader String token) {
-        ResultError resultError = null;
-        try {
-            if (StringUtils.isNotEmpty(token)) {
-                getUser(token);
-                if (null == user) {
-                    return ResultDTO.failure(resultError);
-                }
-                boolean success = houseLeaseInfoService.delete(lid);
-                if (success) {
-                    return ResultDTO.success();
-                }
-            }
-        } catch (Exception e) {
-            resultError = new ResultError();
-            resultError.setErrmsg("请重新登录!");
-            resultError.setErrcode("100");
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null != result && result.isFailure()) {
+            return ResultDTO.failure(result.getErrors());
         }
-        return ResultDTO.failure(resultError);
+        boolean success = houseLeaseInfoService.delete(lid);
+        if (success) {
+            return ResultDTO.success();
+        }
+        return ResultDTO.failure(new ResultError("删除房源失败", null));
     }
 
     /**
@@ -297,14 +257,15 @@ public class HouLeaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultDTO<String> details(@RequestBody HouseDTO dto,
                                      @RequestHeader String token) throws CustomRuntimeException {
-        getUser(token);
-        if (null == user) {
-            return ResultDTO.failure(StringUtils.EMPTY, resultError);
+        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+        if (null != result && result.isFailure()) {
+            return ResultDTO.failure(null, result.getErrors());
         }
         SysTrafficLines sysTrafficLines;
         SysDescriptions sysDescriptions;
         SysInfoAtt sysInfoAtt;
-        dto.setUid(user.getId());
+        dto.setUid(result.getData().getId());
+        UsrUser user = userInfoRService.findUserById(result.getData().getId());
         HouLeaseInfo houLeaseInfo = houseInfoConvertor.toModel(dto);
         String id = houseLeaseInfoService.save(houLeaseInfo, user);
         if (StringUtils.isEmpty(id)) {
@@ -342,29 +303,5 @@ public class HouLeaseController {
             return false;
         }
         return true;
-    }
-
-    private void getUser(String token) {
-        if (StringUtils.isNotEmpty(token) && token != null) {
-            try {
-                user = null;
-                AjaxResult ajaxResult = principalService.principal(token);
-                user = userInfoRService.findUserByUser(ajaxResult.getData().toString());
-                if (null == user) {
-                    throw new ApplicationException("500");
-                }
-            } catch (Exception e) {
-                log.error("token失效");
-                //throw new CustomRuntimeException("", "");
-                if (e.getMessage().contains("500") || e.getMessage().contains("404")) {
-                    resultError = new ResultError();
-                    resultError.setErrcode("250");
-                    resultError.setErrmsg("token expired please re-login!");
-                } else {
-                    resultError = new ResultError();
-                    resultError.setErrmsg(e.getMessage());
-                }
-            }
-        }
     }
 }
