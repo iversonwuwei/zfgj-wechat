@@ -36,7 +36,7 @@ public class UserValidateController {
         if (StringUtils.isNotEmpty(token)) {
             AjaxResult result = principalService.principal(token);
             if (null != result && null != result.getData()) {
-                UsrUser usrUser = userInfoRService.findUserByUser(result.getData().toString());
+                UsrUser usrUser = userInfoRService.findUserByUser(this.getMobile(result.getData().toString()));
                 if (null != usrUser) {
                     return userValidateConvertor.toResultDTO(usrUser);
                 } else {
@@ -49,5 +49,14 @@ public class UserValidateController {
             log.error("token为空");
         }
         return ResultDTO.failure(new UserDTO(), new ResultError("登陆信息异常，请重新登陆", null));
+    }
+
+    private String getMobile(String user){
+        if (user!= null && user.length()>=12){
+            user = user.substring(0,11);
+            return user;
+        }else{
+            return user;
+        }
     }
 }
