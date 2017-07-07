@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserInfoRService {
 
     @RequestMapping(value = "/wc/datas/usrUser/findById", method = RequestMethod.GET)
-    String findUserById(@RequestParam(name = "id") String id);
+    UsrUser findUserById(@RequestParam(name = "id") String id);
 
     @RequestMapping(value = "/wc/datas/usrUser/findByUser", method = RequestMethod.GET)
     UsrUser findUserByUser(@RequestParam(name = "user") String user);
