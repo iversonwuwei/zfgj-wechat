@@ -44,7 +44,7 @@ public class HouseLeaseInfoServiceImpl implements HouseLeaseInfoService {
     @Override
     public HouLeaseInfo findByHouseLeaseInfo(String id) {
         HouLeaseInfo result = lesseeRService.getLesseeById(id);
-        if (null != result || 1 == result.getDeleteFlg()) {
+        if (null != result && 1 == result.getDeleteFlg()) {
             return null;
         }
         return result;

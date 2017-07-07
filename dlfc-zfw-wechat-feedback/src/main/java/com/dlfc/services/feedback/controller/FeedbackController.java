@@ -54,12 +54,12 @@ public class FeedbackController {
         }catch (Exception e){
             if (e.getMessage().contains("认证失效")){
                 ResultError resultError = new ResultError();
-                resultError.setErrmsg("认证失效");
+                resultError.setErrmsg(e.getMessage());
                 resultError.setErrcode("250");
                 return ResultDTO.failure(resultError);
             }else {
                 ResultError resultError = new ResultError();
-                resultError.setErrmsg("请重新登录！");
+                resultError.setErrmsg(e.getMessage());
                 resultError.setErrcode("280");
                 return ResultDTO.failure(resultError);
             }

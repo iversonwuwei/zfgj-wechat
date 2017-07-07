@@ -23,3 +23,6 @@ dlfc:
     ip: http://10.32.159.212
     port: 8083
     path: /dlfc-zhzx/api/userinfo/realNameAuth
+
+logging:
+  config: /home/walden/workspace/dlfc-repositories/dlfc-zfw-wechat/dlfc_web_services/dlfc-zfw-wechat-auth/src/main/resources/logback-spring.xml
