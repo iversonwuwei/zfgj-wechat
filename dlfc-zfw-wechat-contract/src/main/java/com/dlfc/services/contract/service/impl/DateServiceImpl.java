@@ -4,6 +4,7 @@ import com.dlfc.admin.common.utils.DateUtils;
 import com.dlfc.admin.common.utils.StringUtils;
 import com.dlfc.services.contract.service.DateService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 
 @Service
+@Transactional
 public class DateServiceImpl implements DateService {
 
     @Override

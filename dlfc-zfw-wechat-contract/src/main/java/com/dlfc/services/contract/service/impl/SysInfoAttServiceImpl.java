@@ -6,12 +6,14 @@ import com.dlfc.zfw.wechat.entities.entity.SysInfoAtt;
 import com.dlfc.zfw.wechat.entities.entity.UsrUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by K on 6/26/17.
  */
 
 @Service
+@Transactional
 public class SysInfoAttServiceImpl implements SysInfoAttService {
 
     private SysInfoAtt entity;

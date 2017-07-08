@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.Date;
  */
 
 @Service
+@Transactional
 @Slf4j
 @Qualifier(value = "systemPersonServiceImpl")
 public class SystemPersonServiceImpl implements SystemPersonService {
