@@ -185,12 +185,17 @@ public class HouLeaseController {
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                  @RequestHeader(required = false) String token)
             throws CustomRuntimeException {
+        ResultDTO<UserDTO> result = null;
         List<HouLeaseInfo> houLeaseInfos = houseLeaseInfoService.findAll(pageNo, pageSize);
-        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
-        if (null == result || result.isFailure()) {
-            return houseInfoConvertor.toResultDTO(houLeaseInfos);
+        if (token != null) {
+            result = validateRService.validateUserBy(token);
+            if (null == result || result.isFailure()) {
+                return houseInfoConvertor.toResultDTO(houLeaseInfos);
+            } else {
+                return houseInfoConvertor.toResultDTO(houLeaseInfos, result.getData().getId());
+            }
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfos, result.getData().getId());
+        return houseInfoConvertor.toResultDTO(houLeaseInfos);
     }
 
     /**
@@ -224,11 +229,15 @@ public class HouLeaseController {
     public ResultDTO<HouseDTO> details(@RequestParam String lid,
                                        @RequestHeader(required = false) String token) throws CustomRuntimeException {
         HouLeaseInfo houLeaseInfo = houseLeaseInfoService.findByHouseLeaseInfo(lid);
-        ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
-        if (null != result && result.isFailure()) {
-            return houseInfoConvertor.toResultDTO(houLeaseInfo);
+        if (token != null) {
+            ResultDTO<UserDTO> result = validateRService.validateUserBy(token);
+            if (null != result && result.isFailure()) {
+                return houseInfoConvertor.toResultDTO(houLeaseInfo);
+            }else {
+                return houseInfoConvertor.toResultDTO(houLeaseInfo, result.getData().getId());
+            }
         }
-        return houseInfoConvertor.toResultDTO(houLeaseInfo, result.getData().getId());
+        return houseInfoConvertor.toResultDTO(houLeaseInfo);
     }
 
     /**
